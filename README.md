@@ -1,5 +1,5 @@
 ## React Js MobX SPA Web App with Login, Starter Template Framework Design
- Ideal starter for your web app that requires sign in, login and authentication. 
+ Ideal starter for your web app that requires login and authentication. 
  Another template coming up next for your SPA web app that you want to start without login 
  and sign up (ideal for, if you just want to get up and running with a static site generator 
  without the login and sign up stuff). 
