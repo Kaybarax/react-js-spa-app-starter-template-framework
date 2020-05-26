@@ -27,8 +27,8 @@ class Page4Example extends React.Component {
 
     _viewAttributedPersonDetails = (e, person) => {
         e.preventDefault();
-        // appNavigation.navigateToPage4ExampleItem(this.routerStore, {params: {item: person}})
-        appNavigation.navigateToPage4ExampleItem(this.routerStore, {item: person})
+        // appNavigation.navigateToPage4SubItemExample(this.routerStore, {params: {item: person}})
+        appNavigation.navigateToPage4SubItemExample(this.routerStore, {item: person})
     };
 
     render() {

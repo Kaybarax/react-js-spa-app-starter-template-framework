@@ -11,8 +11,6 @@ import {
     PAGE4EXAMPLE_VIEW_ROUTE
 } from "./views-routes-declarations";
 
-// import rootStore from "../stores";
-
 /**
  * sd _ Kaybarax
  * NOTE1: THERE IS NO 'NAVIGATE TO DEFAULT' FOR THIS TEMPLATE FRAMEWORK, BECAUSE
@@ -75,7 +73,7 @@ export class AppNavigation {
         );
     }
 
-    navigateToPage4ExampleItem = (navigator, navParams) => {
+    navigateToPage4SubItemExample = (navigator, navParams) => {
         this.navigate(
             navigator,
             PAGE4_SUB_ITEM_EXAMPLE_VIEW_ROUTE.routeName,
