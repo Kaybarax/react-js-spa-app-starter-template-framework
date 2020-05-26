@@ -6,7 +6,7 @@
 
 > Getting up and running:
 >
-* `$ git clone <this repo>` 
+* `$ git clone https://github.com/Kaybarax/react-js-mobx-spa-web-app-with-login-starter-template-framework-design.git` 
 * `$ yarn install | npm install` 
 * `$ yarn start | npm run start` 
 * A browser window should automatically open to the application at http://localhost:3010
