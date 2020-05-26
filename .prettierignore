@@ -1,0 +1,11 @@
+/amplify
+/build
+/config
+/design
+/node_modules
+/public
+/scripts
+*.json
+*.md
+*prettier*
+*.lock
