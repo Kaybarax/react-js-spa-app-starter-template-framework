@@ -11,7 +11,7 @@ import {textValueChanged} from "../../util/web-forms-data-collection-utils";
 
 export default function ResetPasswordForm(props) {
 
-  let {resetPasswordModel, activity} = props;
+  let {resetPasswordModel, toastNotificationAlert} = props;
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -30,19 +30,19 @@ export default function ResetPasswordForm(props) {
           <TextField
               id="username-or-email"
               label="Username/Email" type={'text'}
-              onChange={text => textValueChanged(resetPasswordModel, text, 'usernameOrEmail', activity)}
+              onChange={text => textValueChanged(resetPasswordModel, text, 'usernameOrEmail')}
           />
           <br/>
           <TextField
               id="password"
               label="New Password" type={'password'}
-              onChange={text => textValueChanged(resetPasswordModel, text, 'password', activity)}
+              onChange={text => textValueChanged(resetPasswordModel, text, 'password')}
           />
           <br/>
           <TextField
               id="confirmPassword"
               label="Confirm Password" type={'password'}
-              onChange={text => textValueChanged(resetPasswordModel, text, 'confirmPassword', activity)}
+              onChange={text => textValueChanged(resetPasswordModel, text, 'confirmPassword')}
           />
           <br/>
           <Button
@@ -50,7 +50,7 @@ export default function ResetPasswordForm(props) {
               color="primary" type={'submit'}
               onClick={e => {
                 e.preventDefault();
-                handleResetPassword(activity);
+                handleResetPassword(toastNotificationAlert);
               }}
           >
             Reset Password

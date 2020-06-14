@@ -7,7 +7,12 @@ import {deepCloneObject, isNullUndefined} from "../util/util";
 import {toJS} from "mobx";
 import {APP_INDEXED_DB_DATASTORES} from "../app-management/data-manager/indexeddb-manager";
 
-export function handleSignUp(signUpModel, activity) {
+/**
+ * sd _ Kaybarax
+ * @param signUpModel
+ * @param toastNotificationAlert
+ */
+export function handleSignUp(signUpModel, toastNotificationAlert) {
 
   //save to indexedDb if you fancy
   let db = window.db;//get db;
@@ -23,16 +28,23 @@ export function handleSignUp(signUpModel, activity) {
   store.add(user, userId);
   // Wait for the database transaction to complete
   tx.oncomplete = function () {
-    toastNotificationCallback('succ', 'Sign up success', activity)
+    toastNotificationCallback('succ', 'Sign up success', toastNotificationAlert)
   }
   tx.onerror = function (event) {
     console.log('error storing note ' + event.target.errorCode);
-    toastNotificationCallback('err', 'Sign up failed!', activity);
+    toastNotificationCallback('err', 'Sign up failed!', toastNotificationAlert);
   }
 
 }
 
-export function handleLogin(loginForm, activity) {
+/**
+ * sd _ Kaybarax
+ * @param loginForm
+ * @param toastNotificationAlert
+ * @param appStore
+ * @param authStore
+ */
+export function handleLogin(loginForm, toastNotificationAlert, appStore, authStore) {
 
   let db = window.db;//get db;
   // Set up an object store and transaction
@@ -45,7 +57,7 @@ export function handleLogin(loginForm, activity) {
   // If we get an error
   req.onerror = function (event) {
     console.log('error getting users ', event.target.errorCode);
-    toastNotificationCallback('err', 'Cannot query users', activity);
+    toastNotificationCallback('err', 'Cannot query users', toastNotificationAlert);
   }
 
   let users = [];
@@ -57,17 +69,22 @@ export function handleLogin(loginForm, activity) {
     let user = users.find(item => item.usernameOrEmail === loginForm.usernameOrEmail &&
         item.password === loginForm.password);
     if (isNullUndefined(user)) {
-      toastNotificationCallback('err', 'User not found', activity);
+      toastNotificationCallback('err', 'User not found', toastNotificationAlert);
       return;
     }
-    activity.appStore.user = deepCloneObject(user);
-    toastNotificationCallback('succ', 'Login success', activity);
-    setTimeout(_ => activity.authStore.handleLogin(), 2000)//to allow notification display
+    appStore.user = deepCloneObject(user);
+    toastNotificationCallback('succ', 'Login success', toastNotificationAlert);
+    //to allow notification display
+    setTimeout(_ => authStore.handleLogin(), 2000)
   }
 
 }
 
-export function handleResetPassword(activity) {
+/**
+ * sd _ Kaybarax
+ * @param toastNotificationAlert
+ */
+export function handleResetPassword(toastNotificationAlert) {
   //todo: ... your logic ... you get the drill by now
-  toastNotificationCallback('info', 'You can play around with this!)', activity)
+  toastNotificationCallback('info', 'You can play around with this!)', toastNotificationAlert)
 }

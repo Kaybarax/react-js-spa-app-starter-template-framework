@@ -36,11 +36,6 @@ So, you have a main store "app" which, specifically, is for managing running app
 Then you have other stores based on, and for your app's main components, in this showcase,  
 that would be the components [page1, page2, page3, page4]. Those stores essential hold the 
 component's  state globally, such that their information can be shared across each other. 
-You will notice that when  working with these components in relation to the stores, especially, 
-in "controller" function calls, I refer  to the components as "activity". This is inspired upon 
-me from my android days, where  in android development design, you have an "activity" Java class 
-which holds all the stuff  for its XML UI, to data for that UI, and rules for sharing it's data 
-and information with other  "activities."
 
 The stores mini-ecosystem within the design is setup in its directory across multiple files  
 that are very much self explanatory to their roles. As you use this design system, just 

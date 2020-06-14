@@ -12,7 +12,7 @@ import {isEmptyString} from "../../util/util";
 
 export default function LoginForm(props) {
 
-  let {loginModel, activity} = props;
+  let {loginModel, toastNotificationAlert, appStore, authStore} = props;
 
   let [submit_pressed, set_press_submit] = React.useState(false);
 
@@ -58,7 +58,7 @@ export default function LoginForm(props) {
           <TextField
               id="username-or-email"
               label="Username/Email" type={'text'}
-              onChange={e => textValueChanged(loginModel, e.target.value, 'usernameOrEmail', activity)}
+              onChange={e => textValueChanged(loginModel, e.target.value, 'usernameOrEmail')}
           />
           <br/>
           {
@@ -69,7 +69,7 @@ export default function LoginForm(props) {
           <TextField
               id="password"
               label="Password" type={'password'}
-              onChange={e => textValueChanged(loginModel, e.target.value, 'password', activity)}
+              onChange={e => textValueChanged(loginModel, e.target.value, 'password')}
           />
           <br/>
           <Button
@@ -82,7 +82,7 @@ export default function LoginForm(props) {
                   return;
                 }
 
-                handleLogin(loginModel, activity);
+                handleLogin(loginModel, toastNotificationAlert, appStore, authStore);
               }}
           >
             Login
