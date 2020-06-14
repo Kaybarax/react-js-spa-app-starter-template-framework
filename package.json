@@ -3,9 +3,15 @@
   "version": "1.0.0",
   "private": true,
   "description": "self-described",
+  "author": {
+    "name": "Kevin Barasa",
+    "github": "https://github.com/Kaybarax",
+    "twitter": "https://twitter.com/Kaybarax",
+    "linkedIn": "https://linkedin.com/in/kaybarax"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/**"
+    "url": "https://github.com/Kaybarax/react-js-mobx-spa-web-app-with-login-starter-template-framework-design"
   },
   "dependencies": {
     "@babel/core": "7.6.0",
