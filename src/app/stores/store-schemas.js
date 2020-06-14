@@ -19,13 +19,13 @@ export const PAGE4EXAMPLE_STORE_NAME = 'PAGE4EXAMPLE_STORE_NAME';
  * @constructor
  */
 export function ActivityStoreSchema(namespace, name) {
-    this.storeSchema = {
-        storeName: name,
-        storeKey: namespace + name,
-        loading: false,
-        updated: false,
-        loadingMessage: 'Loading...',
-    };
+  this.storeSchema = {
+    storeName: name,
+    storeKey: namespace + name,
+    loading: false,
+    updated: false,
+    loadingMessage: 'Loading...',
+  };
 }
 
 /**
@@ -36,11 +36,11 @@ export function ActivityStoreSchema(namespace, name) {
  * @constructor
  */
 export function AppActivitySchema(namespace, name) {
-    ActivityStoreSchema.call(this, namespace, name);
-    let schema = this.storeSchema;
-    schema.user = null;
-    // console.log('AppActivitySchema::', this.storeSchema)
-    return this.storeSchema;
+  ActivityStoreSchema.call(this, namespace, name);
+  let schema = this.storeSchema;
+  schema.user = null;
+  // console.log('AppActivitySchema::', this.storeSchema)
+  return this.storeSchema;
 }
 
 /**
@@ -51,25 +51,25 @@ export function AppActivitySchema(namespace, name) {
  * @constructor
  */
 export function LoginActivitySchema(namespace, name) {
-    ActivityStoreSchema.call(this, namespace, name);
-    let schema = this.storeSchema;
-    schema.loginForm = {
-        usernameOrEmail: null,
-        password: null,
-    };
-    schema.signUpForm = {
-        user: null,
-        confirmPassword: null,
-    };
-    schema.resetPasswordForm = {
-        usernameOrEmail: null,
-        password: null,
-        confirmPassword: null,
-    };
-    schema.pageAction = null;
-    schema.toastNotificationAlert = objectInstanceProvider(toastNotificationAlertProps);
-    // console.log('LoginActivitySchema::', this.storeSchema)
-    return this.storeSchema;
+  ActivityStoreSchema.call(this, namespace, name);
+  let schema = this.storeSchema;
+  schema.loginForm = {
+    usernameOrEmail: null,
+    password: null,
+  };
+  schema.signUpForm = {
+    user: null,
+    confirmPassword: null,
+  };
+  schema.resetPasswordForm = {
+    usernameOrEmail: null,
+    password: null,
+    confirmPassword: null,
+  };
+  schema.pageAction = null;
+  schema.toastNotificationAlert = objectInstanceProvider(toastNotificationAlertProps);
+  // console.log('LoginActivitySchema::', this.storeSchema)
+  return this.storeSchema;
 }
 
 /**
@@ -80,14 +80,14 @@ export function LoginActivitySchema(namespace, name) {
  * @constructor
  */
 export function Page1ExampleActivitySchema(namespace, name) {
-    ActivityStoreSchema.call(this, namespace, name);
-    let schema = this.storeSchema;
-    schema.stuff = {
-        todo: null
-    };
-    schema.toastNotificationAlert = objectInstanceProvider(toastNotificationAlertProps);
-    // console.log('Page1ExampleActivitySchema::', this.storeSchema)
-    return this.storeSchema;
+  ActivityStoreSchema.call(this, namespace, name);
+  let schema = this.storeSchema;
+  schema.stuff = {
+    todo: null
+  };
+  schema.toastNotificationAlert = objectInstanceProvider(toastNotificationAlertProps);
+  // console.log('Page1ExampleActivitySchema::', this.storeSchema)
+  return this.storeSchema;
 }
 
 /**
@@ -98,14 +98,14 @@ export function Page1ExampleActivitySchema(namespace, name) {
  * @constructor
  */
 export function Page2ExampleActivitySchema(namespace, name) {
-    ActivityStoreSchema.call(this, namespace, name);
-    let schema = this.storeSchema;
-    schema.stuff = {
-        todo: null
-    };
-    schema.toastNotificationAlert = objectInstanceProvider(toastNotificationAlertProps);
-    // console.log('Page2ExampleActivitySchema::', this.storeSchema)
-    return this.storeSchema;
+  ActivityStoreSchema.call(this, namespace, name);
+  let schema = this.storeSchema;
+  schema.stuff = {
+    todo: null
+  };
+  schema.toastNotificationAlert = objectInstanceProvider(toastNotificationAlertProps);
+  // console.log('Page2ExampleActivitySchema::', this.storeSchema)
+  return this.storeSchema;
 }
 
 /**
@@ -116,14 +116,14 @@ export function Page2ExampleActivitySchema(namespace, name) {
  * @constructor
  */
 export function Page3ExampleActivitySchema(namespace, name) {
-    ActivityStoreSchema.call(this, namespace, name);
-    let schema = this.storeSchema;
-    schema.stuff = {
-        todo: null
-    };
-    schema.toastNotificationAlert = objectInstanceProvider(toastNotificationAlertProps);
-    // console.log('Page3ExampleActivitySchema::', this.storeSchema)
-    return this.storeSchema
+  ActivityStoreSchema.call(this, namespace, name);
+  let schema = this.storeSchema;
+  schema.stuff = {
+    todo: null
+  };
+  schema.toastNotificationAlert = objectInstanceProvider(toastNotificationAlertProps);
+  // console.log('Page3ExampleActivitySchema::', this.storeSchema)
+  return this.storeSchema
 }
 
 /**
@@ -134,12 +134,12 @@ export function Page3ExampleActivitySchema(namespace, name) {
  * @constructor
  */
 export function Page4ExampleActivitySchema(namespace, name) {
-    ActivityStoreSchema.call(this, namespace, name);
-    let schema = this.storeSchema;
-    schema.stuff = {
-        todo: null
-    };
-    schema.toastNotificationAlert = objectInstanceProvider(toastNotificationAlertProps);
-    // console.log("Page4ExampleActivitySchema::", this.storeSchema)
-    return this.storeSchema;
+  ActivityStoreSchema.call(this, namespace, name);
+  let schema = this.storeSchema;
+  schema.stuff = {
+    todo: null
+  };
+  schema.toastNotificationAlert = objectInstanceProvider(toastNotificationAlertProps);
+  // console.log("Page4ExampleActivitySchema::", this.storeSchema)
+  return this.storeSchema;
 }

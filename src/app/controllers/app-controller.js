@@ -12,9 +12,9 @@ import {isNullUndefined, objectKeyExists} from "../util/util";
  * @returns {*}
  */
 export function displayFieldExpectationSatisfied(key, model, expectationFunction) {
-    if (isNullUndefined(model))
-        return false;
-    if (!objectKeyExists(model, key))
-        return false;
-    return expectationFunction(model[key]);
+  if (isNullUndefined(model))
+    return false;
+  if (!objectKeyExists(model, key))
+    return false;
+  return expectationFunction(model[key]);
 }
