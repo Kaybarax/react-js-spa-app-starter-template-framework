@@ -5,7 +5,7 @@
 export const MobX_StoreKey_Identifier_In_LocalStorage = '_MobX_storeKey_';
 
 export const LOGIN_PAGE_ACTIONS = {
-    LOGIN: 'LOGIN',
-    SIGN_UP: 'SIGN_UP',
-    RESET_PASSWORD: 'RESET_PASSWORD',
+  LOGIN: 'LOGIN',
+  SIGN_UP: 'SIGN_UP',
+  RESET_PASSWORD: 'RESET_PASSWORD',
 };

@@ -8,7 +8,7 @@
  * @returns {string}
  */
 export function stringifyObject(obj) {
-    return JSON.stringify(obj);
+  return JSON.stringify(obj);
 }
 
 /**
@@ -17,12 +17,12 @@ export function stringifyObject(obj) {
  * @returns {null}
  */
 export function deepCloneObject(obj) {
-    try {
-        return {...obj};
-    } catch (err) {
-        console.log("operation error")
-        return null;
-    }
+  try {
+    return {...obj};
+  } catch (err) {
+    console.log("operation error")
+    return null;
+  }
 }
 
 /**
@@ -31,14 +31,14 @@ export function deepCloneObject(obj) {
  * @returns {boolean}
  */
 export function isEmptyString(value) {
-    try {
-        if (typeof value !== 'string') {
-            return true;
-        }
-        return value.trim() === '';
-    } catch (err) {
-        return true;
+  try {
+    if (typeof value !== 'string') {
+      return true;
     }
+    return value.trim() === '';
+  } catch (err) {
+    return true;
+  }
 }
 
 /**
@@ -46,11 +46,11 @@ export function isEmptyString(value) {
  * @param item
  */
 export function isNullUndefined(item) {
-    try {
-        return item === null || item === undefined;
-    } catch (err) {
-        return true;
-    }
+  try {
+    return item === null || item === undefined;
+  } catch (err) {
+    return true;
+  }
 }
 
 /**
@@ -59,13 +59,13 @@ export function isNullUndefined(item) {
  * @returns {boolean}
  */
 export function isStringDatatype(item) {
-    try {
-        if (typeof item === 'string') {
-            return true;
-        }
-    } catch (err) {
-        return false;
+  try {
+    if (typeof item === 'string') {
+      return true;
     }
+  } catch (err) {
+    return false;
+  }
 }
 
 /**
@@ -74,13 +74,13 @@ export function isStringDatatype(item) {
  * @returns {boolean}
  */
 export function isArrayDatatype(item) {
-    try {
-        if (Array.isArray(item)) {
-            return true;
-        }
-    } catch (err) {
-        return false;
+  try {
+    if (Array.isArray(item)) {
+      return true;
     }
+  } catch (err) {
+    return false;
+  }
 }
 
 /**
@@ -89,11 +89,11 @@ export function isArrayDatatype(item) {
  * @returns {boolean}
  */
 export function isObject(item) {
-    try {
-        return item !== null && item !== undefined && typeof item === 'object';
-    } catch (err) {
-        return false;
-    }
+  try {
+    return item !== null && item !== undefined && typeof item === 'object';
+  } catch (err) {
+    return false;
+  }
 }
 
 /**
@@ -102,11 +102,11 @@ export function isObject(item) {
  * @param key
  */
 export function objectKeyExists(obj, key) {
-    try {
-        return obj.hasOwnProperty(key);
-    } catch (err) {
-        return false;
-    }
+  try {
+    return obj.hasOwnProperty(key);
+  } catch (err) {
+    return false;
+  }
 }
 
 /**
@@ -114,11 +114,11 @@ export function objectKeyExists(obj, key) {
  * @param item
  */
 export function isBoolean(item) {
-    try {
-        return typeof item === 'boolean';
-    } catch (err) {
-        return false;
-    }
+  try {
+    return typeof item === 'boolean';
+  } catch (err) {
+    return false;
+  }
 }
 
 /**
@@ -127,15 +127,15 @@ export function isBoolean(item) {
  * @returns {boolean}
  */
 export function isEmptyArray(array) {
-    try {
-        if (isNullUndefined(array)) {
-            return true;
-        } else {
-            return !(array instanceof Array && array.length > 0);
-        }
-    } catch (err) {
-        return true;
+  try {
+    if (isNullUndefined(array)) {
+      return true;
+    } else {
+      return !(array instanceof Array && array.length > 0);
     }
+  } catch (err) {
+    return true;
+  }
 }
 
 /**
@@ -144,9 +144,9 @@ export function isEmptyArray(array) {
  * @returns {*[]|any}
  */
 export function objectInstanceProvider(obj) {
-    if (isArrayDatatype(obj))
-        return [...obj];
-    return deepCloneObject(obj);
+  if (isArrayDatatype(obj))
+    return [...obj];
+  return deepCloneObject(obj);
 }
 
 /**
@@ -155,7 +155,7 @@ export function objectInstanceProvider(obj) {
  * @returns {*|boolean|boolean}
  */
 export function isFalse(item) {
-    return isBoolean(item) && !item;
+  return isBoolean(item) && !item;
 }
 
 /**
@@ -164,7 +164,7 @@ export function isFalse(item) {
  * @returns {*|boolean|boolean}
  */
 export function isTrue(item) {
-    return isBoolean(item) && item;
+  return isBoolean(item) && item;
 }
 
 /**
@@ -175,28 +175,28 @@ export function isTrue(item) {
  */
 export function objectAHasSameKeysAsObjectB(objA, objB) {
 
-    let allKeysMatch = true;
-    let objA_keys = Object.keys(objA);
-    let objB_keys = Object.keys(objB);
+  let allKeysMatch = true;
+  let objA_keys = Object.keys(objA);
+  let objB_keys = Object.keys(objB);
 
-    if (objA_keys.length !== objB_keys.length) {
-        return false;
+  if (objA_keys.length !== objB_keys.length) {
+    return false;
+  }
+
+  for (let key in objA) {
+    let keyInObjAExistsInObjB = true;
+
+    if (!objectKeyExists(objB, key)) {
+      keyInObjAExistsInObjB = false;
     }
 
-    for (let key in objA) {
-        let keyInObjAExistsInObjB = true;
-
-        if (!objectKeyExists(objB, key)) {
-            keyInObjAExistsInObjB = false;
-        }
-
-        if (!keyInObjAExistsInObjB) {
-            allKeysMatch = false;
-            break;
-        }
+    if (!keyInObjAExistsInObjB) {
+      allKeysMatch = false;
+      break;
     }
+  }
 
-    return allKeysMatch;
+  return allKeysMatch;
 }
 
 /**
@@ -205,7 +205,7 @@ export function objectAHasSameKeysAsObjectB(objA, objB) {
  * @param item
  */
 export function storeItemToLocalStorage(key, item) {
-    localStorage.setItem('' + key, stringifyObject(item));
+  localStorage.setItem('' + key, stringifyObject(item));
 }
 
 /**
@@ -214,7 +214,7 @@ export function storeItemToLocalStorage(key, item) {
  * @returns {string|null}
  */
 export function getItemFromLocalStorage(key) {
-    return localStorage.getItem('' + key);
+  return localStorage.getItem('' + key);
 }
 
 /**
@@ -223,19 +223,19 @@ export function getItemFromLocalStorage(key) {
  * @returns {string|null|any}
  */
 export function getObjectFromLocalStorage(key) {
-    let item = getItemFromLocalStorage(key);
-    if (!isEmptyString(item)) {
-        try {
-            let jsonItem = JSON.parse(item);
-            if (isObject(jsonItem)) {
-                return jsonItem;
-            }
-            return null;
-        } catch (e) {
-            return null;
-        }
+  let item = getItemFromLocalStorage(key);
+  if (!isEmptyString(item)) {
+    try {
+      let jsonItem = JSON.parse(item);
+      if (isObject(jsonItem)) {
+        return jsonItem;
+      }
+      return null;
+    } catch (e) {
+      return null;
     }
-    return item;
+  }
+  return item;
 }
 
 /**
@@ -244,14 +244,14 @@ export function getObjectFromLocalStorage(key) {
  * @returns {boolean}
  */
 export function isEmptyObject(obj) {
-    try {
-        for (let key in obj) {
-            if (obj.hasOwnProperty(key))
-                return false;
-        }
-    } catch (e) {
-        return true;
+  try {
+    for (let key in obj) {
+      if (obj.hasOwnProperty(key))
+        return false;
     }
+  } catch (e) {
+    return true;
+  }
 }
 
 /**
@@ -261,15 +261,15 @@ export function isEmptyObject(obj) {
  * NOTE: This is just my declaration of a void item. You can have yours that is totally different from mine
  */
 export function isVoid(item) {
-    try {
-        if (isNaN(parseInt(item))) {
-            return !!(isNullUndefined(item) ||
-                isEmptyArray(item) ||
-                isEmptyString(item) ||
-                isFalse(item));
-        }
-        return false;
-    } catch (e) {
-        return true;
+  try {
+    if (isNaN(parseInt(item))) {
+      return !!(isNullUndefined(item) ||
+          isEmptyArray(item) ||
+          isEmptyString(item) ||
+          isFalse(item));
     }
+    return false;
+  } catch (e) {
+    return true;
+  }
 }
