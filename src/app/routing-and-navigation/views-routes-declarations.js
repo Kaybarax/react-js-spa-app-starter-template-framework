@@ -2,14 +2,14 @@
 //sd - self described
 //@authored by Kaybarax -- Twitter @_ https://twitter.com/Kaybarax, Github @_ https://github.com/Kaybarax, LinkedIn @_ https://linkedin.com/in/kaybarax
 import React from 'react';
-import Login from "../views/unsecured-app/login";
-import Page1Example from "../views/secured-app/page-1-example/page-1-example";
-import Page2Example from "../views/secured-app/page-2-example/page-2-example";
-import Page3Example from "../views/secured-app/page-3-example/page-3-example";
-import Page4Example from "../views/secured-app/page-4-example/page-4-example";
+import Login from "../views/unsecured-app-views/login";
+import Page1Example from "../views/secured-app-views/page-1-example";
+import Page2Example from "../views/secured-app-views/page-2-example";
+import Page3Example from "../views/secured-app-views/page-3-example";
+import Page4Example from "../views/secured-app-views/page-4-example";
 import NotFound from "../views/not-found";
 import AppDevScratchPad from "../../app-dev-scratch-pad/app-dev-scratch-pad";
-import Page4SubItemExample from "../views/secured-app/page-4-example/page-4-sub-item-example";
+import Page4SubItemExample from "../views/secured-app-views/page-4-sub-item-example";
 
 ////declare the application views for routing
 //the view with routePathPattern of '/', i.e the default view on app bootstrap

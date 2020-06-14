@@ -7,8 +7,8 @@ export const APP_INDEXED_DB_DATASTORES = {
 }
 
 /**
- * sd _ Kaybarax with thanks to guidance by Andy Haskell @_ https://medium.com/@AndyHaskell2013/build-a-basic-web-app-with-indexeddb-8ab4f83f8bda
- * @returns {Promise<void>}
+ * sd _ Kaybarax with thanks to guidance by
+ * Andy Haskell @_ https://medium.com/@AndyHaskell2013/build-a-basic-web-app-with-indexeddb-8ab4f83f8bda
  */
 export const appIndexedDb = function () {
 

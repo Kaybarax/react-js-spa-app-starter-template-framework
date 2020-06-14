@@ -162,6 +162,6 @@ export function persistStoreUpdatesToLocalStorageOnPossibleUpdateOfEvents(stores
  */
 export function unregisterPersistenceEventListeners() {
     window.removeEventListener('mouseup', persistStoreUpdatesLocalStorageOnEvent);
-    window.removeEventListener('mousemove', persistStoreUpdatesLocalStorageOnEvent,);
+    window.removeEventListener('mousemove', persistStoreUpdatesLocalStorageOnEvent);
     window.removeEventListener('keyup', persistStoreUpdatesLocalStorageOnEvent);
 }
