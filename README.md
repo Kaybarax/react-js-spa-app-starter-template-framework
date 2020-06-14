@@ -36,13 +36,8 @@ So, you have a main store "app" which, specifically, is for managing running app
 Then you have other stores based on, and for your app's main components, in this showcase,  
 that would be the components [page1, page2, page3, page4]. Those stores essential hold the 
 component's  state globally, such that their information can be shared across each other. 
-You will notice that when  working with these components in relation to the stores, especially, 
-in "controller" function calls, I refer  to the components as "activity". This is inspired upon 
-me from my android days, where  in android development design, you have an "activity" Java class 
-which holds all the stuff  for its XML UI, to data for that UI, and rules for sharing it's data 
-and information with other  "activities."
 
-The stores mini-ecosystem within the the design is setup in its directory across multiple files  
+The stores mini-ecosystem within the design is setup in its directory across multiple files  
 that are very much self explanatory to their roles. As you use this design system, just 
 go with  the flow there to extend (especially for "app" store) and add your own new stores for  
 your app's components; and if you feel you can and want to improve on their design, of course, sure you can.
@@ -55,7 +50,7 @@ And that's where I really got introduced to the MVC design pattern, hands on, af
 introduction in  Java's Swing. React is a view library and not a full blown framework like Angular. 
 But I am sure like most  engineers, we like the practice of splitting things apart and dealing with 
 them in pieces. So, let's  have React components' classes or functions only deal with mostly the 
-UI rendering, while any and most  of functions that, that component/activity relies on be lifted 
+UI rendering, while any, and most of the functions that, that component/activity relies on be lifted 
 out to a "controller" file for that  activity, and you can just import and use as you wish.
 Just like the stores, the "controllers" are wrapped in their own directory for clean architecture  
 encapsulation of bits and pieces.
@@ -71,7 +66,7 @@ Routing and navigation logic setup is wrapped up in its own "routing-and-navigat
 Follow the pattern therein, to add your own new routes and navigation functionality  for your app.
 
 So the above are the major parts of the system that needed a special mention. The rest are rather  
-self explanatory from glance, container directory naming, and directory included "ABOUT.md"
+self explanatory from a glance, container directory naming, and directory included "ABOUT.md"
 Next up, what's in the box! What are bits and pieces that glue together, and power up this SPA 
 starter  template framework design???
 

@@ -11,15 +11,13 @@ import {TITLE} from "../../app-config";
 import {PAGE3EXAMPLE_VIEW_ROUTE} from "../../routing-and-navigation/views-routes-declarations";
 import appNavigation from "../../routing-and-navigation/app-navigation";
 
-function Page2Example() {
+function Page2Example(props) {
 
-  const loginStore = this.props.authStore.login;
-  const appStore = this.props.appStore;
-  const authStore = this.props.authStore;
-  const routerStore = this.props.routerStore;
-
-  const routeName = 'Page2Example';
-  const routePathPattern = '/Page2Example';
+  const {
+    appStore,
+    authStore,
+    routerStore
+  } = props;
 
   const _continueToPage3 = (e) => {
     e.preventDefault();
@@ -33,7 +31,7 @@ function Page2Example() {
         </Helmet>
         <NavigationHeader
             routerStore={routerStore}
-            authStore={authStore} activity={this}
+            authStore={authStore} appStore={appStore}
         />
 
         <div className={'flex-row-container'}>
@@ -53,17 +51,8 @@ function Page2Example() {
               showcase,&nbsp;
               that would be the components [page1, page2, page3, page4]. Those stores essential hold the
               component's&nbsp;
-              state globally, such that their information can be shared across each other. You will notice that
-              when&nbsp;
-              working with these components in relation to the stores, especially,
-              in <i>"controller"</i> function calls, I refer&nbsp;
-              to the components as <em>"activity"</em>. This is inspired upon me from my android days,
-              where&nbsp;
-              in android development design, you have an "activity" <i>Java</i> class which holds all the
-              stuff&nbsp;
-              for its XML UI, to data for that UI, and rules for sharing it's data and information with
-              other&nbsp;
-              "activities."<br/>
+              state globally, such that their information can be shared across each other.<br/>
+
               The stores mini-ecosystem within the the design is setup in its directory across multiple
               files&nbsp;
               that are very much self explanatory to their roles. As you use this design system, just go

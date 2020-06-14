@@ -16,7 +16,7 @@ import {
 
 export default function NavigationHeader(props) {
 
-  let {routerStore, authStore, activity} = props;
+  let {routerStore, authStore, appStore} = props;
 
   let slug = '' + window.location.href;
   slug = slug.split('/');
@@ -32,7 +32,7 @@ export default function NavigationHeader(props) {
                   onClick={_ => {
                     _.preventDefault();
                     appNavigation.navigateToHome(routerStore)
-                  }}>Hi {activity?.appStore?.user?.name}</a>
+                  }}>Hi {appStore?.user?.name}</a>
             </li>
             <li
                 id={`nav-${HOME_VIEW_ROUTE.routeName}`}
@@ -82,15 +82,16 @@ export default function NavigationHeader(props) {
                     _.preventDefault();
                     appNavigation.navigateToAppDevScratchPad(routerStore);
                   }}>
-                Go mock some stuff <span role={'img'}
-                                         aria-labelledby={'navigateToAppDevScratchPad'}>😏️😏️😌️</span>
+                Go mock some stuff <span
+                  role={'img'}
+                  aria-labelledby={'navigateToAppDevScratchPad'}>😏️😏️😌️</span>
               </a>
             </li>
             <li>
               <a href={'/'}
                  onClick={_ => {
                    _.preventDefault();
-                   authStore.handleLogout(activity);
+                   authStore.handleLogout();
                  }}>Logout</a>
             </li>
           </ul>

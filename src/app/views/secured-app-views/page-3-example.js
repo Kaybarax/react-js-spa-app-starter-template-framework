@@ -11,15 +11,13 @@ import {TITLE} from "../../app-config";
 import {PAGE4EXAMPLE_VIEW_ROUTE} from "../../routing-and-navigation/views-routes-declarations";
 import appNavigation from "../../routing-and-navigation/app-navigation";
 
-function Page3Example() {
+function Page3Example(props) {
 
-  const loginStore = this.props.authStore.login;
-  const appStore = this.props.appStore;
-  const authStore = this.props.authStore;
-  const routerStore = this.props.routerStore;
-
-  const routeName = 'Page3Example';
-  const routePathPattern = '/Page3Example';
+  const {
+    appStore,
+    authStore,
+    routerStore
+  } = props;
 
   const _continueToPage4 = (e) => {
     e.preventDefault();
@@ -33,7 +31,7 @@ function Page3Example() {
         </Helmet>
         <NavigationHeader
             routerStore={routerStore}
-            authStore={authStore} activity={this}
+            authStore={authStore} appStore={appStore}
         />
 
         <div className={'flex-row-container'}>

@@ -14,7 +14,6 @@ import {
 } from './store-utils';
 import {DEFAULT_VIEW_ROUTE, HOME_VIEW_ROUTE} from "../routing-and-navigation/views-routes-declarations";
 import {isEmptyObject, isNullUndefined} from "../util/util";
-import {toastNotificationCallback} from "../shared-components-and-modules/notification-center/notifications-controller";
 
 const defaultState = new RouterState(HOME_VIEW_ROUTE.routeName);
 const signOut = new RouterState(DEFAULT_VIEW_ROUTE.routeName);
@@ -106,7 +105,7 @@ export class AuthStore {
   }
 
   @action
-  handleLogout = (activity) => {
+  handleLogout = () => {
     try {
       // TODO: your logout logic, e.g:
       //  -> AWS sign out if you are using AWS: await Auth.signOut();
@@ -120,8 +119,7 @@ export class AuthStore {
       // then your frontend app sign out completion
       this.stopStoresPersistenceToLocalStorageAndClearOnLogout();
       this.rootStore.routerStore.goTo(signOut);
-      toastNotificationCallback('succ', 'Logged Out', activity);
-      setTimeout(_ => window.location.reload(), 2000);//time to allow notification display
+      window.location.reload();
     } catch (e) {
       console.log(JSON.stringify(e));
     }

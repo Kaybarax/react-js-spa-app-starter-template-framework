@@ -16,40 +16,40 @@ import Page4SubItemExample from "../views/secured-app-views/page-4-sub-item-exam
 //the view with routePathPattern of '/', i.e the default view on app bootstrap
 export const DEFAULT_VIEW_ROUTE = {
   view: <Login/>,
-  routeName: Login.routeName,
-  routePathPattern: Login.routePathPattern,
+  routeName: '',
+  routePathPattern: '/',
 };
 
 //for this app which requires authentication, the landing view after authentication
 export const HOME_VIEW_ROUTE = {
   view: <Page1Example/>,
-  routeName: Page1Example.routeName,
-  routePathPattern: Page1Example.routePathPattern,
+  routeName: 'home',
+  routePathPattern: '/home',
 };
 
 //and then the other views routes declarations
 export const PAGE2EXAMPLE_VIEW_ROUTE = {
   view: <Page2Example/>,
-  routeName: Page2Example.routeName,
-  routePathPattern: Page2Example.routePathPattern,
+  routeName: 'page-2-example',
+  routePathPattern: '/page-2-example',
 };
 
 export const PAGE3EXAMPLE_VIEW_ROUTE = {
   view: <Page3Example/>,
-  routeName: Page3Example.routeName,
-  routePathPattern: Page3Example.routePathPattern,
+  routeName: 'page-3-example',
+  routePathPattern: '/page-3-example',
 };
 
 export const PAGE4EXAMPLE_VIEW_ROUTE = {
   view: <Page4Example/>,
-  routeName: Page4Example.routeName,
-  routePathPattern: Page4Example.routePathPattern,
+  routeName: 'page-4-example',
+  routePathPattern: '/page-4-example',
 };
 
 export const PAGE4_SUB_ITEM_EXAMPLE_VIEW_ROUTE = {
   view: <Page4SubItemExample/>,
-  routeName: Page4SubItemExample.routeName,
-  routePathPattern: Page4SubItemExample.routePathPattern,
+  routeName: 'page-4-item',
+  routePathPattern: '/page-4-item/:item',
 };
 
 //and then finally the 404 route

@@ -12,7 +12,7 @@ import {isEmptyString} from "../../util/util";
 
 export default function SignUpForm(props) {
 
-  let {signUpModel, activity} = props;
+  let {signUpModel, toastNotificationAlert, showLoginForm} = props;
 
   let [submit_pressed, set_press_submit] = React.useState(false);
 
@@ -73,7 +73,7 @@ export default function SignUpForm(props) {
           <TextField
               id="name"
               label="Name" type={'text'}
-              onChange={e => textValueChanged(signUpModel.user, e.target.value, 'name', activity)}
+              onChange={e => textValueChanged(signUpModel.user, e.target.value, 'name')}
           />
           <br/>
           {
@@ -84,7 +84,7 @@ export default function SignUpForm(props) {
           <TextField
               id="username-or-email"
               label="Username/Email" type={'text'}
-              onChange={e => textValueChanged(signUpModel.user, e.target.value, 'usernameOrEmail', activity)}
+              onChange={e => textValueChanged(signUpModel.user, e.target.value, 'usernameOrEmail')}
           />
           <br/>
           {
@@ -95,7 +95,7 @@ export default function SignUpForm(props) {
           <TextField
               id="password"
               label="Password" type={'password'}
-              onChange={e => textValueChanged(signUpModel.user, e.target.value, 'password', activity)}
+              onChange={e => textValueChanged(signUpModel.user, e.target.value, 'password')}
           />
           <br/>
           {
@@ -106,7 +106,7 @@ export default function SignUpForm(props) {
           <TextField
               id="confirmPassword"
               label="Confirm Password" type={'password'}
-              onChange={e => textValueChanged(signUpModel, e.target.value, 'confirmPassword', activity)}
+              onChange={e => textValueChanged(signUpModel, e.target.value, 'confirmPassword')}
           />
           <br/>
           {
@@ -124,9 +124,10 @@ export default function SignUpForm(props) {
                 if (!isValidFormData()) {
                   return;
                 }
-                handleSignUp(signUpModel, activity);
+                handleSignUp(signUpModel, toastNotificationAlert);
                 //ready for next user
-                activity.showLoginForm();
+                //some time to allow the alert to display
+                setTimeout(_ => showLoginForm(), 1500);
               }}
           >
             Sign Up

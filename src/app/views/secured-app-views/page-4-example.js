@@ -12,15 +12,13 @@ import {isEmptyArray} from "../../util/util";
 import {SOs_and_Credits_List} from "../../app-management/data-manager/list-manager";
 import appNavigation from "../../routing-and-navigation/app-navigation";
 
-function Page4Example() {
+function Page4Example(props) {
 
-  const loginStore = this.props.authStore.login;
-  const appStore = this.props.appStore;
-  const authStore = this.props.authStore;
-  const routerStore = this.props.routerStore;
-
-  const routeName = 'Page4Example';
-  const routePathPattern = '/Page4Example';
+  const {
+    appStore,
+    authStore,
+    routerStore
+  } = props;
 
   const _viewAttributedPersonDetails = (e, person) => {
     e.preventDefault();
@@ -34,7 +32,7 @@ function Page4Example() {
         </Helmet>
         <NavigationHeader
             routerStore={routerStore}
-            authStore={authStore} activity={this}
+            authStore={authStore} appStore={appStore}
         />
 
         <div className={'flex-row-container'}>

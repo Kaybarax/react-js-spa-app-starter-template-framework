@@ -9,15 +9,16 @@ import {APPLICATION_VIEWS, viewMapBuilder} from "./routing-and-navigation/views-
 import {appIndexedDb} from "./app-management/data-manager/indexeddb-manager";
 
 
-function AppEntry() {
+function AppEntry(props) {
 
-  appIndexedDb();//init app indexed db
+  //init app indexed db
+  appIndexedDb();
 
   const viewMap = viewMapBuilder(APPLICATION_VIEWS);
 
   return (
       <Fragment>
-        <RouterView routerStore={this.props.routerStore} viewMap={viewMap}/>
+        <RouterView routerStore={props.routerStore} viewMap={viewMap}/>
       </Fragment>
   );
 }

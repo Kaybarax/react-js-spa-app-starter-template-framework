@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 //key
 //sd - self described
 //@authored by Kaybarax -- Twitter @_ https://twitter.com/Kaybarax, Github @_ https://github.com/Kaybarax, LinkedIn @_ https://linkedin.com/in/kaybarax
@@ -11,10 +12,9 @@ import {enforceReactNaturalStateUpdateBehavior} from "./react-based-utils";
  * sd _ Kaybarax
  * @param model
  * @param key
- * @param activity
  * @returns {*}
  */
-export function textValue(model, key, activity) {
+export function textValue(model, key) {
   let feedBack = null;
   if (isNullUndefined(model)) {
     console.log('No model');
@@ -93,6 +93,7 @@ export function checkboxItemValueChanged(model, checkedTrue, key, activity) {
     // noinspection EqualityComparisonWithCoercionJS
     model[key] = null;
   }
+  !isNullUndefined(activity) &&
   enforceReactNaturalStateUpdateBehavior(activity);
   return model[key];
 }
@@ -125,9 +126,10 @@ export function radioButtonSelected(val, key, model) {
  * @param value
  * @param key
  * @param model
+ * @param activity
  * @returns {*}
  */
-export function radioButtonValueChanged(checkedTrue, value, key, model) {
+export function radioButtonValueChanged(checkedTrue, value, key, model, activity) {
   let feedback = null;
   if (isNullUndefined(model)) {
     console.log('No model');
@@ -148,7 +150,8 @@ export function radioButtonValueChanged(checkedTrue, value, key, model) {
     // noinspection EqualityComparisonWithCoercionJS
     model[key] = null;
   }
-  enforceReactNaturalStateUpdateBehavior(this);
+  !isNullUndefined(activity) &&
+  enforceReactNaturalStateUpdateBehavior(activity);
   return feedback;
 }
 
@@ -196,6 +199,7 @@ export function spinnerOnValueChanged(model, val, key, activity) {
   if (isNullUndefined(val)) return;
   if (!objectKeyExists(model, key)) return;
   model[key] = val;
+  !isNullUndefined(activity) &&
   enforceReactNaturalStateUpdateBehavior(activity);
 }
 

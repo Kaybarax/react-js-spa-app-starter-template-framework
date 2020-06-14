@@ -9,20 +9,20 @@ import {isNullUndefined} from "../../util/util";
  * Utility function to handle the custom display of messages.
  * @param notificationType
  * @param message
- * @param activity
+ * @param toastNotificationAlert
  * @param position
  * @param duration
  */
 export function toastNotificationCallback(
     notificationType,
     message,
-    activity,
+    toastNotificationAlert,
     position = 'top',
     duration = 3500,
 ) {
 
-  if (isNullUndefined(activity)) {
-    alert('Component calling "Toast Notification not Specified"');
+  if (isNullUndefined(toastNotificationAlert)) {
+    alert('Toast Notification not Specified');
     return;
   }
 
@@ -45,16 +45,15 @@ export function toastNotificationCallback(
     typeOfNotification = 'info';
   }
 
-  let toastNotificationAlertProps = activity.toastNotificationAlert;
-  toastNotificationAlertProps.alert = true;
-  toastNotificationAlertProps.position = position;
-  toastNotificationAlertProps.duration = duration;
-  toastNotificationAlertProps.message = message || typeOfNotificationMessage;
-  toastNotificationAlertProps.type = typeOfNotification;
+  toastNotificationAlert.alert = true;
+  toastNotificationAlert.position = position;
+  toastNotificationAlert.duration = duration;
+  toastNotificationAlert.message = message || typeOfNotificationMessage;
+  toastNotificationAlert.type = typeOfNotification;
   setTimeout(() => {
-    toastNotificationAlertProps.alert = false;
-    toastNotificationAlertProps.message = null;
-  }, toastNotificationAlertProps.duration);
+    toastNotificationAlert.alert = false;
+    toastNotificationAlert.message = null;
+  }, toastNotificationAlert.duration);
 
 }
 

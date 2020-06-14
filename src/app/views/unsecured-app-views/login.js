@@ -19,42 +19,43 @@ import ResetPasswordForm from "./reset-password-form";
 import {User} from "../../app-management/data-manager/models-manager";
 import appNavigation from "../../routing-and-navigation/app-navigation";
 
-function Login() {
+function Login(props) {
 
-  let authStore = this.props.authStore;
-  let loginStore = this.props.authStore.login;
-  let routerStore = this.props.routerStore;
-  let toastNotificationAlert = this.props.authStore.login.toastNotificationAlert;
-  let appStore = this.props.appStores.app;
+  const {
+    authStore,
+    appStores: {app},
+    routerStore,
+    authStore: {
+      login,
+      login: {toastNotificationAlert}
+    },
+  } = props;
 
-  let routeName = '';
-  let routePathPattern = '/';
-
-  let showLoginForm = () => {
-    loginStore.pageAction = LOGIN_PAGE_ACTIONS.LOGIN;
+  const showLoginForm = () => {
+    login.pageAction = LOGIN_PAGE_ACTIONS.LOGIN;
   };
 
-  let showSignUpForm = () => {
-    loginStore.signUpForm.user = new User();
-    loginStore.pageAction = LOGIN_PAGE_ACTIONS.SIGN_UP;
+  const showSignUpForm = () => {
+    login.signUpForm.user = new User();
+    login.pageAction = LOGIN_PAGE_ACTIONS.SIGN_UP;
   };
 
-  let showResetPasswordForm = () => {
-    loginStore.pageAction = LOGIN_PAGE_ACTIONS.RESET_PASSWORD;
+  const showResetPasswordForm = () => {
+    login.pageAction = LOGIN_PAGE_ACTIONS.RESET_PASSWORD;
   };
 
   let showLogin = (
-      displayFieldExpectationSatisfied('pageAction', loginStore,
+      displayFieldExpectationSatisfied('pageAction', login,
           expectationOfX => isNullUndefined(expectationOfX))
       ||
-      displayFieldExpectationSatisfied('pageAction', loginStore,
+      displayFieldExpectationSatisfied('pageAction', login,
           expectationOfX => expectationOfX === LOGIN_PAGE_ACTIONS.LOGIN)
   );
 
-  let showSignUp = displayFieldExpectationSatisfied('pageAction', loginStore,
+  let showSignUp = displayFieldExpectationSatisfied('pageAction', login,
       expectationOfX => expectationOfX === LOGIN_PAGE_ACTIONS.SIGN_UP);
 
-  let showResetPassword = displayFieldExpectationSatisfied('pageAction', loginStore,
+  let showResetPassword = displayFieldExpectationSatisfied('pageAction', login,
       expectationOfX => expectationOfX === LOGIN_PAGE_ACTIONS.RESET_PASSWORD);
 
   return (
@@ -98,8 +99,11 @@ function Login() {
             <div className={'flex-row-container'}>
               <div className={'flex-container-child-item center-align-content'}>
                 <LoginForm
-                    loginModel={loginStore.loginForm}
-                    activity={this}/>
+                    loginModel={login.loginForm}
+                    toastNotificationAlert={toastNotificationAlert}
+                    appStore={app}
+                    authStore={authStore}
+                />
               </div>
             </div>
           }
@@ -108,8 +112,11 @@ function Login() {
             showSignUp &&
             <div className={'flex-row-container'}>
               <div className={'flex-container-child-item center-align-content'}>
-                <SignUpForm signUpModel={loginStore.signUpForm}
-                            activity={this}/>
+                <SignUpForm
+                    signUpModel={login.signUpForm}
+                    toastNotificationAlert={toastNotificationAlert}
+                    showLoginForm={showLoginForm}
+                />
               </div>
             </div>
           }
@@ -119,8 +126,9 @@ function Login() {
             <div className={'flex-row-container'}>
               <div className={'flex-container-child-item center-align-content'}>
                 <ResetPasswordForm
-                    resetPasswordModel={loginStore.resetPasswordForm}
-                    activity={this}/>
+                    resetPasswordModel={login.resetPasswordForm}
+                    toastNotificationAlert={toastNotificationAlert}
+                />
               </div>
             </div>
           }

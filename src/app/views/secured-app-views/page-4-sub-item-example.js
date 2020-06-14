@@ -14,17 +14,15 @@ import {faCoffee} from "@fortawesome/free-solid-svg-icons/faCoffee";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import appNavigation from "../../routing-and-navigation/app-navigation";
 
-function Page4SubItemExample() {
+function Page4SubItemExample(props) {
 
-  const loginStore = this.props.authStore.login;
-  const appStore = this.props.appStore;
-  const authStore = this.props.authStore;
-  const routerStore = this.props.routerStore;
+  const {
+    appStore,
+    authStore,
+    routerStore
+  } = props;
 
-  const routeName = 'Page4Item';
-  const routePathPattern = '/Page4Item/:item';
-
-  let {item} = this.routerStore.routerState.params;
+  let {item} = routerStore.routerState.params;
   let person = SOs_and_Credits_List.find(it => it.person === item);
 
   if (isNullUndefined(person)) {
@@ -61,7 +59,7 @@ function Page4SubItemExample() {
         </Helmet>
         <NavigationHeader
             routerStore={routerStore}
-            authStore={authStore} activity={this}
+            authStore={authStore} appStore={appStore}
         />
 
         <div className="container is-fluid">

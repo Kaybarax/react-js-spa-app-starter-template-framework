@@ -6,8 +6,8 @@ import React, {Component} from 'react';
 import SafeComponentWrapper from '../safe-component-wrapper';
 
 export default class NotFound extends Component {
-  static routeName = 'notFound';
-  static routePathPattern = '/notFound';
+  static routeName = 'not-found';
+  static routePathPattern = '/not-found';
 
   render() {
     return (
