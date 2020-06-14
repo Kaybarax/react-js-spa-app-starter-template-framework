@@ -1,7 +1,7 @@
 {
   "name": "react-js-mobx-web-app-with-login-framework",
   "version": "1.0.0",
-  "private": true,
+  "private": false,
   "description": "self-described",
   "author": {
     "name": "Kevin Barasa",
