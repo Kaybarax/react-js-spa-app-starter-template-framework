@@ -11,10 +11,10 @@ import rootStore from './app/stores';
 
 export default class App extends React.Component {
   render() {
-    console.warn = () => {
-    }; // hide unnecessary warning logs
-    console.error = () => {
-    }; // hide inconsequential error logs
+    // hide unnecessary warning logs
+    console.warn = () => null;
+    // hide inconsequential error logs
+    console.error = () => null;
     return (
         <Provider
             appStores={rootStore.appStores}
