@@ -17,7 +17,7 @@ import {TITLE} from "../../app-config";
 import LoginForm from "./login-form";
 import SignUpForm from "./sign-up-form";
 import {displayFieldExpectationSatisfied} from "../../controllers/app-controller";
-import {LOGIN_PAGE_ACTIONS} from "../../stores/actions-and-stores-data";
+import {LOGIN_PAGE_ACTIONS_ENUM} from "../../stores/actions-and-stores-data";
 import '../../theme/login-styles.scss';
 import ResetPasswordForm from "./reset-password-form";
 import {User} from "../../app-management/data-manager/models-manager";
@@ -36,16 +36,16 @@ export default function Login(props) {
   let {router, appAuth} = rootStore;
 
   const showLoginForm = () => {
-    login.pageAction = LOGIN_PAGE_ACTIONS.LOGIN;
+    login.pageAction = LOGIN_PAGE_ACTIONS_ENUM.LOGIN;
   };
 
   const showSignUpForm = () => {
     login.signUpForm.user = new User();
-    login.pageAction = LOGIN_PAGE_ACTIONS.SIGN_UP;
+    login.pageAction = LOGIN_PAGE_ACTIONS_ENUM.SIGN_UP;
   };
 
   const showResetPasswordForm = () => {
-    login.pageAction = LOGIN_PAGE_ACTIONS.RESET_PASSWORD;
+    login.pageAction = LOGIN_PAGE_ACTIONS_ENUM.RESET_PASSWORD;
   };
 
   let showLogin = (
@@ -53,14 +53,14 @@ export default function Login(props) {
           expectationOfX => isNullUndefined(expectationOfX))
       ||
       displayFieldExpectationSatisfied('pageAction', login,
-          expectationOfX => expectationOfX === LOGIN_PAGE_ACTIONS.LOGIN)
+          expectationOfX => expectationOfX === LOGIN_PAGE_ACTIONS_ENUM.LOGIN)
   );
 
   let showSignUp = displayFieldExpectationSatisfied('pageAction', login,
-      expectationOfX => expectationOfX === LOGIN_PAGE_ACTIONS.SIGN_UP);
+      expectationOfX => expectationOfX === LOGIN_PAGE_ACTIONS_ENUM.SIGN_UP);
 
   let showResetPassword = displayFieldExpectationSatisfied('pageAction', login,
-      expectationOfX => expectationOfX === LOGIN_PAGE_ACTIONS.RESET_PASSWORD);
+      expectationOfX => expectationOfX === LOGIN_PAGE_ACTIONS_ENUM.RESET_PASSWORD);
 
   return (
       <SafeComponentWrapper>

@@ -87,7 +87,7 @@ export const routes = [
     onEnter: (fromState, toState, routerStore) => {
       //in case you needed to access the appStores and act on data
       const {
-        rootStore: {appStores, authStore},
+        rootStore: {appStores},
       } = routerStore;
 
       //TODO: call any and all of your here that you need to be executed on entering this page
@@ -112,7 +112,7 @@ export const routes = [
     onEnter: (fromState, toState, routerStore) => {
       //in case you needed to access the appStores and act on data
       const {
-        rootStore: {appStores, authStore},
+        rootStore: {appStores},
       } = routerStore;
 
       //TODO: call any and all of your here that you need to be executed on entering this page
@@ -137,7 +137,7 @@ export const routes = [
     onEnter: (fromState, toState, routerStore) => {
       //in case you needed to access the appStores and act on data
       const {
-        rootStore: {appStores, authStore},
+        rootStore: {appStores},
       } = routerStore;
 
       //TODO: call any and all of your here that you need to be executed on entering this page
@@ -162,7 +162,7 @@ export const routes = [
     onEnter: (fromState, toState, routerStore) => {
       //in case you needed to access the appStores and act on data
       const {
-        rootStore: {appStores, authStore},
+        rootStore: {appStores},
       } = routerStore;
 
       //TODO: call any and all of your here that you need to be executed on entering this page
@@ -187,7 +187,7 @@ export const routes = [
     onEnter: (fromState, toState, routerStore) => {
       //in case you needed to access the appStores and act on data
       const {
-        rootStore: {appStores, authStore},
+        rootStore: {appStores},
       } = routerStore;
 
       //TODO: call any and all of your here that you need to be executed on entering this page
@@ -212,7 +212,7 @@ export const routes = [
     onEnter: (fromState, toState, routerStore) => {
       //in case you needed to access the appStores and act on data
       const {
-        rootStore: {appStores, authStore},
+        rootStore: {appStores},
       } = routerStore;
 
       //TODO: call any and all of your here that you need to be executed on entering this page
@@ -229,7 +229,7 @@ export const routes = [
     onEnter: (fromState, toState, routerStore) => {
       //in case you needed to access the appStores and act on data
       const {
-        rootStore: {appStores, authStore},
+        rootStore: {appStores},
       } = routerStore;
       return Promise.resolve();
     },
@@ -241,7 +241,7 @@ export const routes = [
     onEnter: (fromState, toState, routerStore) => {
       //in case you needed to access the appStores and act on data
       const {
-        rootStore: {appStores, authStore},
+        rootStore: {appStores},
       } = routerStore;
       return Promise.resolve();
     },
