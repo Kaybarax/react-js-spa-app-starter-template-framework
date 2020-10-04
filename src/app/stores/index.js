@@ -10,7 +10,7 @@ const rootStore = new RootStore();
 
 // Observer of history changes
 const historyAdapter = new HistoryAdapter(
-    rootStore.routerStore,
+    rootStore.router,
     createBrowserHistory(),
 );
 historyAdapter.observeRouterStateChanges();

@@ -273,3 +273,99 @@ export function isVoid(item) {
     return true;
   }
 }
+
+/**
+ * sd _ Kaybarax
+ * @param length
+ */
+export function makeId(length) {
+  let result = '';
+  let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
+
+/**
+ * sd _ Kaybarax
+ * @param threadWork
+ * @param threadRunTime
+ * @param threadRunTimeCountdown
+ * @param threadWorkRunSuccess
+ * @param onWorkSuccess
+ * @param onWorkFail
+ * @param threadPool
+ * @param startOrJoinThread
+ * @param startOrJoinThreadCountdown
+ */
+export function serviceWorkerThread(
+    threadWork,
+    threadWorkRunSuccess = false,
+    onWorkSuccess, onWorkFail,
+    threadRunTime = 5000,
+    threadRunTimeCountdown = 1000,
+    threadPool = [],
+    startOrJoinThread = true,
+    startOrJoinThreadCountdown = 1000,
+) {
+
+  let countdown = threadRunTime;
+  //because on push, length increases by one,
+  // and interval is at former length value
+  let threadIndex = threadPool.length;
+
+  threadPool.push(
+      setInterval(_ => {
+
+        let runThread = (typeof startOrJoinThread === 'boolean') ?
+            startOrJoinThread :
+            startOrJoinThread.call(null);
+
+        if (runThread) {
+
+          //clear this top level thread
+          clearInterval(threadPool[threadIndex]);
+
+          //start thread work and
+          threadWork.call(null);
+
+          //next index for thread work
+          threadIndex = threadPool.length;
+
+          threadPool.push(
+              setInterval(_ => {
+                let done = (typeof threadWorkRunSuccess === 'boolean') ?
+                    threadWorkRunSuccess :
+                    threadWorkRunSuccess.call(null);
+                console.log('Thread work at -> ', countdown, done)
+                if (isTrue(done)) {
+                  clearInterval(threadPool[threadIndex]);
+                  onWorkSuccess.call(null);
+                } else {
+                  //if out of time, terminate
+                  if (countdown <= 0) {
+                    clearInterval(threadPool[threadIndex]);
+                    onWorkFail.call(null);
+                  }
+                }
+                countdown -= threadRunTimeCountdown;
+              }, threadRunTimeCountdown)
+          );
+
+        } else {
+          //if out of time, terminate
+          if (countdown <= 0) {
+            clearInterval(threadPool[threadIndex]);
+            //and report thread work failure
+            onWorkFail.call(null);
+          }
+        }
+
+        countdown -= startOrJoinThreadCountdown;
+
+      }, startOrJoinThreadCountdown)
+  );
+
+}

@@ -4,14 +4,7 @@
 
 import {action, observable} from 'mobx';
 import {RouterState} from 'mobx-state-router';
-import {LoginStoreProvider} from './stores-providers';
-import {MobX_StoreKey_Identifier_In_LocalStorage} from './stores-data-store';
-import {
-  clearAllPersistedStoresToLocalStorage,
-  persistedStoreFromLocalStorage,
-  persistStoreUpdatesToLocalStorageOnPossibleUpdateOfEvents,
-  unregisterPersistenceEventListeners,
-} from './store-utils';
+import {clearAllPersistedStoresToLocalStorage, unregisterPersistenceEventListeners,} from './store-utils';
 import {DEFAULT_VIEW_ROUTE, HOME_VIEW_ROUTE} from "../routing-and-navigation/views-routes-declarations";
 import {isEmptyObject, isNullUndefined} from "../util/util";
 
@@ -19,31 +12,16 @@ const defaultState = new RouterState(HOME_VIEW_ROUTE.routeName);
 const signOut = new RouterState(DEFAULT_VIEW_ROUTE.routeName);
 
 /**
- * sd _ Kaybarax
+ * stored here in this directory because
+ * it is working in conjunction with the stores
  */
-export class AuthStore {
+export class AppAuth {
 
   constructor(rootStore) {
     this.rootStore = rootStore;
   }
 
   rootStore;
-
-  //to assist with differentiation during storage to persistence media, if application uses several stores classes
-  static namespace = 'AuthStore_' + MobX_StoreKey_Identifier_In_LocalStorage;
-
-  persistMyStoresToLocalStorageOnEvent(myStores) {
-    persistStoreUpdatesToLocalStorageOnPossibleUpdateOfEvents(myStores);
-  }
-
-  //NOTE: FOR SECURITY CONSIDERATION THIS STORE SHOULD NOT BE STORED IN BROWSER STORAGE
-  // BECAUSE IT HOLDS THE USER'S password
-  @observable
-  login =
-      persistedStoreFromLocalStorage(
-          LoginStoreProvider.storeKey(AuthStore.namespace),
-          LoginStoreProvider,
-      ) || LoginStoreProvider.storeProvider(AuthStore.namespace);
 
   /**
    * my custom function to keep my signed in user's details up to date
@@ -54,10 +32,6 @@ export class AuthStore {
     // console.log('createSignedInUser <--user--> :: ');
     this.rootStore.appStores.app.user = user;
   };
-
-  // collect for provision for offline storage either to localstorage, indexedDB or any other app-offline storage
-  // Every store that you add, MAKE SURE to add it also here
-  stores = [];
 
   /**
    * Your frontend app pages, authentication logic for access: JWT, AWS Cognito, Google sign in,
@@ -78,9 +52,9 @@ export class AuthStore {
     //     });
 
     //my logic for this framework template share. Of course, remove it and use your own
-    //like I have guided you above
-    // console.log("isAuthenticated  this.rootStore.appStores.app.user:: \t", toJS(this.rootStore.appStores.app.user))
-    return !(isNullUndefined(this.rootStore.appStores.app.user) || isEmptyObject(this.rootStore.appStores.app.user));
+    //like I have guided above
+    return !(isNullUndefined(this.rootStore.appStores.app.user) ||
+        isEmptyObject(this.rootStore.appStores.app.user));
   };
 
   //Where should we redirect after sign-in/authentication?
@@ -100,10 +74,6 @@ export class AuthStore {
     this.signInRedirect = routerState;
   };
 
-  resetSignInRedirect() {
-    this.setSignInRedirect(defaultState);
-  }
-
   @action
   handleLogout = () => {
     try {
@@ -111,7 +81,8 @@ export class AuthStore {
       //  -> AWS sign out if you are using AWS: await Auth.signOut();
       //  -> or another type of sign out process that you are using
 
-      // START my example sign out logic for this framework template share. Of course, remove it and use your own
+      // START my example sign out logic for this framework template share.
+      // Of course, remove it and use your own
       //like I have guided you above
       this.rootStore.appStores.app.user = null;
       // END my logic

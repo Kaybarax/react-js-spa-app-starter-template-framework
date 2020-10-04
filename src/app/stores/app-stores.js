@@ -2,19 +2,14 @@
 //sd - self described
 //@authored by Kaybarax -- Twitter @_ https://twitter.com/Kaybarax, Github @_ https://github.com/Kaybarax, LinkedIn @_ https://linkedin.com/in/kaybarax
 
-import {observable} from 'mobx';
+import {observable, toJS} from 'mobx';
 import {
   persistedStoreFromLocalStorage,
   persistStoreUpdatesToLocalStorageOnPossibleUpdateOfEvents,
 } from './store-utils';
-import {
-  AppStoreProvider,
-  Page1ExampleStoreProvider,
-  Page2ExampleStoreProvider,
-  Page3ExampleStoreProvider,
-  Page4ExampleStoreProvider,
-} from './stores-providers';
-import {MobX_StoreKey_Identifier_In_LocalStorage} from './stores-data-store';
+import StoreProviders from './stores-providers';
+import {MobX_StoreKey_Identifier_In_LocalStorage} from './actions-and-stores-data';
+import {isNullUndefined} from "../util/util";
 
 /**
  * sd _ Kaybarax
@@ -22,80 +17,58 @@ import {MobX_StoreKey_Identifier_In_LocalStorage} from './stores-data-store';
 export default class AppStores {
 
   constructor() {
-    //init handle of persistence to local storage
-    this.persistMyStoresToLocalStorageOnEvent(this.stores);
+    this.stores = null;
+    this.appStoresLoaded = false;
   }
 
+  //use to automatically persist this store's stores
+  // on the provided events
   persistMyStoresToLocalStorageOnEvent(myStores) {
     persistStoreUpdatesToLocalStorageOnPossibleUpdateOfEvents(myStores);
   }
 
-  //to assist with differentiation during storage to persistence media, if application uses several stores classes
+  //to assist with differentiation during storage to persistence media,
+  // if application uses several stores classes
   static namespace = 'AppStores_' + MobX_StoreKey_Identifier_In_LocalStorage;
 
-  @observable
-  app = persistedStoreFromLocalStorage(
-      AppStoreProvider.storeKey(AppStores.namespace),
-      AppStoreProvider,
-      AppStores.namespace,
-  ) || AppStoreProvider.storeProvider(AppStores.namespace);
+  loadAppStores = async () => {
 
-  @observable
-  page1Example = persistedStoreFromLocalStorage(
-      Page1ExampleStoreProvider.storeKey(AppStores.namespace),
-      Page1ExampleStoreProvider,
-      AppStores.namespace,
-  ) || Page1ExampleStoreProvider.storeProvider(AppStores.namespace);
+    try {
 
-  @observable
-  page2Example = persistedStoreFromLocalStorage(
-      Page2ExampleStoreProvider.storeKey(AppStores.namespace),
-      Page2ExampleStoreProvider,
-      AppStores.namespace,
-  ) || Page2ExampleStoreProvider.storeProvider(AppStores.namespace);
+      this.stores = {};
+      this.appStoresLoaded = false;
 
-  @observable
-  page3Example = persistedStoreFromLocalStorage(
-      Page3ExampleStoreProvider.storeKey(AppStores.namespace),
-      Page3ExampleStoreProvider,
-      AppStores.namespace,
-  ) || Page3ExampleStoreProvider.storeProvider(AppStores.namespace);
+      for (let key in StoreProviders) {
+        let storeKey = StoreProviders[key].storeKey(AppStores.namespace);
+        let storeProvider = StoreProviders[key];
+        let store = await persistedStoreFromLocalStorage(storeKey, storeProvider, AppStores.namespace);
+        isNullUndefined(store) && (store = storeProvider.storeProvider(AppStores.namespace));
+        this.stores[key] = observable(store);
+        console.log('CREATED STORE -> ', key, ' -> ', toJS(this.stores[key]));
+      }
 
-  @observable
-  page4Example = persistedStoreFromLocalStorage(
-      Page4ExampleStoreProvider.storeKey(AppStores.namespace),
-      Page4ExampleStoreProvider,
-      AppStores.namespace,
-  ) || Page4ExampleStoreProvider.storeProvider(AppStores.namespace);
+      this.appStoresLoaded = true;
 
-  // collect for provision for offline storage either to localstorage, indexedDB or any other app-offline storage
-  // Every store that you add, MAKE SURE to add it also here
-  stores = [
-    {
-      store: this.app,
-      storeSchema: () => AppStoreProvider.storeProvider(AppStores.namespace),
-      storeProvider: AppStoreProvider,
-    },
-    {
-      store: this.page1Example,
-      storeSchema: () => Page1ExampleStoreProvider.storeProvider(AppStores.namespace),
-      storeProvider: Page1ExampleStoreProvider,
-    },
-    {
-      store: this.page2Example,
-      storeSchema: () => Page2ExampleStoreProvider.storeProvider(AppStores.namespace),
-      storeProvider: Page2ExampleStoreProvider,
-    },
-    {
-      store: this.page3Example,
-      storeSchema: () => Page3ExampleStoreProvider.storeProvider(AppStores.namespace),
-      storeProvider: Page3ExampleStoreProvider,
-    },
-    {
-      store: this.page4Example,
-      storeSchema: () => Page4ExampleStoreProvider.storeProvider(AppStores.namespace),
-      storeProvider: Page4ExampleStoreProvider,
+    } catch (err) {
+
+      console.log('loadAppStores err', err);
+
+      //create brand new stores
+
+      this.stores = {};
+      this.appStoresLoaded = false;
+
+      for (let key in StoreProviders) {
+        let storeProvider = StoreProviders[key];
+        let store = storeProvider.storeProvider(AppStores.namespace);
+        this.stores[key] = observable(store);
+        console.log('CREATED STORE -> ', key, ' -> ', toJS(this.stores[key]));
+      }
+
+      this.appStoresLoaded = true;
+
     }
-  ];
+
+  };
 
 }

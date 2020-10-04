@@ -4,7 +4,7 @@
 
 import {RouterState, RouterStore} from 'mobx-state-router';
 import AppStores from './app-stores';
-import {AuthStore} from './auth-store';
+import {AppAuth} from './app-auth';
 import {routes} from '../routing-and-navigation/routes';
 import NotFound from "../views/not-found";
 
@@ -15,6 +15,7 @@ const notFound = new RouterState(NotFound.routeName);
  */
 export default class RootStore {
   appStores = new AppStores();
-  authStore = new AuthStore(this);
-  routerStore = new RouterStore(this, routes, notFound);
+  //support stuff
+  appAuth = new AppAuth(this);
+  router = new RouterStore(this, routes, notFound);
 }

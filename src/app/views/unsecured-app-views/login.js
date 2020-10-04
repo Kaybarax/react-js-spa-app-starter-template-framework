@@ -4,7 +4,6 @@
 
 import React from 'react';
 import SafeComponentWrapper from "../../safe-component-wrapper";
-import {inject, observer} from "mobx-react";
 import {isNullUndefined, isTrue} from "../../util/util";
 import AppNotificationToastAlert
   from "../../shared-components-and-modules/notification-center/app-notification-toast-alert";
@@ -13,18 +12,18 @@ import {TITLE} from "../../app-config";
 import LoginForm from "./login-form";
 import SignUpForm from "./sign-up-form";
 import {displayFieldExpectationSatisfied} from "../../controllers/app-controller";
-import {LOGIN_PAGE_ACTIONS} from "../../stores/stores-data-store";
+import {LOGIN_PAGE_ACTIONS} from "../../stores/actions-and-stores-data";
 import '../../theme/login-styles.scss';
 import ResetPasswordForm from "./reset-password-form";
 import {User} from "../../app-management/data-manager/models-manager";
 import appNavigation from "../../routing-and-navigation/app-navigation";
 
-function Login(props) {
+export default function Login(props) {
 
   const {
-    authStore,
-    appStores: {app},
-    routerStore,
+    appAuth,
+    appStore,
+    router,
     authStore: {
       login,
       login: {toastNotificationAlert}
@@ -87,7 +86,7 @@ function Login(props) {
                 >Reset Password</span> |&nbsp;
                 <span
                     onClick={_ => {
-                      appNavigation.navigateToAppDevScratchPad(routerStore);
+                      appNavigation.navigateToAppDevScratchPad(router);
                     }}
                 >Mock Stuff Page</span>
               </h3>
@@ -101,8 +100,8 @@ function Login(props) {
                 <LoginForm
                     loginModel={login.loginForm}
                     toastNotificationAlert={toastNotificationAlert}
-                    appStore={app}
-                    authStore={authStore}
+                    appStore={appStore}
+                    authStore={appAuth}
                 />
               </div>
             </div>
@@ -155,5 +154,3 @@ function Login(props) {
   );
 
 }
-
-export default (inject('authStore', 'appStores', 'routerStore')(observer(Login)));

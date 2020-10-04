@@ -3,14 +3,14 @@
 //@authored by Kaybarax -- Twitter @_ https://twitter.com/Kaybarax, Github @_ https://github.com/Kaybarax, LinkedIn @_ https://linkedin.com/in/kaybarax
 
 import {
-  getItemFromLocalStorage,
+  getItemFromLocalStorage, getObjectFromLocalStorage,
   isNullUndefined,
   objectAHasSameKeysAsObjectB,
   objectKeyExists,
   storeItemToLocalStorage,
   stringifyObject,
 } from '../util/util';
-import {MobX_StoreKey_Identifier_In_LocalStorage} from './stores-data-store';
+import {MobX_StoreKey_Identifier_In_LocalStorage} from './actions-and-stores-data';
 
 /**
  * sd _ Kaybarax
@@ -44,24 +44,24 @@ export const persistedStoreFromLocalStorage = (storeKey, storeProvider, storeNam
   }
 
   //check for internal structural change
-  let {currentStoreObjectStructure} = storeProvider;
-  if (isNullUndefined(currentStoreObjectStructure)) {
+  let {currentStoreModelStructure} = storeProvider;
+  if (isNullUndefined(currentStoreModelStructure)) {
     return null;
   }
   let internalStructureChanged = false;
   for (let key in storeFromSchema) {
     let fromNewStoreSchema = stringifyObject(storeFromSchema[key]);
-    let fromCurrentStoreObjectStructure = stringifyObject(currentStoreObjectStructure[key]);
+    let fromCurrentStoreObjectStructure = stringifyObject(currentStoreModelStructure[key]);
     if (key !== 'storeName' && key !== 'storeKey' && fromNewStoreSchema !== fromCurrentStoreObjectStructure) {
       //update
-      currentStoreObjectStructure[key] = storeFromSchema[key];
+      currentStoreModelStructure[key] = storeFromSchema[key];
       //override and update
       savedStore[key] = storeFromSchema[key];
       internalStructureChanged = true;
     }
   }
   if (internalStructureChanged) {
-    storeItemToLocalStorage(storeFromSchema.storeName, currentStoreObjectStructure);
+    storeItemToLocalStorage(storeFromSchema.storeName, currentStoreModelStructure);
     storeItemToLocalStorage(storeKey, savedStore);
   }
   return savedStore;
@@ -164,4 +164,19 @@ export function unregisterPersistenceEventListeners() {
   window.removeEventListener('mouseup', persistStoreUpdatesLocalStorageOnEvent);
   window.removeEventListener('mousemove', persistStoreUpdatesLocalStorageOnEvent);
   window.removeEventListener('keyup', persistStoreUpdatesLocalStorageOnEvent);
+}
+
+/**
+ * sd _ Kaybarax
+ * @param storeName
+ * @param storeSchemaInstance
+ * @returns {Promise<T | *>}
+ */
+export function createCurrentStoreModelStructure(storeName, storeSchemaInstance) {
+  return getObjectFromLocalStorage(storeName)
+      .then(item => item || storeSchemaInstance)
+      .catch(error => {
+        console.log('createCurrentStoreModelStructure error', error);
+        return storeSchemaInstance;
+      });
 }

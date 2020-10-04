@@ -1,9 +1,13 @@
 //key
 //sd - self described
-//@authored by Kaybarax -- Twitter @_ https://twitter.com/Kaybarax, Github @_ https://github.com/Kaybarax, LinkedIn @_ https://linkedin.com/in/kaybarax
+/**
+ * @authored by Kaybarax
+ * Twitter @_ https://twitter.com/Kaybarax
+ * Github @_ https://github.com/Kaybarax
+ * LinkedIn @_ https://linkedin.com/in/kaybarax
+ */
 
 import React from "react";
-import {inject, observer} from "mobx-react";
 import SafeComponentWrapper from "../../safe-component-wrapper";
 import NavigationHeader from "../../shared-components-and-modules/navigation-header";
 import {Helmet} from "react-helmet";
@@ -11,17 +15,17 @@ import {TITLE} from "../../app-config";
 import {PAGE3EXAMPLE_VIEW_ROUTE} from "../../routing-and-navigation/views-routes-declarations";
 import appNavigation from "../../routing-and-navigation/app-navigation";
 
-function Page2Example(props) {
+export default function Page2Example(props) {
 
   const {
     appStore,
-    authStore,
-    routerStore
+    appAuth,
+    router
   } = props;
 
   const _continueToPage3 = (e) => {
     e.preventDefault();
-    appNavigation.navigateToPage3Example(routerStore);
+    appNavigation.navigateToPage3Example(router);
   };
 
   return (
@@ -30,8 +34,9 @@ function Page2Example(props) {
           <title>{TITLE + ' | Page 2'}</title>
         </Helmet>
         <NavigationHeader
-            routerStore={routerStore}
-            authStore={authStore} appStore={appStore}
+            routerStore={router}
+            authStore={appAuth}
+            appStore={appStore}
         />
 
         <div className={'flex-row-container'}>
@@ -121,5 +126,3 @@ function Page2Example(props) {
   );
 
 }
-
-export default (inject('authStore', 'appStore', 'routerStore')(observer(Page2Example)));

@@ -8,22 +8,67 @@ import 'bulma';
 import {Provider} from 'mobx-react';
 import AppEntry from './app/app-entry';
 import rootStore from './app/stores';
+import {isEmptyObject} from "./app/util/util";
 
-export default class App extends React.Component {
-  render() {
-    // hide unnecessary warning logs
-    console.warn = () => null;
-    // hide inconsequential error logs
-    console.error = () => null;
+export default function App() {
+
+  // hide unnecessary warning logs
+  console.warn = () => null;
+  // hide inconsequential error logs
+  console.error = () => null;
+  //hide all react warnings in release. ** DO THIS IN PROD **
+  // console.warn = console.error = console.log = function (message) {};
+
+  let [loadAppStores, setAppStoresLoaded] = React.useState(false);
+  let [loadAppStoresFeedback, setAppStoresLoadedFeedback] = React.useState('Initializing app state...');
+
+  let {appStores} = rootStore;
+
+  React.useEffect(() => {
+    //init app stores
+    if (!loadAppStores || isEmptyObject(appStores.stores)) {
+      setAppStoresLoadedFeedback('Initializing app state...');
+      appStores.loadAppStores().then(_ => {
+        if (!isEmptyObject(appStores.stores)) {
+          setAppStoresLoaded(true);
+          setAppStoresLoadedFeedback('App state loaded!');
+        } else {
+          setAppStoresLoaded(false);
+          setAppStoresLoadedFeedback('Failed to load app state. Reload app to try again');
+        }
+      });
+    }
+  }, [loadAppStores, appStores]);
+
+  if (!loadAppStores || isEmptyObject(appStores.stores)) {
     return (
-        <Provider
-            appStores={rootStore.appStores}
-            appStore={rootStore.appStores.app}
-            routerStore={rootStore.routerStore}
-            authStore={rootStore.authStore}
+        <div
+            style={[]}
         >
-          <AppEntry/>
-        </Provider>
-    );
+          {/*<AppStartLoading*/}
+          {/*    loadAppStores={loadAppStores}*/}
+          {/*    startUpMessage={loadAppStoresFeedback}*/}
+          {/*/>*/}
+          <h3>{loadAppStoresFeedback}</h3>
+        </div>
+    )
   }
+
+  // @ts-ignore
+  // pass navStore reference to appNavigation
+  // appNavigation.navStore = appStores.stores.appStore.navStore;
+
+  const {stores} = appStores;
+
+  return (
+      <Provider
+          {...stores}
+          //we can as well provide the support stuff
+          router={rootStore.router}
+          appAuth={rootStore.appAuth}
+      >
+        <AppEntry router={rootStore.router}/>
+      </Provider>
+  );
+
 }

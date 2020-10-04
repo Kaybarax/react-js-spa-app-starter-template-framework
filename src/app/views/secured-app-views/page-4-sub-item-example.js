@@ -1,9 +1,13 @@
 //key
 //sd - self described
-//@authored by Kaybarax -- Twitter @_ https://twitter.com/Kaybarax, Github @_ https://github.com/Kaybarax, LinkedIn @_ https://linkedin.com/in/kaybarax
+/**
+ * @authored by Kaybarax
+ * Twitter @_ https://twitter.com/Kaybarax
+ * Github @_ https://github.com/Kaybarax
+ * LinkedIn @_ https://linkedin.com/in/kaybarax
+ */
 
 import React from "react";
-import {inject, observer} from "mobx-react";
 import SafeComponentWrapper from "../../safe-component-wrapper";
 import NavigationHeader from "../../shared-components-and-modules/navigation-header";
 import {Helmet} from "react-helmet";
@@ -14,15 +18,15 @@ import {faCoffee} from "@fortawesome/free-solid-svg-icons/faCoffee";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import appNavigation from "../../routing-and-navigation/app-navigation";
 
-function Page4SubItemExample(props) {
+export default function Page4SubItemExample(props) {
 
   const {
     appStore,
-    authStore,
-    routerStore
+    appAuth,
+    router
   } = props;
 
-  let {item} = routerStore.routerState.params;
+  let {item} = router.routerState.params;
   let person = SOs_and_Credits_List.find(it => it.person === item);
 
   if (isNullUndefined(person)) {
@@ -43,7 +47,7 @@ function Page4SubItemExample(props) {
 
             <div>
               <a className="button is-info" onClick={_ => {
-                appNavigation.navigateToPage4Example(routerStore);
+                appNavigation.navigateToPage4Example(router);
               }}>Go back</a>
             </div>
             <br/>
@@ -58,8 +62,9 @@ function Page4SubItemExample(props) {
           <title>{TITLE + ' | Page 4 Sub-item Example '}</title>
         </Helmet>
         <NavigationHeader
-            routerStore={routerStore}
-            authStore={authStore} appStore={appStore}
+            routerStore={router}
+            authStore={appAuth}
+            appStore={appStore}
         />
 
         <div className="container is-fluid">
@@ -120,7 +125,7 @@ function Page4SubItemExample(props) {
 
           <div>
             <a className="button is-info" onClick={_ => {
-              appNavigation.navigateToPage4Example(routerStore);
+              appNavigation.navigateToPage4Example(router);
             }}>Go back</a>
           </div>
           <br/>
@@ -131,5 +136,3 @@ function Page4SubItemExample(props) {
   );
 
 }
-
-export default (inject('authStore', 'appStore', 'routerStore')(observer(Page4SubItemExample)));

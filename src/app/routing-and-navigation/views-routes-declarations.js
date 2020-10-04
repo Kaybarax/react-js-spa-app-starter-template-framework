@@ -11,43 +11,44 @@ import Page4Example from "../views/secured-app-views/page-4-example";
 import NotFound from "../views/not-found";
 import AppDevScratchPad from "../../app-dev-scratch-pad/app-dev-scratch-pad";
 import Page4SubItemExample from "../views/secured-app-views/page-4-sub-item-example";
+import WithStoresHoc from "../stores/with-stores-hoc";
 
 ////declare the application views for routing
 //the view with routePathPattern of '/', i.e the default view on app bootstrap
 export const DEFAULT_VIEW_ROUTE = {
-  view: <Login/>,
+  view: WithStoresHoc(Login,['appAuth', 'appStore', 'router']),
   routeName: '',
   routePathPattern: '/',
 };
 
 //for this app which requires authentication, the landing view after authentication
 export const HOME_VIEW_ROUTE = {
-  view: <Page1Example/>,
+  view: WithStoresHoc(Page1Example,['appAuth', 'appStore', 'router']),
   routeName: 'home',
   routePathPattern: '/home',
 };
 
 //and then the other views routes declarations
 export const PAGE2EXAMPLE_VIEW_ROUTE = {
-  view: <Page2Example/>,
+  view: WithStoresHoc(Page2Example,['appAuth', 'appStore', 'router']),
   routeName: 'page-2-example',
   routePathPattern: '/page-2-example',
 };
 
 export const PAGE3EXAMPLE_VIEW_ROUTE = {
-  view: <Page3Example/>,
+  view: WithStoresHoc(Page3Example,['appAuth', 'appStore', 'router']),
   routeName: 'page-3-example',
   routePathPattern: '/page-3-example',
 };
 
 export const PAGE4EXAMPLE_VIEW_ROUTE = {
-  view: <Page4Example/>,
+  view: WithStoresHoc(Page4Example,['appAuth', 'appStore', 'router']),
   routeName: 'page-4-example',
   routePathPattern: '/page-4-example',
 };
 
 export const PAGE4_SUB_ITEM_EXAMPLE_VIEW_ROUTE = {
-  view: <Page4SubItemExample/>,
+  view: WithStoresHoc(Page4SubItemExample,['appAuth', 'appStore', 'router']),
   routeName: 'page-4-item',
   routePathPattern: '/page-4-item/:item',
 };

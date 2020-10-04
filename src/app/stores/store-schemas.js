@@ -2,15 +2,8 @@
 //sd - self described
 //@authored by Kaybarax -- Twitter @_ https://twitter.com/Kaybarax, Github @_ https://github.com/Kaybarax, LinkedIn @_ https://linkedin.com/in/kaybarax
 
-import {objectInstanceProvider} from "../util/util";
+import {isEmptyString, objectInstanceProvider} from "../util/util";
 import {toastNotificationAlertProps} from "../shared-components-and-modules/notification-center/notifications-controller";
-
-export const APP_STORE_NAME = 'APP';
-export const LOGIN_STORE_NAME = 'LOGIN';
-export const PAGE1EXAMPLE_STORE_NAME = 'PAGE1EXAMPLE_STORE_NAME';
-export const PAGE2EXAMPLE_STORE_NAME = 'PAGE2EXAMPLE_STORE_NAME';
-export const PAGE3EXAMPLE_STORE_NAME = 'PAGE3EXAMPLE_STORE_NAME';
-export const PAGE4EXAMPLE_STORE_NAME = 'PAGE4EXAMPLE_STORE_NAME';
 
 /**
  * sd _ Kaybarax
@@ -21,7 +14,8 @@ export const PAGE4EXAMPLE_STORE_NAME = 'PAGE4EXAMPLE_STORE_NAME';
 export function ActivityStoreSchema(namespace, name) {
   this.storeSchema = {
     storeName: name,
-    storeKey: namespace + name,
+    namespace: namespace,
+    storeKey: !isEmptyString(namespace) ? namespace + name : 'StoreKey___' + name,
     loading: false,
     updated: false,
     loadingMessage: 'Loading...',
@@ -39,6 +33,12 @@ export function AppActivitySchema(namespace, name) {
   ActivityStoreSchema.call(this, namespace, name);
   let schema = this.storeSchema;
   schema.user = null;
+  schema.navStore = {
+    navigationTrail: [],
+    currentNavigationTrailIndex: 0,
+    navigatedTo: null,
+    navigatedFrom: null,
+  };
   // console.log('AppActivitySchema::', this.storeSchema)
   return this.storeSchema;
 }
