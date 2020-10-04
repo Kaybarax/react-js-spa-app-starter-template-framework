@@ -17,14 +17,16 @@ import {SOs_and_Credits_List} from "../../app-management/data-manager/list-manag
 import {faCoffee} from "@fortawesome/free-solid-svg-icons/faCoffee";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import appNavigation from "../../routing-and-navigation/app-navigation";
+import rootStore from "../../stores";
 
 export default function Page4SubItemExample(props) {
 
   const {
     appStore,
-    appAuth,
-    router
+    // appAuth,
+    // router
   } = props;
+  let {router, appAuth} = rootStore;
 
   let {item} = router.routerState.params;
   let person = SOs_and_Credits_List.find(it => it.person === item);

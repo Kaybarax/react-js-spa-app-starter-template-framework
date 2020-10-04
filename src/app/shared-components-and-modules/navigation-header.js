@@ -1,6 +1,11 @@
 //key
 //sd - self described
-//@authored by Kaybarax -- Twitter @_ https://twitter.com/Kaybarax, Github @_ https://github.com/Kaybarax, LinkedIn @_ https://linkedin.com/in/kaybarax
+/**
+ * @authored by Kaybarax
+ * Twitter @_ https://twitter.com/Kaybarax
+ * Github @_ https://github.com/Kaybarax
+ * LinkedIn @_ https://linkedin.com/in/kaybarax
+ */
 
 import React from "react";
 import SafeComponentWrapper from "../safe-component-wrapper";
@@ -13,10 +18,16 @@ import {
   PAGE3EXAMPLE_VIEW_ROUTE,
   PAGE4EXAMPLE_VIEW_ROUTE
 } from "../routing-and-navigation/views-routes-declarations";
+import rootStore from "../stores";
 
 export default function NavigationHeader(props) {
 
-  let {routerStore, authStore, appStore} = props;
+  let {
+    // authStore,
+    appStore,
+    // routerStore
+  } = props;
+  let {router, appAuth} = rootStore;
 
   let slug = '' + window.location.href;
   slug = slug.split('/');
@@ -31,7 +42,7 @@ export default function NavigationHeader(props) {
                   href={'/' + HOME_VIEW_ROUTE.routeName}
                   onClick={_ => {
                     _.preventDefault();
-                    appNavigation.navigateToHome(routerStore)
+                    appNavigation.navigateToHome(router)
                   }}>Hi {appStore?.user?.name}</a>
             </li>
             <li
@@ -42,7 +53,7 @@ export default function NavigationHeader(props) {
                   href={'/' + HOME_VIEW_ROUTE.routeName}
                   onClick={_ => {
                     _.preventDefault();
-                    appNavigation.navigateToHome(routerStore);
+                    appNavigation.navigateToHome(router);
                   }}>Page 1</a>
             </li>
             <li id={`nav-${PAGE2EXAMPLE_VIEW_ROUTE.routeName}`}
@@ -52,7 +63,7 @@ export default function NavigationHeader(props) {
                   href={'/' + PAGE2EXAMPLE_VIEW_ROUTE.routeName}
                   onClick={_ => {
                     _.preventDefault();
-                    appNavigation.navigateToPage2Example(routerStore);
+                    appNavigation.navigateToPage2Example(router);
                   }}>Page 2</a>
             </li>
             <li id={`nav-${PAGE3EXAMPLE_VIEW_ROUTE.routeName}`}
@@ -62,7 +73,7 @@ export default function NavigationHeader(props) {
                   href={'/' + PAGE3EXAMPLE_VIEW_ROUTE.routeName}
                   onClick={_ => {
                     _.preventDefault();
-                    appNavigation.navigateToPage3Example(routerStore)
+                    appNavigation.navigateToPage3Example(router)
                   }}>Page 3</a>
             </li>
             <li id={`nav-${PAGE4EXAMPLE_VIEW_ROUTE.routeName}`}
@@ -72,7 +83,7 @@ export default function NavigationHeader(props) {
                   href={'/' + PAGE4EXAMPLE_VIEW_ROUTE.routeName}
                   onClick={_ => {
                     _.preventDefault();
-                    appNavigation.navigateToPage4Example(routerStore);
+                    appNavigation.navigateToPage4Example(router);
                   }}>Page 4</a>
             </li>
             <li id={'navigateToAppDevScratchPad'}>
@@ -80,7 +91,7 @@ export default function NavigationHeader(props) {
                   href={'/' + APP_DEV_MOCKS_VIEW_ROUTE.routeName}
                   onClick={_ => {
                     _.preventDefault();
-                    appNavigation.navigateToAppDevScratchPad(routerStore);
+                    appNavigation.navigateToAppDevScratchPad(router);
                   }}>
                 Go mock some stuff <span
                   role={'img'}
@@ -91,7 +102,7 @@ export default function NavigationHeader(props) {
               <a href={'/'}
                  onClick={_ => {
                    _.preventDefault();
-                   authStore.handleLogout();
+                   appAuth.handleLogout();
                  }}>Logout</a>
             </li>
           </ul>

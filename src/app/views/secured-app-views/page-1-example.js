@@ -14,14 +14,16 @@ import {Helmet} from "react-helmet";
 import {TITLE} from "../../app-config";
 import appNavigation from "../../routing-and-navigation/app-navigation";
 import {PAGE2EXAMPLE_VIEW_ROUTE} from "../../routing-and-navigation/views-routes-declarations";
+import rootStore from "../../stores";
 
 export default function Page1Example(props) {
 
   const {
     appStore,
-    appAuth,
-    router
+    // appAuth,
+    // router
   } = props;
+  let {router, appAuth} = rootStore;
 
   const _continueToPage2 = (e) => {
     e.preventDefault();

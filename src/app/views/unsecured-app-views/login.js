@@ -1,6 +1,11 @@
 //key
 //sd - self described
-//@authored by Kaybarax -- Twitter @_ https://twitter.com/Kaybarax, Github @_ https://github.com/Kaybarax, LinkedIn @_ https://linkedin.com/in/kaybarax
+/**
+ * @authored by Kaybarax
+ * Twitter @_ https://twitter.com/Kaybarax
+ * Github @_ https://github.com/Kaybarax
+ * LinkedIn @_ https://linkedin.com/in/kaybarax
+ */
 
 import React from 'react';
 import SafeComponentWrapper from "../../safe-component-wrapper";
@@ -17,18 +22,18 @@ import '../../theme/login-styles.scss';
 import ResetPasswordForm from "./reset-password-form";
 import {User} from "../../app-management/data-manager/models-manager";
 import appNavigation from "../../routing-and-navigation/app-navigation";
+import rootStore from "../../stores";
 
 export default function Login(props) {
 
   const {
-    appAuth,
     appStore,
-    router,
     authStore: {
       login,
       login: {toastNotificationAlert}
     },
   } = props;
+  let {router, appAuth} = rootStore;
 
   const showLoginForm = () => {
     login.pageAction = LOGIN_PAGE_ACTIONS.LOGIN;

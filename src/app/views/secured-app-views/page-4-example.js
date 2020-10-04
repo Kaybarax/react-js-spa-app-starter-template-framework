@@ -15,14 +15,16 @@ import {TITLE} from "../../app-config";
 import {isEmptyArray} from "../../util/util";
 import {SOs_and_Credits_List} from "../../app-management/data-manager/list-manager";
 import appNavigation from "../../routing-and-navigation/app-navigation";
+import rootStore from "../../stores";
 
 export default function Page4Example(props) {
 
   const {
     appStore,
-    appAuth,
-    router
+    // appAuth,
+    // router
   } = props;
+  let {router, appAuth} = rootStore;
 
   const _viewAttributedPersonDetails = (e, person) => {
     e.preventDefault();
