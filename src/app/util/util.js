@@ -220,10 +220,10 @@ export function getItemFromLocalStorage(key) {
 /**
  * sd _ Kaybarax
  * @param key
- * @returns {string|null|any}
+ * @returns {Promise<null|any>}
  */
-export function getObjectFromLocalStorage(key) {
-  let item = getItemFromLocalStorage(key);
+export async function getObjectFromLocalStorage(key) {
+  let item = await getItemFromLocalStorage(key);
   if (!isEmptyString(item)) {
     try {
       let jsonItem = JSON.parse(item);

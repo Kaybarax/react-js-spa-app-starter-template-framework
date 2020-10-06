@@ -38,30 +38,32 @@ export default class AppStores {
 
   loadAppStores = async () => {
 
-    try {
+    // try {
+    //
+    //   this.stores = {};
+    //   this.appStoresLoaded = false;
+    //
+    //   for (let key in StoreProviders) {
+    //     let storeKey = StoreProviders[key].storeKey(AppStores.namespace);
+    //     let storeProvider = StoreProviders[key];
+    //     let store = await persistedStoreFromLocalStorage(storeKey, storeProvider, AppStores.namespace);
+    //     isNullUndefined(store) && (store = storeProvider.storeProvider(AppStores.namespace));
+    //     this.stores[key] = observable(store);
+    //     console.log('CREATED STORE -> ', key, ' -> ', toJS(this.stores[key]));
+    //   }
+    //
+    //   this.appStoresLoaded = true;
+    //
+    // } catch (err) {
 
-      this.stores = {};
-      this.appStoresLoaded = false;
-
-      for (let key in StoreProviders) {
-        let storeKey = StoreProviders[key].storeKey(AppStores.namespace);
-        let storeProvider = StoreProviders[key];
-        let store = await persistedStoreFromLocalStorage(storeKey, storeProvider, AppStores.namespace);
-        isNullUndefined(store) && (store = storeProvider.storeProvider(AppStores.namespace));
-        this.stores[key] = observable(store);
-        console.log('CREATED STORE -> ', key, ' -> ', toJS(this.stores[key]));
-      }
-
-      this.appStoresLoaded = true;
-
-    } catch (err) {
-
-      console.log('loadAppStores err', err);
+      // console.log('loadAppStores err', err);
 
       //create brand new stores
 
       this.stores = {};
       this.appStoresLoaded = false;
+
+    console.log('StoreProviders -> ', ' -> ', StoreProviders);
 
       for (let key in StoreProviders) {
         let storeProvider = StoreProviders[key];
@@ -72,7 +74,7 @@ export default class AppStores {
 
       this.appStoresLoaded = true;
 
-    }
+    // }
 
   };
 

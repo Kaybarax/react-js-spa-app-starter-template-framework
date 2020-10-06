@@ -9,26 +9,23 @@
 
 import React from "react";
 import SafeComponentWrapper from "../../safe-component-wrapper";
-import NavigationHeader from "../../shared-components-and-modules/navigation-header";
+import NavigationHeader from "../../routing-and-navigation/navigation-header";
 import {Helmet} from "react-helmet";
 import {TITLE} from "../../app-config";
 import {isEmptyArray} from "../../util/util";
 import {SOs_and_Credits_List} from "../../app-management/data-manager/list-manager";
 import appNavigation from "../../routing-and-navigation/app-navigation";
-import rootStore from "../../stores";
+import WithStoresHoc from "../../stores/with-stores-hoc";
 
-export default function Page4Example(props) {
+export function Page4Example(props) {
 
   const {
     appStore,
-    // appAuth,
-    // router
   } = props;
-  let {router, appAuth} = rootStore;
 
   const _viewAttributedPersonDetails = (e, person) => {
     e.preventDefault();
-    appNavigation.navigateToPage4SubItemExample(router, {item: person})
+    // appNavigation.navigateToPage4SubItemExample(router, {item: person})
   };
 
   return (
@@ -37,8 +34,6 @@ export default function Page4Example(props) {
           <title>{TITLE + ' | Page4'}</title>
         </Helmet>
         <NavigationHeader
-            routerStore={router}
-            authStore={appAuth}
             appStore={appStore}
         />
 
@@ -139,3 +134,5 @@ export default function Page4Example(props) {
   );
 
 }
+
+export default WithStoresHoc(Page4Example, ['page4ExampleStore', 'appStore']);

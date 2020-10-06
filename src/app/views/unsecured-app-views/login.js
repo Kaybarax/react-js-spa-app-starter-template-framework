@@ -22,44 +22,42 @@ import '../../theme/login-styles.scss';
 import ResetPasswordForm from "./reset-password-form";
 import {User} from "../../app-management/data-manager/models-manager";
 import appNavigation from "../../routing-and-navigation/app-navigation";
-import rootStore from "../../stores";
+import WithStoresHoc from "../../stores/with-stores-hoc";
 
-export default function Login(props) {
+export function Login(props) {
+  console.log('Login props', props);
 
   const {
     appStore,
-    authStore: {
-      login,
-      login: {toastNotificationAlert}
-    },
+    loginStore,
+    loginStore: {toastNotificationAlert}
   } = props;
-  let {router, appAuth} = rootStore;
 
   const showLoginForm = () => {
-    login.pageAction = LOGIN_PAGE_ACTIONS_ENUM.LOGIN;
+    loginStore.pageAction = LOGIN_PAGE_ACTIONS_ENUM.LOGIN;
   };
 
   const showSignUpForm = () => {
-    login.signUpForm.user = new User();
-    login.pageAction = LOGIN_PAGE_ACTIONS_ENUM.SIGN_UP;
+    loginStore.signUpForm.user = new User();
+    loginStore.pageAction = LOGIN_PAGE_ACTIONS_ENUM.SIGN_UP;
   };
 
   const showResetPasswordForm = () => {
-    login.pageAction = LOGIN_PAGE_ACTIONS_ENUM.RESET_PASSWORD;
+    loginStore.pageAction = LOGIN_PAGE_ACTIONS_ENUM.RESET_PASSWORD;
   };
 
   let showLogin = (
-      displayFieldExpectationSatisfied('pageAction', login,
+      displayFieldExpectationSatisfied('pageAction', loginStore,
           expectationOfX => isNullUndefined(expectationOfX))
       ||
-      displayFieldExpectationSatisfied('pageAction', login,
+      displayFieldExpectationSatisfied('pageAction', loginStore,
           expectationOfX => expectationOfX === LOGIN_PAGE_ACTIONS_ENUM.LOGIN)
   );
 
-  let showSignUp = displayFieldExpectationSatisfied('pageAction', login,
+  let showSignUp = displayFieldExpectationSatisfied('pageAction', loginStore,
       expectationOfX => expectationOfX === LOGIN_PAGE_ACTIONS_ENUM.SIGN_UP);
 
-  let showResetPassword = displayFieldExpectationSatisfied('pageAction', login,
+  let showResetPassword = displayFieldExpectationSatisfied('pageAction', loginStore,
       expectationOfX => expectationOfX === LOGIN_PAGE_ACTIONS_ENUM.RESET_PASSWORD);
 
   return (
@@ -91,7 +89,7 @@ export default function Login(props) {
                 >Reset Password</span> |&nbsp;
                 <span
                     onClick={_ => {
-                      appNavigation.navigateToAppDevScratchPad(router);
+                      // appNavigation.navigateToAppDevScratchPad(router);
                     }}
                 >Mock Stuff Page</span>
               </h3>
@@ -103,10 +101,10 @@ export default function Login(props) {
             <div className={'flex-row-container'}>
               <div className={'flex-container-child-item center-align-content'}>
                 <LoginForm
-                    loginModel={login.loginForm}
+                    loginModel={loginStore.loginForm}
                     toastNotificationAlert={toastNotificationAlert}
                     appStore={appStore}
-                    authStore={appAuth}
+                    // authStore={appAuth}
                 />
               </div>
             </div>
@@ -117,7 +115,7 @@ export default function Login(props) {
             <div className={'flex-row-container'}>
               <div className={'flex-container-child-item center-align-content'}>
                 <SignUpForm
-                    signUpModel={login.signUpForm}
+                    signUpModel={loginStore.signUpForm}
                     toastNotificationAlert={toastNotificationAlert}
                     showLoginForm={showLoginForm}
                 />
@@ -130,7 +128,7 @@ export default function Login(props) {
             <div className={'flex-row-container'}>
               <div className={'flex-container-child-item center-align-content'}>
                 <ResetPasswordForm
-                    resetPasswordModel={login.resetPasswordForm}
+                    resetPasswordModel={loginStore.resetPasswordForm}
                     toastNotificationAlert={toastNotificationAlert}
                 />
               </div>
@@ -159,3 +157,5 @@ export default function Login(props) {
   );
 
 }
+
+export default WithStoresHoc(Login, ['loginStore', 'appStore']);

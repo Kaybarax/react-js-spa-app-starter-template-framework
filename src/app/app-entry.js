@@ -7,24 +7,22 @@
  * LinkedIn @_ https://linkedin.com/in/kaybarax
  */
 
-import React, {Fragment} from 'react';
-import {RouterView} from 'mobx-state-router';
-import {APPLICATION_VIEWS, viewMapBuilder} from "./routing-and-navigation/views-routes-exports";
-import {appIndexedDb} from "./app-management/data-manager/indexeddb-manager";
+import React from 'react';
+import {BrowserRouter as Router} from "react-router-dom";
+import {AppBaseRoutingComposition} from "./routing-and-navigation/routes";
+import FallBackPage from "./fall-back-page";
 
 
 export default function AppEntry(props) {
-
-  //init app indexed db
-  appIndexedDb();
-
-  const viewMap = viewMapBuilder(APPLICATION_VIEWS);
+  console.log('AppEntry props', props);
 
   return (
-      <Fragment>
-        <RouterView routerStore={props.router} viewMap={viewMap}/>
-      </Fragment>
+      <React.Fragment>
+        <Router>
+          <React.Suspense fallback={<FallBackPage/>}>
+            <AppBaseRoutingComposition/>
+          </React.Suspense>
+        </Router>
+      </React.Fragment>
   );
 }
-
-// export default (WithStoresHoc(AppEntry, ['router']));

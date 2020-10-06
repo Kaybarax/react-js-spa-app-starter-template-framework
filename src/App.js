@@ -12,8 +12,9 @@ import './app/theme/app-styles.scss';
 import 'bulma';
 import {Provider} from 'mobx-react';
 import AppEntry from './app/app-entry';
-import rootStore from './app/stores';
 import {isEmptyObject} from "./app/util/util";
+import {appIndexedDb} from "./app/app-management/data-manager/indexeddb-manager";
+import appStores from "./app/stores";
 
 export default function App() {
 
@@ -27,9 +28,12 @@ export default function App() {
   let [loadAppStores, setAppStoresLoaded] = React.useState(false);
   let [loadAppStoresFeedback, setAppStoresLoadedFeedback] = React.useState('Initializing app state...');
 
-  let {appStores} = rootStore;
 
   React.useEffect(() => {
+
+    //init app indexed db
+    appIndexedDb();
+
     //init app stores
     if (!loadAppStores || isEmptyObject(appStores.stores)) {
       setAppStoresLoadedFeedback('Initializing app state...');
@@ -43,7 +47,8 @@ export default function App() {
         }
       });
     }
-  }, [loadAppStores, appStores]);
+
+  }, [loadAppStores]);
 
   if (!loadAppStores || isEmptyObject(appStores.stores)) {
     return (
@@ -69,7 +74,7 @@ export default function App() {
       <Provider
           {...stores}
       >
-        <AppEntry router={rootStore.router}/>
+        <AppEntry/>
       </Provider>
   );
 

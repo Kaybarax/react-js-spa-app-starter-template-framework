@@ -7,26 +7,16 @@
  * LinkedIn @_ https://linkedin.com/in/kaybarax
  */
 
-import {action, observable} from 'mobx';
-import {RouterState} from 'mobx-state-router';
+import {action} from 'mobx';
 import {clearAllPersistedStoresToLocalStorage, unregisterPersistenceEventListeners,} from './store-utils';
-import {DEFAULT_VIEW_ROUTE, HOME_VIEW_ROUTE} from "../routing-and-navigation/views-routes-declarations";
-import {isEmptyObject, isNullUndefined} from "../util/util";
-
-const defaultState = new RouterState(HOME_VIEW_ROUTE.routeName);
-const signOut = new RouterState(DEFAULT_VIEW_ROUTE.routeName);
+import {isEmptyObject, isNullUndefined, stringifyObject} from "../util/util";
+import appStores from "./index";
 
 /**
  * stored here in this directory because
  * it is working in conjunction with the stores
  */
 export class AppAuth {
-
-  constructor(rootStore) {
-    this.rootStore = rootStore;
-  }
-
-  rootStore;
 
   /**
    * my custom function to keep my signed in user's details up to date
@@ -35,7 +25,7 @@ export class AppAuth {
   @action
   createSignedInUser = (user) => {
     // console.log('createSignedInUser <--user--> :: ');
-    this.rootStore.appStores.app.user = user;
+    appStores.stores.app.user = user;
   };
 
   /**
@@ -58,25 +48,20 @@ export class AppAuth {
 
     //my logic for this framework template share. Of course, remove it and use your own
     //like I have guided above
-    return !(isNullUndefined(this.rootStore.appStores.app.user) ||
-        isEmptyObject(this.rootStore.appStores.app.user));
+    return !(isNullUndefined(appStores.stores.app.user) ||
+        isEmptyObject(appStores.stores.app.user));
   };
-
-  //Where should we redirect after sign-in/authentication?
-  @observable
-  signInRedirect = defaultState;
 
   @action
   handleLogin = () => {
     // NOTE: on success of your login function and initializations and stuff
     //  you will call this function, i.e something like "authStore.handleLogin()"
     //  to complete signing you in to the application, by executing the line below.
-    this.rootStore.routerStore.goTo(HOME_VIEW_ROUTE.routeName);
   };
 
   @action
-  setSignInRedirect = (routerState) => {
-    this.signInRedirect = routerState;
+  setSignInRedirect = () => {
+    //todo: will be done
   };
 
   @action
@@ -88,16 +73,15 @@ export class AppAuth {
 
       // START my example sign out logic for this framework template share.
       // Of course, remove it and use your own
-      //like I have guided you above
-      this.rootStore.appStores.app.user = null;
+      //like I have guided above
+      appStores.stores.app.user = null;
       // END my logic
 
       // then your frontend app sign out completion
       this.stopStoresPersistenceToLocalStorageAndClearOnLogout();
-      this.rootStore.routerStore.goTo(signOut);
       window.location.reload();
     } catch (e) {
-      console.log(JSON.stringify(e));
+      console.log(stringifyObject(e));
     }
   };
 
@@ -107,3 +91,6 @@ export class AppAuth {
   };
 
 }
+
+const appAuth = new AppAuth();
+export default appAuth;

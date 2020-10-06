@@ -1,6 +1,11 @@
 //key
 //sd - self described
-//@authored by Kaybarax -- Twitter @_ https://twitter.com/Kaybarax, Github @_ https://github.com/Kaybarax, LinkedIn @_ https://linkedin.com/in/kaybarax
+/**
+ * @authored by Kaybarax
+ * Twitter @_ https://twitter.com/Kaybarax
+ * Github @_ https://github.com/Kaybarax
+ * LinkedIn @_ https://linkedin.com/in/kaybarax
+ */
 
 import React from "react";
 import {makeStyles} from '@material-ui/core/styles';
@@ -12,7 +17,7 @@ import {isEmptyString} from "../../util/util";
 
 export default function LoginForm(props) {
 
-  let {loginModel, toastNotificationAlert, appStore, authStore} = props;
+  let {loginModel, toastNotificationAlert, appStore,} = props;
 
   let [submit_pressed, set_press_submit] = React.useState(false);
 
@@ -82,7 +87,7 @@ export default function LoginForm(props) {
                   return;
                 }
 
-                handleLogin(loginModel, toastNotificationAlert, appStore, authStore);
+                // handleLogin(loginModel, toastNotificationAlert, appStore, appAuth);
               }}
           >
             Login

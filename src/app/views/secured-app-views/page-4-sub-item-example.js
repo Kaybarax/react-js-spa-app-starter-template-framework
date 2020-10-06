@@ -9,7 +9,7 @@
 
 import React from "react";
 import SafeComponentWrapper from "../../safe-component-wrapper";
-import NavigationHeader from "../../shared-components-and-modules/navigation-header";
+import NavigationHeader from "../../routing-and-navigation/navigation-header";
 import {Helmet} from "react-helmet";
 import {TITLE} from "../../app-config";
 import {isNullUndefined} from "../../util/util";
@@ -17,19 +17,16 @@ import {SOs_and_Credits_List} from "../../app-management/data-manager/list-manag
 import {faCoffee} from "@fortawesome/free-solid-svg-icons/faCoffee";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import appNavigation from "../../routing-and-navigation/app-navigation";
-import rootStore from "../../stores";
+import WithStoresHoc from "../../stores/with-stores-hoc";
 
-export default function Page4SubItemExample(props) {
+export function Page4SubItemExample(props) {
 
   const {
     appStore,
-    // appAuth,
-    // router
   } = props;
-  let {router, appAuth} = rootStore;
 
-  let {item} = router.routerState.params;
-  let person = SOs_and_Credits_List.find(it => it.person === item);
+  // let {item} = router.routerState.params;
+  let person = SOs_and_Credits_List.find(it => it.person === null /*item*/);
 
   if (isNullUndefined(person)) {
     return (
@@ -49,7 +46,7 @@ export default function Page4SubItemExample(props) {
 
             <div>
               <a className="button is-info" onClick={_ => {
-                appNavigation.navigateToPage4Example(router);
+                // appNavigation.navigateToPage4Example(router);
               }}>Go back</a>
             </div>
             <br/>
@@ -64,8 +61,6 @@ export default function Page4SubItemExample(props) {
           <title>{TITLE + ' | Page 4 Sub-item Example '}</title>
         </Helmet>
         <NavigationHeader
-            routerStore={router}
-            authStore={appAuth}
             appStore={appStore}
         />
 
@@ -127,7 +122,7 @@ export default function Page4SubItemExample(props) {
 
           <div>
             <a className="button is-info" onClick={_ => {
-              appNavigation.navigateToPage4Example(router);
+              // appNavigation.navigateToPage4Example(router);
             }}>Go back</a>
           </div>
           <br/>
@@ -138,3 +133,5 @@ export default function Page4SubItemExample(props) {
   );
 
 }
+
+export default WithStoresHoc(Page4SubItemExample, ['page4ExampleStore', 'appStore']);

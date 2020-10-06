@@ -1,10 +1,17 @@
 //key
 //sd - self described
-//@authored by Kaybarax -- Twitter @_ https://twitter.com/Kaybarax, Github @_ https://github.com/Kaybarax, LinkedIn @_ https://linkedin.com/in/kaybarax
+/**
+ * @authored by Kaybarax
+ * Twitter @_ https://twitter.com/Kaybarax
+ * Github @_ https://github.com/Kaybarax
+ * LinkedIn @_ https://linkedin.com/in/kaybarax
+ */
 
+import React from "react";
 import {RouterState} from 'mobx-state-router';
+import {Route, Switch} from "react-router-dom";
+// import Switch from "react-router-dom/Switch";
 import {
-  _404_VIEW,
   APP_DEV_MOCKS_VIEW_ROUTE,
   DEFAULT_VIEW_ROUTE,
   HOME_VIEW_ROUTE,
@@ -13,6 +20,7 @@ import {
   PAGE4_SUB_ITEM_EXAMPLE_VIEW_ROUTE,
   PAGE4EXAMPLE_VIEW_ROUTE
 } from "./views-routes-declarations";
+import WithStoresHoc from "../stores/with-stores-hoc";
 
 /**
  * sd _ Kaybarax
@@ -44,10 +52,10 @@ const checkIfAuthenticated = async (fromState, toState, routerStore) => {
 };
 
 /**
+ * sd _ Kaybarax
  * Redirect a user to the logged-in-app page if they are already logged in
  * and trying to access the login page
  * @returns {*}
- * by kevinbbarasa
  */
 const redirectIfLoggedIn = async (fromState, toState, routerStore) => {
   const {
@@ -76,175 +84,216 @@ const redirectIfLoggedIn = async (fromState, toState, routerStore) => {
  * views routes
  * @type {*[]}
  */
-export const routes = [
+// export const routes = [
+//
+//   {
+//     name: DEFAULT_VIEW_ROUTE.routeName,
+//     pattern: DEFAULT_VIEW_ROUTE.routePathPattern,
+//     beforeEnter: async (fromState, toState, routerStore) => {
+//       return redirectIfLoggedIn(fromState, toState, routerStore);
+//     },
+//     onEnter: (fromState, toState, routerStore) => {
+//       //in case you needed to access the appStores and act on data
+//       const {
+//         rootStore: {appStores},
+//       } = routerStore;
+//
+//       //TODO: call any and all of your here that you need to be executed on entering this page
+//       // no need to do that on the page/view's componentDidMount. The page/component should only
+//       // handle rendering logic when called
+//
+//       return Promise.resolve();
+//     },
+//   },
+//
+//   {
+//     name: HOME_VIEW_ROUTE.routeName,
+//     pattern: HOME_VIEW_ROUTE.routePathPattern,
+//     beforeEnter: async (fromState, toState, routerStore) => {
+//
+//       //TODO: call any and all of your functions here, that you need to be executed before entering this page
+//       // no need to do that on the page/view's componentWillMount. The page/component should only
+//       // handle rendering logic when called
+//
+//       return checkIfAuthenticated(fromState, toState, routerStore);
+//     },
+//     onEnter: (fromState, toState, routerStore) => {
+//       //in case you needed to access the appStores and act on data
+//       const {
+//         rootStore: {appStores},
+//       } = routerStore;
+//
+//       //TODO: call any and all of your here that you need to be executed on entering this page
+//       // no need to do that on the page/view's componentDidMount. The page/component should only
+//       // handle rendering logic when called
+//
+//       return Promise.resolve();
+//     },
+//   },
+//
+//   {
+//     name: PAGE2EXAMPLE_VIEW_ROUTE.routeName,
+//     pattern: PAGE2EXAMPLE_VIEW_ROUTE.routePathPattern,
+//     beforeEnter: async (fromState, toState, routerStore) => {
+//
+//       //TODO: call any and all of your functions here, that you need to be executed before entering this page
+//       // no need to do that on the page/view's componentWillMount. The page/component should only
+//       // handle rendering logic when called
+//
+//       return checkIfAuthenticated(fromState, toState, routerStore);
+//     },
+//     onEnter: (fromState, toState, routerStore) => {
+//       //in case you needed to access the appStores and act on data
+//       const {
+//         rootStore: {appStores},
+//       } = routerStore;
+//
+//       //TODO: call any and all of your here that you need to be executed on entering this page
+//       // no need to do that on the page/view's componentDidMount. The page/component should only
+//       // handle rendering logic when called
+//
+//       return Promise.resolve();
+//     },
+//   },
+//
+//   {
+//     name: PAGE3EXAMPLE_VIEW_ROUTE.routeName,
+//     pattern: PAGE3EXAMPLE_VIEW_ROUTE.routePathPattern,
+//     beforeEnter: async (fromState, toState, routerStore) => {
+//
+//       //TODO: call any and all of your functions here, that you need to be executed before entering this page
+//       // no need to do that on the page/view's componentWillMount. The page/component should only
+//       // handle rendering logic when called
+//
+//       return checkIfAuthenticated(fromState, toState, routerStore);
+//     },
+//     onEnter: (fromState, toState, routerStore) => {
+//       //in case you needed to access the appStores and act on data
+//       const {
+//         rootStore: {appStores},
+//       } = routerStore;
+//
+//       //TODO: call any and all of your here that you need to be executed on entering this page
+//       // no need to do that on the page/view's componentDidMount. The page/component should only
+//       // handle rendering logic when called
+//
+//       return Promise.resolve();
+//     },
+//   },
+//
+//   {
+//     name: PAGE4EXAMPLE_VIEW_ROUTE.routeName,
+//     pattern: PAGE4EXAMPLE_VIEW_ROUTE.routePathPattern,
+//     beforeEnter: async (fromState, toState, routerStore) => {
+//
+//       //TODO: call any and all of your functions here, that you need to be executed before entering this page
+//       // no need to do that on the page/view's componentWillMount. The page/component should only
+//       // handle rendering logic when called
+//
+//       return checkIfAuthenticated(fromState, toState, routerStore);
+//     },
+//     onEnter: (fromState, toState, routerStore) => {
+//       //in case you needed to access the appStores and act on data
+//       const {
+//         rootStore: {appStores},
+//       } = routerStore;
+//
+//       //TODO: call any and all of your here that you need to be executed on entering this page
+//       // no need to do that on the page/view's componentDidMount. The page/component should only
+//       // handle rendering logic when called
+//
+//       return Promise.resolve();
+//     },
+//   },
+//
+//   {
+//     name: PAGE4_SUB_ITEM_EXAMPLE_VIEW_ROUTE.routeName,
+//     pattern: PAGE4_SUB_ITEM_EXAMPLE_VIEW_ROUTE.routePathPattern,
+//     beforeEnter: async (fromState, toState, routerStore) => {
+//
+//       //TODO: call any and all of your functions here, that you need to be executed before entering this page
+//       // no need to do that on the page/view's componentWillMount. The page/component should only
+//       // handle rendering logic when called
+//
+//       return checkIfAuthenticated(fromState, toState, routerStore);
+//     },
+//     onEnter: (fromState, toState, routerStore) => {
+//       //in case you needed to access the appStores and act on data
+//       const {
+//         rootStore: {appStores},
+//       } = routerStore;
+//
+//       //TODO: call any and all of your here that you need to be executed on entering this page
+//       // no need to do that on the page/view's componentDidMount. The page/component should only
+//       // handle rendering logic when called
+//
+//       return Promise.resolve();
+//     },
+//   },
+//
+//   {
+//     name: _404_VIEW.routeName,
+//     pattern: _404_VIEW.routePathPattern,
+//     onEnter: (fromState, toState, routerStore) => {
+//       //in case you needed to access the appStores and act on data
+//       const {
+//         rootStore: {appStores},
+//       } = routerStore;
+//       return Promise.resolve();
+//     },
+//   },
+//
+//   {
+//     name: APP_DEV_MOCKS_VIEW_ROUTE.routeName,
+//     pattern: APP_DEV_MOCKS_VIEW_ROUTE.routePathPattern,
+//     onEnter: (fromState, toState, routerStore) => {
+//       //in case you needed to access the appStores and act on data
+//       const {
+//         rootStore: {appStores},
+//       } = routerStore;
+//       return Promise.resolve();
+//     },
+//   },
+//
+// ];
 
-  {
-    name: DEFAULT_VIEW_ROUTE.routeName,
-    pattern: DEFAULT_VIEW_ROUTE.routePathPattern,
-    beforeEnter: async (fromState, toState, routerStore) => {
-      return redirectIfLoggedIn(fromState, toState, routerStore);
-    },
-    onEnter: (fromState, toState, routerStore) => {
-      //in case you needed to access the appStores and act on data
-      const {
-        rootStore: {appStores},
-      } = routerStore;
+export function AppBaseRoutingComposition() {
 
-      //TODO: call any and all of your here that you need to be executed on entering this page
-      // no need to do that on the page/view's componentDidMount. The page/component should only
-      // handle rendering logic when called
+  const routeMap = [
+    <Route exact
+           path={DEFAULT_VIEW_ROUTE.path}
+           component={DEFAULT_VIEW_ROUTE.component}
+    />,
+    <Route exact
+           path={HOME_VIEW_ROUTE.path}
+           component={HOME_VIEW_ROUTE.component}
+    />,
+    <Route exact
+           path={PAGE2EXAMPLE_VIEW_ROUTE.path}
+           component={PAGE2EXAMPLE_VIEW_ROUTE.component}
+    />,
+    <Route exact
+           path={PAGE3EXAMPLE_VIEW_ROUTE.path}
+           component={PAGE3EXAMPLE_VIEW_ROUTE.component}
+    />,
+    <Route exact
+           path={PAGE4EXAMPLE_VIEW_ROUTE.path}
+           component={PAGE4EXAMPLE_VIEW_ROUTE.component}
+    />,
+    <Route exact
+           path={PAGE4_SUB_ITEM_EXAMPLE_VIEW_ROUTE.path}
+           component={PAGE4_SUB_ITEM_EXAMPLE_VIEW_ROUTE.component}
+    />,
+    <Route exact
+           path={APP_DEV_MOCKS_VIEW_ROUTE.path}
+           component={APP_DEV_MOCKS_VIEW_ROUTE.component}
+    />,
+  ];
 
-      return Promise.resolve();
-    },
-  },
+  return (
+      <Switch>
+        {routeMap}
+      </Switch>
+  );
 
-  {
-    name: HOME_VIEW_ROUTE.routeName,
-    pattern: HOME_VIEW_ROUTE.routePathPattern,
-    beforeEnter: async (fromState, toState, routerStore) => {
-
-      //TODO: call any and all of your functions here, that you need to be executed before entering this page
-      // no need to do that on the page/view's componentWillMount. The page/component should only
-      // handle rendering logic when called
-
-      return checkIfAuthenticated(fromState, toState, routerStore);
-    },
-    onEnter: (fromState, toState, routerStore) => {
-      //in case you needed to access the appStores and act on data
-      const {
-        rootStore: {appStores},
-      } = routerStore;
-
-      //TODO: call any and all of your here that you need to be executed on entering this page
-      // no need to do that on the page/view's componentDidMount. The page/component should only
-      // handle rendering logic when called
-
-      return Promise.resolve();
-    },
-  },
-
-  {
-    name: PAGE2EXAMPLE_VIEW_ROUTE.routeName,
-    pattern: PAGE2EXAMPLE_VIEW_ROUTE.routePathPattern,
-    beforeEnter: async (fromState, toState, routerStore) => {
-
-      //TODO: call any and all of your functions here, that you need to be executed before entering this page
-      // no need to do that on the page/view's componentWillMount. The page/component should only
-      // handle rendering logic when called
-
-      return checkIfAuthenticated(fromState, toState, routerStore);
-    },
-    onEnter: (fromState, toState, routerStore) => {
-      //in case you needed to access the appStores and act on data
-      const {
-        rootStore: {appStores},
-      } = routerStore;
-
-      //TODO: call any and all of your here that you need to be executed on entering this page
-      // no need to do that on the page/view's componentDidMount. The page/component should only
-      // handle rendering logic when called
-
-      return Promise.resolve();
-    },
-  },
-
-  {
-    name: PAGE3EXAMPLE_VIEW_ROUTE.routeName,
-    pattern: PAGE3EXAMPLE_VIEW_ROUTE.routePathPattern,
-    beforeEnter: async (fromState, toState, routerStore) => {
-
-      //TODO: call any and all of your functions here, that you need to be executed before entering this page
-      // no need to do that on the page/view's componentWillMount. The page/component should only
-      // handle rendering logic when called
-
-      return checkIfAuthenticated(fromState, toState, routerStore);
-    },
-    onEnter: (fromState, toState, routerStore) => {
-      //in case you needed to access the appStores and act on data
-      const {
-        rootStore: {appStores},
-      } = routerStore;
-
-      //TODO: call any and all of your here that you need to be executed on entering this page
-      // no need to do that on the page/view's componentDidMount. The page/component should only
-      // handle rendering logic when called
-
-      return Promise.resolve();
-    },
-  },
-
-  {
-    name: PAGE4EXAMPLE_VIEW_ROUTE.routeName,
-    pattern: PAGE4EXAMPLE_VIEW_ROUTE.routePathPattern,
-    beforeEnter: async (fromState, toState, routerStore) => {
-
-      //TODO: call any and all of your functions here, that you need to be executed before entering this page
-      // no need to do that on the page/view's componentWillMount. The page/component should only
-      // handle rendering logic when called
-
-      return checkIfAuthenticated(fromState, toState, routerStore);
-    },
-    onEnter: (fromState, toState, routerStore) => {
-      //in case you needed to access the appStores and act on data
-      const {
-        rootStore: {appStores},
-      } = routerStore;
-
-      //TODO: call any and all of your here that you need to be executed on entering this page
-      // no need to do that on the page/view's componentDidMount. The page/component should only
-      // handle rendering logic when called
-
-      return Promise.resolve();
-    },
-  },
-
-  {
-    name: PAGE4_SUB_ITEM_EXAMPLE_VIEW_ROUTE.routeName,
-    pattern: PAGE4_SUB_ITEM_EXAMPLE_VIEW_ROUTE.routePathPattern,
-    beforeEnter: async (fromState, toState, routerStore) => {
-
-      //TODO: call any and all of your functions here, that you need to be executed before entering this page
-      // no need to do that on the page/view's componentWillMount. The page/component should only
-      // handle rendering logic when called
-
-      return checkIfAuthenticated(fromState, toState, routerStore);
-    },
-    onEnter: (fromState, toState, routerStore) => {
-      //in case you needed to access the appStores and act on data
-      const {
-        rootStore: {appStores},
-      } = routerStore;
-
-      //TODO: call any and all of your here that you need to be executed on entering this page
-      // no need to do that on the page/view's componentDidMount. The page/component should only
-      // handle rendering logic when called
-
-      return Promise.resolve();
-    },
-  },
-
-  {
-    name: _404_VIEW.routeName,
-    pattern: _404_VIEW.routePathPattern,
-    onEnter: (fromState, toState, routerStore) => {
-      //in case you needed to access the appStores and act on data
-      const {
-        rootStore: {appStores},
-      } = routerStore;
-      return Promise.resolve();
-    },
-  },
-
-  {
-    name: APP_DEV_MOCKS_VIEW_ROUTE.routeName,
-    pattern: APP_DEV_MOCKS_VIEW_ROUTE.routePathPattern,
-    onEnter: (fromState, toState, routerStore) => {
-      //in case you needed to access the appStores and act on data
-      const {
-        rootStore: {appStores},
-      } = routerStore;
-      return Promise.resolve();
-    },
-  },
-
-];
+}

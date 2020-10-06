@@ -17,6 +17,14 @@ import {
 } from './store-schemas';
 import {createCurrentStoreModelStructure, getPersistedStoreKey} from './store-utils';
 
+const StoreNames = {
+  appStore: 'appStore',
+  loginStore: 'loginStore',
+  page1ExampleStore: 'page1ExampleStore',
+  page2ExampleStore: 'page2ExampleStore',
+  page3ExampleStore: 'page3ExampleStore',
+  page4ExampleStore: 'page4ExampleStore',
+};
 
 const StoreProviders = {
 
@@ -24,11 +32,11 @@ const StoreProviders = {
     get storeName() {
       return 'appStore';
     },
-    storeKey: (namespace) => getPersistedStoreKey(namespace, this.storeName),
-    storeProvider: (namespace) => new AppActivitySchema(namespace, this.storeName),
+    storeKey: (namespace) => getPersistedStoreKey(namespace, StoreNames.appStore),
+    storeProvider: (namespace) => new AppActivitySchema(namespace, StoreNames.appStore),
     currentStoreModelStructure: createCurrentStoreModelStructure(
-        this.storeName,
-        new AppActivitySchema(null, this.storeName),
+        StoreNames.appStore,
+        new AppActivitySchema(null, StoreNames.appStore),
     ),
   },
 
@@ -36,11 +44,11 @@ const StoreProviders = {
     get storeName() {
       return 'loginStore';
     },
-    storeKey: (namespace) => getPersistedStoreKey(namespace, this.storeName),
-    storeProvider: (namespace) => new LoginActivitySchema(namespace, this.storeName),
+    storeKey: (namespace) => getPersistedStoreKey(namespace, StoreNames.loginStore),
+    storeProvider: (namespace) => new LoginActivitySchema(namespace, StoreNames.loginStore),
     currentStoreModelStructure: createCurrentStoreModelStructure(
-        this.storeName,
-        new LoginActivitySchema(null, this.storeName),
+        StoreNames.loginStore,
+        new LoginActivitySchema(null, StoreNames.loginStore),
     ),
   },
 
@@ -48,11 +56,11 @@ const StoreProviders = {
     get storeName() {
       return 'page1ExampleStore';
     },
-    storeKey: (namespace) => getPersistedStoreKey(namespace, this.storeName),
-    storeProvider: (namespace) => new Page1ExampleActivitySchema(namespace, this.storeName),
+    storeKey: (namespace) => getPersistedStoreKey(namespace, StoreNames.page1ExampleStore),
+    storeProvider: (namespace) => new Page1ExampleActivitySchema(namespace, StoreNames.page1ExampleStore),
     currentStoreModelStructure: createCurrentStoreModelStructure(
-        this.storeName,
-        new Page1ExampleActivitySchema(null, this.storeName),
+        StoreNames.page1ExampleStore,
+        new Page1ExampleActivitySchema(null, StoreNames.page1ExampleStore),
     ),
   },
 
@@ -60,11 +68,11 @@ const StoreProviders = {
     get storeName() {
       return 'page2ExampleStore';
     },
-    storeKey: (namespace) => getPersistedStoreKey(namespace, this.storeName),
-    storeProvider: (namespace) => new Page2ExampleActivitySchema(namespace, this.storeName),
+    storeKey: (namespace) => getPersistedStoreKey(namespace, StoreNames.page2ExampleStore),
+    storeProvider: (namespace) => new Page2ExampleActivitySchema(namespace, StoreNames.page2ExampleStore),
     currentStoreModelStructure: createCurrentStoreModelStructure(
-        this.storeName,
-        new Page2ExampleActivitySchema(null, this.storeName),
+        StoreNames.page2ExampleStore,
+        new Page2ExampleActivitySchema(null, StoreNames.page2ExampleStore),
     ),
   },
 
@@ -72,11 +80,11 @@ const StoreProviders = {
     get storeName() {
       return 'page3ExampleStore';
     },
-    storeKey: (namespace) => getPersistedStoreKey(namespace, this.storeName),
-    storeProvider: (namespace) => new Page3ExampleActivitySchema(namespace, this.storeName),
+    storeKey: (namespace) => getPersistedStoreKey(namespace, StoreNames.page3ExampleStore),
+    storeProvider: (namespace) => new Page3ExampleActivitySchema(namespace, StoreNames.page3ExampleStore),
     currentStoreModelStructure: createCurrentStoreModelStructure(
-        this.storeName,
-        new Page3ExampleActivitySchema(null, this.storeName),
+        StoreNames.page3ExampleStore,
+        new Page3ExampleActivitySchema(null, StoreNames.page3ExampleStore),
     ),
   },
 
@@ -84,11 +92,11 @@ const StoreProviders = {
     get storeName() {
       return 'page4ExampleStore';
     },
-    storeKey: (namespace) => getPersistedStoreKey(namespace, this.storeName),
-    storeProvider: (namespace) => new Page4ExampleActivitySchema(namespace, this.storeName),
+    storeKey: (namespace) => getPersistedStoreKey(namespace, StoreNames.page4ExampleStore),
+    storeProvider: (namespace) => new Page4ExampleActivitySchema(namespace, StoreNames.page4ExampleStore),
     currentStoreModelStructure: createCurrentStoreModelStructure(
-        this.storeName,
-        new Page4ExampleActivitySchema(null, this.storeName),
+        StoreNames.page4ExampleStore,
+        new Page4ExampleActivitySchema(null, StoreNames.page4ExampleStore),
     ),
   },
 

@@ -7,17 +7,8 @@
  * LinkedIn @_ https://linkedin.com/in/kaybarax
  */
 
-import {HistoryAdapter} from 'mobx-state-router';
-import {createBrowserHistory} from 'history';
-import RootStore from './root-store';
+import AppStores from "./app-stores";
 
-const rootStore = new RootStore();
+const appStores = new AppStores();
 
-// Observer of history changes
-const historyAdapter = new HistoryAdapter(
-    rootStore.router,
-    createBrowserHistory(),
-);
-historyAdapter.observeRouterStateChanges();
-
-export default rootStore;
+export default appStores;

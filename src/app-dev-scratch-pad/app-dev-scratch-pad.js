@@ -12,8 +12,8 @@ import SafeComponentWrapper from "../app/safe-component-wrapper";
 import {Helmet} from "react-helmet";
 
 export default class AppDevScratchPad extends Component {
-  static routeName = 'app-dev-scratchPad';
-  static routePathPattern = '/app-dev-scratchPad';
+
+  static path = '/app-dev-scratchPad';
 
   render() {
     return (
@@ -69,4 +69,5 @@ export default class AppDevScratchPad extends Component {
         </SafeComponentWrapper>
     );
   }
+
 }

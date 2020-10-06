@@ -9,25 +9,24 @@
 
 import React from 'react';
 import SafeComponentWrapper from "../../safe-component-wrapper";
-import NavigationHeader from "../../shared-components-and-modules/navigation-header";
+import NavigationHeader from "../../routing-and-navigation/navigation-header";
 import {Helmet} from "react-helmet";
 import {TITLE} from "../../app-config";
 import appNavigation from "../../routing-and-navigation/app-navigation";
 import {PAGE2EXAMPLE_VIEW_ROUTE} from "../../routing-and-navigation/views-routes-declarations";
-import rootStore from "../../stores";
+import WithStoresHoc from "../../stores/with-stores-hoc";
 
-export default function Page1Example(props) {
+export function Page1Example(props) {
 
   const {
     appStore,
     // appAuth,
     // router
   } = props;
-  let {router, appAuth} = rootStore;
 
   const _continueToPage2 = (e) => {
     e.preventDefault();
-    appNavigation.navigateToPage2Example(router);
+    // appNavigation.navigateToPage2Example(router);
   };
 
   return (
@@ -36,8 +35,6 @@ export default function Page1Example(props) {
           <title>{TITLE + ' | Page 1'}</title>
         </Helmet>
         <NavigationHeader
-            routerStore={router}
-            authStore={appAuth}
             appStore={appStore}
         />
 
@@ -71,3 +68,5 @@ export default function Page1Example(props) {
   );
 
 }
+
+export default WithStoresHoc(Page1Example, ['page1ExampleStore', 'appStore']);
