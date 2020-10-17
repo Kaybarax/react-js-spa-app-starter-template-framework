@@ -8,23 +8,28 @@
  */
 
 import React from "react";
-import SafeComponentWrapper from "../../safe-component-wrapper";
-import NavigationHeader from "../../routing-and-navigation/navigation-header";
+import SafeComponentWrapper from "../safe-component-wrapper";
+import NavigationHeaderMenu from "../routing-and-navigation/navigation-header-menu";
 import {Helmet} from "react-helmet";
-import {TITLE} from "../../app-config";
-import {PAGE3EXAMPLE_VIEW_ROUTE} from "../../routing-and-navigation/views-routes-declarations";
-import appNavigation from "../../routing-and-navigation/app-navigation";
-import WithStoresHoc from "../../stores/with-stores-hoc";
+import {TITLE} from "../app-config";
+import {PAGE3EXAMPLE_VIEW_ROUTE} from "../routing-and-navigation/views-routes-declarations";
+import appNavigation from "../routing-and-navigation/app-navigation";
+import WithStoresHoc from "../stores/with-stores-hoc";
 
 export function Page2Example(props) {
+  console.log('Page2Example props', props);
 
   const {
-    appStore,
+    appStore, history
   } = props;
+
+  // because from this page, navigations will
+  // be performed, init navigator
+  appNavigation.initNavigator(history);
 
   const _continueToPage3 = (e) => {
     e.preventDefault();
-    // appNavigation.navigateToPage3Example(router);
+    appNavigation.navigateToPage3Example();
   };
 
   return (
@@ -32,7 +37,7 @@ export function Page2Example(props) {
         <Helmet>
           <title>{TITLE + ' | Page 2'}</title>
         </Helmet>
-        <NavigationHeader
+        <NavigationHeaderMenu
             appStore={appStore}
         />
 

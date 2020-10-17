@@ -9,24 +9,15 @@
 
 import {action} from 'mobx';
 import {clearAllPersistedStoresToLocalStorage, unregisterPersistenceEventListeners,} from './store-utils';
-import {isEmptyObject, isNullUndefined, stringifyObject} from "../util/util";
+import {isEmptyObject, isNullUndefined} from "../util/util";
 import appStores from "./index";
+import appNavigation from "../routing-and-navigation/app-navigation";
 
 /**
  * stored here in this directory because
  * it is working in conjunction with the stores
  */
 export class AppAuth {
-
-  /**
-   * my custom function to keep my signed in user's details up to date
-   * @param user
-   */
-  @action
-  createSignedInUser = (user) => {
-    // console.log('createSignedInUser <--user--> :: ');
-    appStores.stores.app.user = user;
-  };
 
   /**
    * Your frontend app pages, authentication logic for access: JWT, AWS Cognito, Google sign in,
@@ -46,22 +37,17 @@ export class AppAuth {
     //         return false;
     //     });
 
-    //my logic for this framework template share. Of course, remove it and use your own
-    //like I have guided above
-    return !(isNullUndefined(appStores.stores.app.user) ||
-        isEmptyObject(appStores.stores.app.user));
+    //START my authentication logic for this framework template.
+    // Of course, remove it and use your own
+    return !(isNullUndefined(appStores.stores.appStore.user) ||
+        isEmptyObject(appStores.stores.appStore.user));
+    //END my logic
   };
 
-  @action
   handleLogin = () => {
-    // NOTE: on success of your login function and initializations and stuff
-    //  you will call this function, i.e something like "authStore.handleLogin()"
-    //  to complete signing you in to the application, by executing the line below.
-  };
-
-  @action
-  setSignInRedirect = () => {
-    //todo: will be done
+    // TODO: handle any of your pre-login stuff here
+    //  or in any other function anywhere.
+    appNavigation.navigateToSecuredAppHomepageExample();
   };
 
   @action
@@ -72,16 +58,13 @@ export class AppAuth {
       //  -> or another type of sign out process that you are using
 
       // START my example sign out logic for this framework template share.
-      // Of course, remove it and use your own
-      //like I have guided above
-      appStores.stores.app.user = null;
+      // Of course, remove it and use your own when using this template
+      appStores.stores.appStore.user = null;
+      // this.stopStoresPersistenceToLocalStorageAndClearOnLogout();
+      appNavigation.navigateToLoginAndRegistration();
       // END my logic
-
-      // then your frontend app sign out completion
-      this.stopStoresPersistenceToLocalStorageAndClearOnLogout();
-      window.location.reload();
     } catch (e) {
-      console.log(stringifyObject(e));
+      console.log('handleLogout', e);
     }
   };
 

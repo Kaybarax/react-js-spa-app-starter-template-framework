@@ -10,6 +10,16 @@
 import {isEmptyString, objectInstanceProvider} from "../util/util";
 import {toastNotificationAlertProps} from "../shared-components-and-modules/notification-center/notifications-controller";
 
+export const StoreNames = {
+  appStore: 'appStore',
+  loginStore: 'loginStore',
+  page1ExampleStore: 'page1ExampleStore',
+  page2ExampleStore: 'page2ExampleStore',
+  page3ExampleStore: 'page3ExampleStore',
+  page4ExampleStore: 'page4ExampleStore',
+  securedAppStore: 'securedAppStore',
+};
+
 /**
  * sd _ Kaybarax
  * @param namespace
@@ -87,9 +97,7 @@ export function LoginActivitySchema(namespace, name) {
 export function Page1ExampleActivitySchema(namespace, name) {
   ActivityStoreSchema.call(this, namespace, name);
   let schema = this.storeSchema;
-  schema.stuff = {
-    todo: null
-  };
+  schema.todo = [];
   schema.toastNotificationAlert = objectInstanceProvider(toastNotificationAlertProps);
   // console.log('Page1ExampleActivitySchema::', this.storeSchema)
   return this.storeSchema;
@@ -105,9 +113,7 @@ export function Page1ExampleActivitySchema(namespace, name) {
 export function Page2ExampleActivitySchema(namespace, name) {
   ActivityStoreSchema.call(this, namespace, name);
   let schema = this.storeSchema;
-  schema.stuff = {
-    todo: null
-  };
+  schema.todo = [];
   schema.toastNotificationAlert = objectInstanceProvider(toastNotificationAlertProps);
   // console.log('Page2ExampleActivitySchema::', this.storeSchema)
   return this.storeSchema;
@@ -123,9 +129,7 @@ export function Page2ExampleActivitySchema(namespace, name) {
 export function Page3ExampleActivitySchema(namespace, name) {
   ActivityStoreSchema.call(this, namespace, name);
   let schema = this.storeSchema;
-  schema.stuff = {
-    todo: null
-  };
+  schema.todo = [];
   schema.toastNotificationAlert = objectInstanceProvider(toastNotificationAlertProps);
   // console.log('Page3ExampleActivitySchema::', this.storeSchema)
   return this.storeSchema
@@ -141,9 +145,23 @@ export function Page3ExampleActivitySchema(namespace, name) {
 export function Page4ExampleActivitySchema(namespace, name) {
   ActivityStoreSchema.call(this, namespace, name);
   let schema = this.storeSchema;
-  schema.stuff = {
-    todo: null
-  };
+  schema.todo = [];
+  schema.toastNotificationAlert = objectInstanceProvider(toastNotificationAlertProps);
+  // console.log("Page4ExampleActivitySchema::", this.storeSchema)
+  return this.storeSchema;
+}
+
+/**
+ * sd _ Kaybarax
+ * @param namespace
+ * @param name
+ * @returns {{loadingMessage: string, storeKey: *, name: *, loading: boolean, updated: boolean}}
+ * @constructor
+ */
+export function SecuredAppActivitySchema(namespace, name) {
+  ActivityStoreSchema.call(this, namespace, name);
+  let schema = this.storeSchema;
+  schema.todo = [];
   schema.toastNotificationAlert = objectInstanceProvider(toastNotificationAlertProps);
   // console.log("Page4ExampleActivitySchema::", this.storeSchema)
   return this.storeSchema;

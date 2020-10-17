@@ -13,7 +13,7 @@ import {Helmet} from "react-helmet";
 
 export default class AppDevScratchPad extends Component {
 
-  static path = '/app-dev-scratchPad';
+  static path = '/app-dev-scratch-pad';
 
   render() {
     return (

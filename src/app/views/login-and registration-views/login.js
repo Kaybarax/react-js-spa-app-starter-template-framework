@@ -21,8 +21,8 @@ import {LOGIN_PAGE_ACTIONS_ENUM} from "../../stores/actions-and-stores-data";
 import '../../theme/login-styles.scss';
 import ResetPasswordForm from "./reset-password-form";
 import {User} from "../../app-management/data-manager/models-manager";
-import appNavigation from "../../routing-and-navigation/app-navigation";
 import WithStoresHoc from "../../stores/with-stores-hoc";
+import appNavigation from "../../routing-and-navigation/app-navigation";
 
 export function Login(props) {
   console.log('Login props', props);
@@ -30,8 +30,13 @@ export function Login(props) {
   const {
     appStore,
     loginStore,
-    loginStore: {toastNotificationAlert}
+    loginStore: {toastNotificationAlert},
+    history
   } = props;
+
+  // because from this page, navigations will
+  // be performed, init navigator
+  appNavigation.initNavigator(history);
 
   const showLoginForm = () => {
     loginStore.pageAction = LOGIN_PAGE_ACTIONS_ENUM.LOGIN;
@@ -86,13 +91,9 @@ export function Login(props) {
                     onClick={_ => {
                       showResetPasswordForm();
                     }}
-                >Reset Password</span> |&nbsp;
-                <span
-                    onClick={_ => {
-                      // appNavigation.navigateToAppDevScratchPad(router);
-                    }}
-                >Mock Stuff Page</span>
+                >Reset Password</span>
               </h3>
+              <a href={'/'}>Exit</a>
             </div>
           </div>
 
@@ -104,7 +105,6 @@ export function Login(props) {
                     loginModel={loginStore.loginForm}
                     toastNotificationAlert={toastNotificationAlert}
                     appStore={appStore}
-                    // authStore={appAuth}
                 />
               </div>
             </div>

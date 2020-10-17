@@ -8,13 +8,15 @@
  */
 
 import React from 'react';
-import './app/theme/app-styles.scss';
-import 'bulma';
+// import {useHistory} from "react-router-dom";
 import {Provider} from 'mobx-react';
+import 'bulma';
+import './app/theme/app-styles.scss';
 import AppEntry from './app/app-entry';
 import {isEmptyObject} from "./app/util/util";
 import {appIndexedDb} from "./app/app-management/data-manager/indexeddb-manager";
 import appStores from "./app/stores";
+import appNavigation from "./app/routing-and-navigation/app-navigation";
 
 export default function App() {
 
@@ -27,7 +29,6 @@ export default function App() {
 
   let [loadAppStores, setAppStoresLoaded] = React.useState(false);
   let [loadAppStoresFeedback, setAppStoresLoadedFeedback] = React.useState('Initializing app state...');
-
 
   React.useEffect(() => {
 
@@ -52,23 +53,16 @@ export default function App() {
 
   if (!loadAppStores || isEmptyObject(appStores.stores)) {
     return (
-        <div
-            style={[]}
-        >
-          {/*<AppStartLoading*/}
-          {/*    loadAppStores={loadAppStores}*/}
-          {/*    startUpMessage={loadAppStoresFeedback}*/}
-          {/*/>*/}
+        <div>
           <h3>{loadAppStoresFeedback}</h3>
         </div>
     )
   }
 
-  // @ts-ignore
-  // pass navStore reference to appNavigation
-  // appNavigation.navStore = appStores.stores.appStore.navStore;
-
   const {stores} = appStores;
+
+  // pass navStore reference to appNavigation
+  appNavigation.navStore = stores.appStore.navStore;
 
   return (
       <Provider

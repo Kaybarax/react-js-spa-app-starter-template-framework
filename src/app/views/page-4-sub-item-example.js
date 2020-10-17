@@ -8,25 +8,30 @@
  */
 
 import React from "react";
-import SafeComponentWrapper from "../../safe-component-wrapper";
-import NavigationHeader from "../../routing-and-navigation/navigation-header";
+import SafeComponentWrapper from "../safe-component-wrapper";
+import NavigationHeaderMenu from "../routing-and-navigation/navigation-header-menu";
 import {Helmet} from "react-helmet";
-import {TITLE} from "../../app-config";
-import {isNullUndefined} from "../../util/util";
-import {SOs_and_Credits_List} from "../../app-management/data-manager/list-manager";
+import {TITLE} from "../app-config";
+import {isNullUndefined} from "../util/util";
+import {SOs_and_Credits_List} from "../app-management/data-manager/list-manager";
 import {faCoffee} from "@fortawesome/free-solid-svg-icons/faCoffee";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import appNavigation from "../../routing-and-navigation/app-navigation";
-import WithStoresHoc from "../../stores/with-stores-hoc";
+import appNavigation from "../routing-and-navigation/app-navigation";
+import WithStoresHoc from "../stores/with-stores-hoc";
 
 export function Page4SubItemExample(props) {
+  console.log('Page4SubItemExample props', props);
 
   const {
-    appStore,
+    appStore, history, location
   } = props;
 
-  // let {item} = router.routerState.params;
-  let person = SOs_and_Credits_List.find(it => it.person === null /*item*/);
+  // because from this page, navigations will
+  // be performed, init navigator
+  appNavigation.initNavigator(history);
+
+  let {item} = location.state;
+  let person = SOs_and_Credits_List.find(it => it.person === item);
 
   if (isNullUndefined(person)) {
     return (
@@ -60,7 +65,7 @@ export function Page4SubItemExample(props) {
         <Helmet>
           <title>{TITLE + ' | Page 4 Sub-item Example '}</title>
         </Helmet>
-        <NavigationHeader
+        <NavigationHeaderMenu
             appStore={appStore}
         />
 
@@ -80,7 +85,7 @@ export function Page4SubItemExample(props) {
               <div className="card">
                 <div className="card-image">
                   <figure className="image is-4by3">
-                    <img src={require("../../media/images/image.png")}
+                    <img src={require("../media/images/image.png")}
                          alt="Placeholder image"/>
                   </figure>
                 </div>
@@ -88,7 +93,7 @@ export function Page4SubItemExample(props) {
                   <div className="media">
                     <div className="media-left">
                       <figure className="image is-48x48">
-                        <img src={require("../../media/images/image.png")}
+                        <img src={require("../media/images/image.png")}
                              alt="Placeholder image"/>
                       </figure>
                     </div>

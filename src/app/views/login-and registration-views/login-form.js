@@ -14,6 +14,7 @@ import Button from '@material-ui/core/Button';
 import {handleLogin} from "../../controllers/login-controller";
 import {textValueChanged} from "../../util/web-forms-data-collection-utils";
 import {isEmptyString} from "../../util/util";
+import appAuth from "../../stores/app-auth";
 
 export default function LoginForm(props) {
 
@@ -82,12 +83,10 @@ export default function LoginForm(props) {
               color="primary" type={'submit'}
               onClick={e => {
                 e.preventDefault();
-
                 if (!isValidFormData()) {
                   return;
                 }
-
-                // handleLogin(loginModel, toastNotificationAlert, appStore, appAuth);
+                handleLogin(loginModel, toastNotificationAlert, appStore, appAuth);
               }}
           >
             Login

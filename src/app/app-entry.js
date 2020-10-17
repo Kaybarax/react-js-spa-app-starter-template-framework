@@ -9,8 +9,8 @@
 
 import React from 'react';
 import {BrowserRouter as Router} from "react-router-dom";
-import {AppBaseRoutingComposition} from "./routing-and-navigation/routes";
-import FallBackPage from "./fall-back-page";
+import {AppBaseRoutingComposition} from "./routing-and-navigation/routing-composition";
+import LoadingRouteFallback from "./loading-route-fallback";
 
 
 export default function AppEntry(props) {
@@ -19,7 +19,7 @@ export default function AppEntry(props) {
   return (
       <React.Fragment>
         <Router>
-          <React.Suspense fallback={<FallBackPage/>}>
+          <React.Suspense fallback={<LoadingRouteFallback/>}>
             <AppBaseRoutingComposition/>
           </React.Suspense>
         </Router>

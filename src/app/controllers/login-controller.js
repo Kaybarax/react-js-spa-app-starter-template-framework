@@ -1,6 +1,11 @@
 //key
 //sd - self described
-//@authored by Kaybarax -- Twitter @_ https://twitter.com/Kaybarax, Github @_ https://github.com/Kaybarax, LinkedIn @_ https://linkedin.com/in/kaybarax
+/**
+ * @authored by Kaybarax
+ * Twitter @_ https://twitter.com/Kaybarax
+ * Github @_ https://github.com/Kaybarax
+ * LinkedIn @_ https://linkedin.com/in/kaybarax
+ */
 
 import {toastNotificationCallback} from "../shared-components-and-modules/notification-center/notifications-controller";
 import {deepCloneObject, isNullUndefined} from "../util/util";
@@ -42,9 +47,9 @@ export function handleSignUp(signUpModel, toastNotificationAlert) {
  * @param loginForm
  * @param toastNotificationAlert
  * @param appStore
- * @param authStore
+ * @param appAuth
  */
-export function handleLogin(loginForm, toastNotificationAlert, appStore, authStore) {
+export function handleLogin(loginForm, toastNotificationAlert, appStore, appAuth) {
 
   let db = window.db;//get db;
   // Set up an object store and transaction
@@ -75,7 +80,7 @@ export function handleLogin(loginForm, toastNotificationAlert, appStore, authSto
     appStore.user = deepCloneObject(user);
     toastNotificationCallback('succ', 'Login success', toastNotificationAlert);
     //to allow notification display
-    setTimeout(_ => authStore.handleLogin(), 2000)
+    setTimeout(_ => appAuth.handleLogin(), 2000);
   }
 
 }
@@ -86,5 +91,6 @@ export function handleLogin(loginForm, toastNotificationAlert, appStore, authSto
  */
 export function handleResetPassword(toastNotificationAlert) {
   //todo: ... your logic ... you get the drill by now
-  toastNotificationCallback('info', 'You can play around with this!)', toastNotificationAlert)
+  toastNotificationCallback('info', 'You can play around with this, mate. Cheers!)',
+      toastNotificationAlert);
 }

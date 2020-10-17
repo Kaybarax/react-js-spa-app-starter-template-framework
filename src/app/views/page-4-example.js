@@ -8,24 +8,29 @@
  */
 
 import React from "react";
-import SafeComponentWrapper from "../../safe-component-wrapper";
-import NavigationHeader from "../../routing-and-navigation/navigation-header";
+import SafeComponentWrapper from "../safe-component-wrapper";
+import NavigationHeaderMenu from "../routing-and-navigation/navigation-header-menu";
 import {Helmet} from "react-helmet";
-import {TITLE} from "../../app-config";
-import {isEmptyArray} from "../../util/util";
-import {SOs_and_Credits_List} from "../../app-management/data-manager/list-manager";
-import appNavigation from "../../routing-and-navigation/app-navigation";
-import WithStoresHoc from "../../stores/with-stores-hoc";
+import {TITLE} from "../app-config";
+import {isEmptyArray} from "../util/util";
+import {SOs_and_Credits_List} from "../app-management/data-manager/list-manager";
+import appNavigation from "../routing-and-navigation/app-navigation";
+import WithStoresHoc from "../stores/with-stores-hoc";
 
 export function Page4Example(props) {
+  console.log('Page4Example props', props);
 
   const {
-    appStore,
+    appStore, history
   } = props;
+
+  // because from this page, navigations will
+  // be performed, init navigator
+  appNavigation.initNavigator(history);
 
   const _viewAttributedPersonDetails = (e, person) => {
     e.preventDefault();
-    // appNavigation.navigateToPage4SubItemExample(router, {item: person})
+    appNavigation.navigateToPage4SubItemExample({state: {item: person}})
   };
 
   return (
@@ -33,7 +38,7 @@ export function Page4Example(props) {
         <Helmet>
           <title>{TITLE + ' | Page4'}</title>
         </Helmet>
-        <NavigationHeader
+        <NavigationHeaderMenu
             appStore={appStore}
         />
 
@@ -84,7 +89,7 @@ export function Page4Example(props) {
                               <div className="">
                                 <figure>
                                   <img
-                                      src={require('../../media/images/image.png')}
+                                      src={require('../media/images/image.png')}
                                       alt={'alt'}
                                       style={{
                                         width: 96,
@@ -106,7 +111,7 @@ export function Page4Example(props) {
                               <div className="">
                                 A little about {item.person}, click to view full details
                                 <img
-                                    src={require('../../media/images/short-paragraph.png')}
+                                    src={require('../media/images/short-paragraph.png')}
                                     alt={'alt'}
                                     style={{
                                       width: 520,

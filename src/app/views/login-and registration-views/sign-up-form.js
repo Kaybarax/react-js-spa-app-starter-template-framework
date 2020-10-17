@@ -125,7 +125,6 @@ export default function SignUpForm(props) {
               color="primary" type={'submit'}
               onClick={e => {
                 e.preventDefault();
-
                 if (!isValidFormData()) {
                   return;
                 }

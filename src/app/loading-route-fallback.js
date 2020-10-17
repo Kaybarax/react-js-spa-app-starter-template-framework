@@ -9,8 +9,8 @@
 
 import React from 'react';
 
-export default class FallBackPage extends React.Component {
+export default class LoadingRouteFallback extends React.Component {
   render() {
-    return <h3>Something went wrong.</h3>;
+    return <h3>App is loading</h3>;
   }
 }
