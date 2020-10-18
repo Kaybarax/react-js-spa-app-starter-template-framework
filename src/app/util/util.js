@@ -205,16 +205,27 @@ export function objectAHasSameKeysAsObjectB(objA, objB) {
  * @param item
  */
 export function storeItemToLocalStorage(key, item) {
-  localStorage.setItem('' + key, stringifyObject(item));
+  localStorage.setItem(key, item);
 }
 
 /**
  * sd _ Kaybarax
  * @param key
- * @returns {string|null}
+ * @param item
  */
-export function getItemFromLocalStorage(key) {
-  return localStorage.getItem('' + key);
+export function storeObjectToLocalStorage(key, item) {
+  localStorage.setItem(key, stringifyObject(item));
+}
+
+/**
+ * sd _ Kaybarax
+ * @param key
+ * @returns {Promise<any>}
+ */
+export async function getItemFromLocalStorage(key) {
+  let item = await localStorage.getItem(key);
+  console.log('getItemFromLocalStorage item', item);
+  return item;
 }
 
 /**
@@ -223,6 +234,7 @@ export function getItemFromLocalStorage(key) {
  * @returns {Promise<null|any>}
  */
 export async function getObjectFromLocalStorage(key) {
+  console.log('getObjectFromLocalStorage key', key);
   let item = await getItemFromLocalStorage(key);
   if (!isEmptyString(item)) {
     try {

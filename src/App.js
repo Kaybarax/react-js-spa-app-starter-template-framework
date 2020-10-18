@@ -42,6 +42,10 @@ export default function App() {
         if (!isEmptyObject(appStores.stores)) {
           setAppStoresLoaded(true);
           setAppStoresLoadedFeedback('App state loaded!');
+          //comment the below line out,
+          //if you don't want automatic persistence on
+          //the given event changes
+          // appStores.persistMyStoresToLocalStorageOnEventChanges(appStores.stores);
         } else {
           setAppStoresLoaded(false);
           setAppStoresLoadedFeedback('Failed to load app state. Reload app to try again');

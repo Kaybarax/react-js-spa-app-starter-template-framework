@@ -8,14 +8,19 @@
  */
 
 import {
-  getItemFromLocalStorage, getObjectFromLocalStorage,
+  deepCloneObject,
+  getItemFromLocalStorage,
+  getObjectFromLocalStorage,
   isNullUndefined,
   objectAHasSameKeysAsObjectB,
   objectKeyExists,
   storeItemToLocalStorage,
+  storeObjectToLocalStorage,
   stringifyObject,
 } from '../util/util';
-import {MobX_StoreKey_Identifier_In_LocalStorage} from './actions-and-stores-data';
+import {MobX_StoreKey_Identifier, MobX_StoreSnapshot_Identifier} from './actions-and-stores-data';
+import {toJS} from "mobx";
+import StoreProviders from "./stores-providers";
 
 /**
  * sd _ Kaybarax
@@ -24,71 +29,149 @@ import {MobX_StoreKey_Identifier_In_LocalStorage} from './actions-and-stores-dat
  * @param storeProvider
  * @param storeNamespace
  */
-export const persistedStoreFromLocalStorage = (storeKey, storeProvider, storeNamespace) => {
-  let savedStore = JSON.parse(localStorage.getItem(storeKey));
+export async function persistedStoreFromLocalStorage(storeKey, storeProvider, storeNamespace) {
+
+  let savedStore = await getObjectFromLocalStorage(storeKey);
+  console.log('FOUND PERSISTED STORE', savedStore);
+
   if (isNullUndefined(savedStore)) {
     return null;
   }
 
   //if store schema is updated, then update persisted store model
-  let storeFromSchema = storeProvider.storeProvider(storeNamespace);
+  let storeFromSchema = storeProvider.storeProvidedBy(storeNamespace);
   let matchingKeys = objectAHasSameKeysAsObjectB(savedStore, storeFromSchema);
+  console.log('Store schema has not changed', matchingKeys);
+  console.log('For store', storeFromSchema['storeName']);
+
   if (!matchingKeys) {
-    //get persisted data to updated store object
+
+    //remove deleted/renamed keys
     for (let key in savedStore) {
-      //if key is still there in new object model
-      if (objectKeyExists(storeFromSchema, key)) {
-        storeFromSchema[key] = savedStore[key];
+      if (!objectKeyExists(storeFromSchema, key)) {
+        delete savedStore[key];
       }
     }
 
+    //add added keys
+    for (let key in storeFromSchema) {
+      if (!objectKeyExists(savedStore, key)) {
+        savedStore[key] = storeFromSchema[key];
+      }
+    }
+
+    //break memory reference
+    savedStore = deepCloneObject(savedStore);
+
     //update persisted store
-    localStorage.setItem(storeKey, stringifyObject(storeFromSchema));
-    // and return the updated one
-    return storeFromSchema;
+    await storeObjectToLocalStorage(storeKey, storeFromSchema);
+
   }
 
-  //check for internal structural change
-  let {currentStoreModelStructure} = storeProvider;
-  if (isNullUndefined(currentStoreModelStructure)) {
-    return null;
+  //if internal structure has changed, also do an update
+  let storeModelSnapshot = await storeProvider.storeModelSnapshot;
+  console.log('storeModelSnapshot', storeModelSnapshot);
+
+  if (isNullUndefined(storeModelSnapshot)) {
+    return savedStore;
   }
-  let internalStructureChanged = false;
-  for (let key in storeFromSchema) {
-    let fromNewStoreSchema = stringifyObject(storeFromSchema[key]);
-    let fromCurrentStoreObjectStructure = stringifyObject(currentStoreModelStructure[key]);
-    if (key !== 'storeName' && key !== 'storeKey' && fromNewStoreSchema !== fromCurrentStoreObjectStructure) {
-      //update
-      currentStoreModelStructure[key] = storeFromSchema[key];
-      //override and update
-      savedStore[key] = storeFromSchema[key];
-      internalStructureChanged = true;
+
+  let fromStoreSchema = deepCloneObject(storeFromSchema);
+  delete fromStoreSchema['storeName'];
+  delete fromStoreSchema['storeKey'];
+  delete fromStoreSchema['namespace'];
+
+  let fromStoreModelSnapshot = deepCloneObject(storeModelSnapshot);
+  delete fromStoreModelSnapshot['storeName'];
+  delete fromStoreModelSnapshot['storeKey'];
+  delete fromStoreModelSnapshot['namespace'];
+
+  console.log('fromStoreSchema', fromStoreSchema);
+  console.log('fromStoreModelSnapshot', fromStoreModelSnapshot);
+
+  if (stringifyObject(fromStoreSchema) !== stringifyObject(fromStoreModelSnapshot)) {
+
+    console.log('internalStructureChanged');
+
+    //update internal changes
+    for (let key in fromStoreSchema) {
+      if (
+          objectKeyExists(fromStoreModelSnapshot, key) &&
+          (stringifyObject(fromStoreSchema[key] !== stringifyObject(fromStoreModelSnapshot[key])))
+      ) {
+        //don't care about data, override,
+        // because structure has changed
+        savedStore[key] = fromStoreSchema[key];
+      }
     }
-  }
-  if (internalStructureChanged) {
-    storeItemToLocalStorage(storeFromSchema.storeName, currentStoreModelStructure);
+
+    //break memory reference
+    savedStore = deepCloneObject(savedStore);
+
+    //update persisted store
     storeItemToLocalStorage(storeKey, savedStore);
+
+    //update snapshot
+    storeItemToLocalStorage(MobX_StoreSnapshot_Identifier + storeFromSchema.storeName, storeFromSchema);
+
   }
+
   return savedStore;
-};
+
+}
+
+/**
+ * sd _ Kaybarax
+ * @param store
+ */
+export async function persistStoreToLocalStorage(store) {
+  console.log('persistStoreToLocalStorage store', toJS(store));
+  try {
+    let storeKey = store.storeKey;
+    console.log('persistStoreToLocalStorage storeKey', storeKey);
+    //only persist if data has changed
+    let oldStoreData = await getObjectFromLocalStorage(storeKey);
+    let newStoreData = toJS(store);
+    console.log('persistStoreToLocalStorage oldStoreData', oldStoreData);
+    console.log('persistStoreToLocalStorage newStoreData', newStoreData);
+    if (stringifyObject(oldStoreData) === stringifyObject(newStoreData)) {
+      return;
+    }
+    console.log('persistStoreToLocalStorage DATA CHANGED FOR STORE', store.storeName);
+    await storeObjectToLocalStorage(storeKey, newStoreData);
+    //store the current store model snapshot, if not there already,
+    //for store object's internal structural changes, monitoring and update
+    let storeModelSnapshot = await getItemFromLocalStorage(MobX_StoreSnapshot_Identifier + store.storeName);
+    console.log('persistStoreToLocalStorage storeModelSnapshot', storeModelSnapshot);
+    if (isNullUndefined(storeModelSnapshot)) {
+      let storeProvider = StoreProviders[store.storeName];
+      console.log('persistStoreToLocalStorage storeProvider', storeProvider);
+      await storeObjectToLocalStorage(MobX_StoreSnapshot_Identifier + store.storeName, storeProvider.storeProvidedBy(store.namespace));
+      console.log('persistStoreToLocalStorage storeModelSnapshot added');
+    }
+    console.log('persistStoreToLocalStorage SUCCESS');
+  } catch (err) {
+    console.log('persistStoreToLocalStorage failure!!');
+    console.log('Critical failure in persistence of a store!!');
+    //and stop persistence
+    clearAllPersistedStoresToLocalStorage();
+  }
+}
 
 /**
  * sd _ Kaybarax
  * @param stores
+ * @returns {Promise<void>}
  */
-export function persistStoresToLocalStorage(stores) {
+export async function persistStoresToLocalStorage(stores) {
+  console.log('persistStoresToLocalStorage stores', stores);
   try {
     for (let store of stores) {
-      let storeKey = store.store.storeKey;
-      localStorage.setItem(storeKey, stringifyObject(store.store));
-      //store the reference for internal structure change if not there already
-      let reference = getItemFromLocalStorage(store.store.storeName);
-      isNullUndefined(reference) &&
-      storeItemToLocalStorage(store.store.storeName, store.storeSchema());
+      await persistStoreToLocalStorage(store);
     }
   } catch (err) {
     console.log('persistStoresToLocalStorage failure!!');
-    alert('Critical failure in persistence of your stores!!');
+    console.log('Critical failure in persistence of stores!!');
     //and stop persistence
     clearAllPersistedStoresToLocalStorage();
   }
@@ -100,7 +183,7 @@ export function persistStoresToLocalStorage(stores) {
  */
 export const persistStoreUpdatesLocalStorageOnEvent = (stores) => {
   try {
-    persistStoresToLocalStorage(stores);
+    persistStoresToLocalStorage(stores).then(null);
   } catch (err) {
     console.log('persistStoreUpdatesLocalStorageOnEvent failure!!');
   }
@@ -122,7 +205,8 @@ export function clearAllPersistedStoresToLocalStorage() {
     let keys = Object.keys(localStorage);
     for (let key of keys) {
       let storeKey = '' + key;
-      if (storeKey.includes(MobX_StoreKey_Identifier_In_LocalStorage)) {
+      if (storeKey.includes(MobX_StoreKey_Identifier) ||
+          storeKey.includes(MobX_StoreSnapshot_Identifier)) {
         clearPersistedStoreFromLocalStorage(storeKey);
       }
     }
@@ -177,11 +261,12 @@ export function unregisterPersistenceEventListeners() {
  * @param storeSchemaInstance
  * @returns {Promise<T | *>}
  */
-export function createCurrentStoreModelStructure(storeName, storeSchemaInstance) {
-  return getObjectFromLocalStorage(storeName)
+export function createStoreModelSnapshot(storeName, storeSchemaInstance) {
+  console.log('createStoreModelSnapshot');
+  return getObjectFromLocalStorage(MobX_StoreSnapshot_Identifier + storeName)
       .then(item => item || storeSchemaInstance)
       .catch(error => {
-        console.log('createCurrentStoreModelStructure error', error);
+        console.log('createStoreModelSnapshot error', error);
         return storeSchemaInstance;
       });
 }

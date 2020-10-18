@@ -15,70 +15,71 @@ import {
   Page3ExampleActivitySchema,
   Page4ExampleActivitySchema, SecuredAppActivitySchema, StoreNames,
 } from './store-schemas';
-import {createCurrentStoreModelStructure, getPersistedStoreKey} from './store-utils';
+import {createStoreModelSnapshot, getPersistedStoreKey} from './store-utils';
+import {MobX_StoreSnapshot_Identifier} from "./actions-and-stores-data";
 
 const StoreProviders = {
 
   appStore: {
     storeKey: (namespace) => getPersistedStoreKey(namespace, StoreNames.appStore),
-    storeProvider: (namespace) => new AppActivitySchema(namespace, StoreNames.appStore),
-    currentStoreModelStructure: createCurrentStoreModelStructure(
+    storeProvidedBy: (namespace) => new AppActivitySchema(namespace, StoreNames.appStore),
+    storeModelSnapshot: createStoreModelSnapshot(
         StoreNames.appStore,
-        new AppActivitySchema(null, StoreNames.appStore),
+        new AppActivitySchema(MobX_StoreSnapshot_Identifier, StoreNames.appStore),
     ),
   },
 
   loginStore: {
     storeKey: (namespace) => getPersistedStoreKey(namespace, StoreNames.loginStore),
-    storeProvider: (namespace) => new LoginActivitySchema(namespace, StoreNames.loginStore),
-    currentStoreModelStructure: createCurrentStoreModelStructure(
+    storeProvidedBy: (namespace) => new LoginActivitySchema(namespace, StoreNames.loginStore),
+    storeModelSnapshot: createStoreModelSnapshot(
         StoreNames.loginStore,
-        new LoginActivitySchema(null, StoreNames.loginStore),
+        new LoginActivitySchema(MobX_StoreSnapshot_Identifier, StoreNames.loginStore),
     ),
   },
 
   page1ExampleStore: {
     storeKey: (namespace) => getPersistedStoreKey(namespace, StoreNames.page1ExampleStore),
-    storeProvider: (namespace) => new Page1ExampleActivitySchema(namespace, StoreNames.page1ExampleStore),
-    currentStoreModelStructure: createCurrentStoreModelStructure(
+    storeProvidedBy: (namespace) => new Page1ExampleActivitySchema(namespace, StoreNames.page1ExampleStore),
+    storeModelSnapshot: createStoreModelSnapshot(
         StoreNames.page1ExampleStore,
-        new Page1ExampleActivitySchema(null, StoreNames.page1ExampleStore),
+        new Page1ExampleActivitySchema(MobX_StoreSnapshot_Identifier, StoreNames.page1ExampleStore),
     ),
   },
 
   page2ExampleStore: {
     storeKey: (namespace) => getPersistedStoreKey(namespace, StoreNames.page2ExampleStore),
-    storeProvider: (namespace) => new Page2ExampleActivitySchema(namespace, StoreNames.page2ExampleStore),
-    currentStoreModelStructure: createCurrentStoreModelStructure(
+    storeProvidedBy: (namespace) => new Page2ExampleActivitySchema(namespace, StoreNames.page2ExampleStore),
+    storeModelSnapshot: createStoreModelSnapshot(
         StoreNames.page2ExampleStore,
-        new Page2ExampleActivitySchema(null, StoreNames.page2ExampleStore),
+        new Page2ExampleActivitySchema(MobX_StoreSnapshot_Identifier, StoreNames.page2ExampleStore),
     ),
   },
 
   page3ExampleStore: {
     storeKey: (namespace) => getPersistedStoreKey(namespace, StoreNames.page3ExampleStore),
-    storeProvider: (namespace) => new Page3ExampleActivitySchema(namespace, StoreNames.page3ExampleStore),
-    currentStoreModelStructure: createCurrentStoreModelStructure(
+    storeProvidedBy: (namespace) => new Page3ExampleActivitySchema(namespace, StoreNames.page3ExampleStore),
+    storeModelSnapshot: createStoreModelSnapshot(
         StoreNames.page3ExampleStore,
-        new Page3ExampleActivitySchema(null, StoreNames.page3ExampleStore),
+        new Page3ExampleActivitySchema(MobX_StoreSnapshot_Identifier, StoreNames.page3ExampleStore),
     ),
   },
 
   page4ExampleStore: {
     storeKey: (namespace) => getPersistedStoreKey(namespace, StoreNames.page4ExampleStore),
-    storeProvider: (namespace) => new Page4ExampleActivitySchema(namespace, StoreNames.page4ExampleStore),
-    currentStoreModelStructure: createCurrentStoreModelStructure(
+    storeProvidedBy: (namespace) => new Page4ExampleActivitySchema(namespace, StoreNames.page4ExampleStore),
+    storeModelSnapshot: createStoreModelSnapshot(
         StoreNames.page4ExampleStore,
-        new Page4ExampleActivitySchema(null, StoreNames.page4ExampleStore),
+        new Page4ExampleActivitySchema(MobX_StoreSnapshot_Identifier, StoreNames.page4ExampleStore),
     ),
   },
 
   securedAppStore: {
     storeKey: (namespace) => getPersistedStoreKey(namespace, StoreNames.securedAppStore),
-    storeProvider: (namespace) => new SecuredAppActivitySchema(namespace, StoreNames.securedAppStore),
-    currentStoreModelStructure: createCurrentStoreModelStructure(
+    storeProvidedBy: (namespace) => new SecuredAppActivitySchema(namespace, StoreNames.securedAppStore),
+    storeModelSnapshot: createStoreModelSnapshot(
         StoreNames.securedAppStore,
-        new SecuredAppActivitySchema(null, StoreNames.securedAppStore),
+        new SecuredAppActivitySchema(MobX_StoreSnapshot_Identifier, StoreNames.securedAppStore),
     ),
   },
 

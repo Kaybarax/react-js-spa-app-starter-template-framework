@@ -13,8 +13,8 @@ import {
   persistStoreUpdatesToLocalStorageOnPossibleUpdateOfEvents,
 } from './store-utils';
 import StoreProviders from './stores-providers';
-import {MobX_StoreKey_Identifier_In_LocalStorage} from './actions-and-stores-data';
-import {isNullUndefined} from "../util/util";
+import {MobX_StoreKey_Identifier} from './actions-and-stores-data';
+import {isEmptyArray, isNullUndefined} from "../util/util";
 
 /**
  * sd _ Kaybarax
@@ -27,54 +27,65 @@ export default class AppStores {
   }
 
   //use to automatically persist this store's stores
-  // on the provided events
-  persistMyStoresToLocalStorageOnEvent(myStores) {
-    persistStoreUpdatesToLocalStorageOnPossibleUpdateOfEvents(myStores);
+  //on the provided event changes
+  persistMyStoresToLocalStorageOnEventChanges(myStores) {
+    let storesList = [];
+    for (let key in myStores) {
+      storesList.push(myStores[key]);
+    }
+    if (isEmptyArray(storesList)) {
+      return;
+    }
+    persistStoreUpdatesToLocalStorageOnPossibleUpdateOfEvents(storesList);
   }
 
   //to assist with differentiation during storage to persistence media,
   // if application uses several stores classes
-  static namespace = 'AppStores_' + MobX_StoreKey_Identifier_In_LocalStorage;
+  static namespace = 'AppStores_' + MobX_StoreKey_Identifier;
 
   loadAppStores = async () => {
 
-    // try {
-    //
-    //   this.stores = {};
-    //   this.appStoresLoaded = false;
-    //
-    //   for (let key in StoreProviders) {
-    //     let storeKey = StoreProviders[key].storeKey(AppStores.namespace);
-    //     let storeProvider = StoreProviders[key];
-    //     let store = await persistedStoreFromLocalStorage(storeKey, storeProvider, AppStores.namespace);
-    //     isNullUndefined(store) && (store = storeProvider.storeProvider(AppStores.namespace));
-    //     this.stores[key] = observable(store);
-    //     console.log('CREATED STORE -> ', key, ' -> ', toJS(this.stores[key]));
-    //   }
-    //
-    //   this.appStoresLoaded = true;
-    //
-    // } catch (err) {
+    try {
 
-      // console.log('loadAppStores err', err);
+      this.stores = {};
+      this.appStoresLoaded = false;
+
+      for (let key in StoreProviders) {
+        let storeKey = StoreProviders[key].storeKey(AppStores.namespace);
+        let storeProvider = StoreProviders[key];
+        let store = await persistedStoreFromLocalStorage(storeKey, storeProvider, AppStores.namespace);
+        console.log('persistedStoreFromLocalStorage store -> ', store);
+        if (isNullUndefined(store)) {
+          store = storeProvider.storeProvidedBy(AppStores.namespace);
+          console.log('created store -> ', store);
+        }
+        this.stores[key] = observable(store);
+        console.log('INITIALIZED STORE -> ', key, ' -> ', toJS(this.stores[key]));
+      }
+
+      this.appStoresLoaded = true;
+
+    } catch (err) {
+
+      console.log('loadAppStores err', err);
 
       //create brand new stores
 
       this.stores = {};
       this.appStoresLoaded = false;
 
-    console.log('StoreProviders -> ', ' -> ', StoreProviders);
+      console.log('StoreProviders -> ', ' -> ', StoreProviders);
 
       for (let key in StoreProviders) {
         let storeProvider = StoreProviders[key];
-        let store = storeProvider.storeProvider(AppStores.namespace);
+        let store = storeProvider.storeProvidedBy(AppStores.namespace);
         this.stores[key] = observable(store);
         console.log('CREATED STORE -> ', key, ' -> ', toJS(this.stores[key]));
       }
 
       this.appStoresLoaded = true;
 
-    // }
+    }
 
   };
 

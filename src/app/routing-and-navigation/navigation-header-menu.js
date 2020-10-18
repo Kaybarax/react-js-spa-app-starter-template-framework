@@ -24,10 +24,6 @@ import appNavigation from "./app-navigation";
 export default function NavigationHeaderMenu(props) {
   console.log('NavigationHeaderMenu props', props);
 
-  let {
-    appStore,
-  } = props;
-
   let slug = '' + window.location.href;
   slug = slug.split('/');
   slug = '/' + slug[slug.length - 1];
@@ -42,7 +38,7 @@ export default function NavigationHeaderMenu(props) {
                   onClick={_ => {
                     _.preventDefault();
                     appNavigation.navigateHome();
-                  }}>Hi! <span>👋️</span> RJSSASTF {appStore?.user?.name}</a>
+                  }}>Hi! <span>👋️</span> RJSSASTF</a>
             </li>
             <li
                 id={`nav-${DEFAULT_VIEW_ROUTE.path}`}

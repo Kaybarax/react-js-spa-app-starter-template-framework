@@ -60,7 +60,7 @@ export class AppAuth {
       // START my example sign out logic for this framework template share.
       // Of course, remove it and use your own when using this template
       appStores.stores.appStore.user = null;
-      // this.stopStoresPersistenceToLocalStorageAndClearOnLogout();
+      this.stopStoresPersistenceToLocalStorageAndClearOnLogout();
       appNavigation.navigateToLoginAndRegistration();
       // END my logic
     } catch (e) {

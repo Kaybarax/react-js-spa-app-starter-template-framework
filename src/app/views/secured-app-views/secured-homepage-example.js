@@ -14,7 +14,7 @@ import {TITLE} from "../../app-config";
 import WithStoresHoc from "../../stores/with-stores-hoc";
 import SecuredAppNavigationHeaderMenu from "../../routing-and-navigation/secured-app-navigation-header-menu";
 import appNavigation from "../../routing-and-navigation/app-navigation";
-import {persistStoresToLocalStorage} from "../../stores/store-utils";
+import {persistStoreToLocalStorage} from "../../stores/store-utils";
 
 export function SecuredHomepageExample(props) {
   console.log('SecuredHomepageExample props', props);
@@ -28,7 +28,9 @@ export function SecuredHomepageExample(props) {
   // be performed, init navigator
   appNavigation.initNavigator(history);
 
-  // persistStoresToLocalStorage()
+  React.useEffect( () => {
+    persistStoreToLocalStorage(appStore).then(null);
+  });
 
   return (
       <SafeComponentWrapper>
