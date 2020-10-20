@@ -1,14 +1,11 @@
-## React Js MobX SPA Web App with Login, Starter Template Framework Design
- Ideal starter for your web app that requires login and authentication. 
- Another template coming up next for your SPA web app that you want to start without login 
- and sign up (ideal for, if you just want to get up and running with a static site generator 
- without the login and sign up stuff). 
+## React Js SPA Web App Starter, Template Framework 
+ Get up and running quickly, with building your React JS SPA web application.
 
-#### Note: All batteries included like Angular (global state manager [MobX] hooked to localStorage for seamless persistence of your stores, and sound routing and navigation logic built on top of [mobx-state-router])
+#### All batteries included like Angular (global state manager [MobX] hooked to localStorage for seamless persistence of component data stores and offline facility, and sound routing and navigation logic built on top of [React Router])
 
 > Getting up and running:
 >
-* `$ git clone https://github.com/Kaybarax/react-js-mobx-spa-web-app-with-login-starter-template-framework-design.git` 
+* `$ git clone <this repo>` 
 * `$ yarn install | npm install` 
 * `$ yarn start | npm run start` 
 * A browser window should automatically open to the application at http://localhost:3010
@@ -16,11 +13,11 @@
 
 And you are good to go!
 
-## And now, the system breakdown in details
+## A brief system breakdown
 
 ### Let's start here!
 
-Hey there. So you have an SPA web app that you want to build with React Js.
+So you have an SPA web app that you want to build with React Js.
 And you need to come up with an app-wide, system design setup. That is, system breakdown to  
 individual bits and pieces like, routing and navigation, controllers, app's global  state 
 management, and sharing components' state information;  configuring security access for your 
@@ -70,7 +67,7 @@ self explanatory from a glance, container directory naming, and directory includ
 Next up, what's in the box! What are bits and pieces that glue together, and power up this SPA 
 starter  template framework design???
 
-### All batteries included, and all the whistles and bells!
+### All batteries included!
 So, what's under the hood!!
 #### State/Stores Manager: 
 The extremely, philosophically, and amazingly powerful [MobX](https://mobx-state-tree.js.org/intro/philosophy).
@@ -81,11 +78,9 @@ Web Storage, but you can upgrade to IndexedDb if you are dealing with heavy data
 IndexedDb in some parts of the system, so you have a point of reference to pick up from.
 
 #### Router for routing and navigation:
-Keeping with the beloved, extremely, philosophically, and amazingly powerful MobX, my routing and navigation logic and design, 
-is wrapped around [MobX State Router](https://nareshbhatia.github.io/mobx-state-router/docs/guides-getting-started) created 
-by [Naresh Bhatia](https://twitter.com/NareshJBhatia).
+The React Community's most popular, React Router.
 
-#### And there you have it folks:
+#### And there you have it:
 So, Come up with frontend application design architecture from experience, over the years; 
 get those components above, and put them together with React js; and you have an all batteries 
 included,  shiny whistles and bells, React Js SPA web app template framework to start you off to 
@@ -120,9 +115,6 @@ Twitter: [Kaybarax](https://twitter.com/Kaybarax)
 #### Shout out's and credits:
 [Michel Weststrate](https://twitter.com/mweststrate) - Creator of [MobX](https://mobx-state-tree.js.org/intro/philosophy). 
 The global state manager powering the app. 
-
-[Naresh Bhatia](https://twitter.com/NareshJBhatia) - Author of [MobX State Router](https://nareshbhatia.github.io/mobx-state-router/docs/guides-getting-started). 
-The selected router for the app. 
 
 [Andy Haskell](https://twitter.com/AndyHaskell2013) - Tutorial guide on implementing IndexedDb. 
 Thanks a lot dude for your tutorial I came across on [@Medium and Dev.to](https://dev.to/andyhaskell/build-a-basic-web-app-with-indexeddb-38ef). 
