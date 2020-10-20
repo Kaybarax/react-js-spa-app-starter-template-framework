@@ -10,8 +10,8 @@
 import React from 'react';
 import SafeComponentWrapper from "../../safe-component-wrapper";
 import {isNullUndefined, isTrue} from "../../util/util";
-import AppNotificationToastAlert
-  from "../../shared-components-and-modules/notification-center/app-notification-toast-alert";
+import AppNotificationAlert
+  from "../../shared-components-and-modules/notification-center/app-notification-alert";
 import {Helmet} from "react-helmet";
 import {TITLE} from "../../app-config";
 import LoginForm from "./login-form";
@@ -30,7 +30,7 @@ export function Login(props) {
   const {
     appStore,
     loginStore,
-    loginStore: {toastNotificationAlert},
+    loginStore: {notificationAlert},
     history
   } = props;
 
@@ -103,7 +103,7 @@ export function Login(props) {
               <div className={'flex-container-child-item center-align-content'}>
                 <LoginForm
                     loginModel={loginStore.loginForm}
-                    toastNotificationAlert={toastNotificationAlert}
+                    notificationAlert={notificationAlert}
                     appStore={appStore}
                 />
               </div>
@@ -116,7 +116,7 @@ export function Login(props) {
               <div className={'flex-container-child-item center-align-content'}>
                 <SignUpForm
                     signUpModel={loginStore.signUpForm}
-                    toastNotificationAlert={toastNotificationAlert}
+                    notificationAlert={notificationAlert}
                     showLoginForm={showLoginForm}
                 />
               </div>
@@ -129,7 +129,7 @@ export function Login(props) {
               <div className={'flex-container-child-item center-align-content'}>
                 <ResetPasswordForm
                     resetPasswordModel={loginStore.resetPasswordForm}
-                    toastNotificationAlert={toastNotificationAlert}
+                    notificationAlert={notificationAlert}
                 />
               </div>
             </div>
@@ -139,16 +139,16 @@ export function Login(props) {
 
         {
           (
-              displayFieldExpectationSatisfied('alert', toastNotificationAlert,
+              displayFieldExpectationSatisfied('alert', notificationAlert,
                   expectationOfX => isTrue(expectationOfX))
           ) &&
           <div style={{position: 'fixed', top: 0}}>
-            <AppNotificationToastAlert
-                alert={toastNotificationAlert.alert}
-                message={toastNotificationAlert.message}
-                type={toastNotificationAlert.type}
-                duration={toastNotificationAlert.duration}
-                position={toastNotificationAlert.position}
+            <AppNotificationAlert
+                alert={notificationAlert.alert}
+                message={notificationAlert.message}
+                type={notificationAlert.type}
+                duration={notificationAlert.duration}
+                position={notificationAlert.position}
             />
           </div>
         }

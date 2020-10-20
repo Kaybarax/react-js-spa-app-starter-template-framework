@@ -18,8 +18,8 @@ import {
 import appNavigation from "./app-navigation";
 import appAuth from "../stores/app-auth";
 
-export default function SecuredAppNavigationHeaderMenu(props) {
-  console.log('SecuredAppNavigationHeaderMenu props', props);
+export default function SecuredAppHeaderMenuNavigation(props) {
+  console.log('SecuredAppHeaderMenuNavigation props', props);
 
   let {
     appStore

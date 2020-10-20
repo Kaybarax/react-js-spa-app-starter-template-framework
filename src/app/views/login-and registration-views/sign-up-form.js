@@ -17,7 +17,7 @@ import {isEmptyString} from "../../util/util";
 
 export default function SignUpForm(props) {
 
-  let {signUpModel, toastNotificationAlert, showLoginForm} = props;
+  let {signUpModel, notificationAlert, showLoginForm} = props;
 
   let [submit_pressed, set_press_submit] = React.useState(false);
 
@@ -128,7 +128,7 @@ export default function SignUpForm(props) {
                 if (!isValidFormData()) {
                   return;
                 }
-                handleSignUp(signUpModel, toastNotificationAlert);
+                handleSignUp(signUpModel, notificationAlert);
                 //ready for next user
                 //some time to allow the alert to display
                 setTimeout(_ => showLoginForm(), 1500);

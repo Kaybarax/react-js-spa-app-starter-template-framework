@@ -1,8 +1,11 @@
 //key
 //sd - self described
-//@authored by Kaybarax -- Twitter @_ https://twitter.com/Kaybarax, Github @_ https://github.com/Kaybarax, LinkedIn @_ https://linkedin.com/in/kaybarax
-
-//your app-wide lists here
+/**
+ * @authored by Kaybarax
+ * Twitter @_ https://twitter.com/Kaybarax
+ * Github @_ https://github.com/Kaybarax
+ * LinkedIn @_ https://linkedin.com/in/kaybarax
+ */
 
 export const SOs_and_Credits_List = [
   {
@@ -20,16 +23,16 @@ export const SOs_and_Credits_List = [
     ],
   },
   {
-    person: 'Naresh Bhatia',
-    attribution: 'Author of MobX State Router. The selected router for the app.',
+    person: 'Kaybarax',
+    attribution: 'Creator of this startup template.',
     links: [
       {
         site: 'Twitter',
-        link: 'https://twitter.com/NareshJBhatia',
+        link: 'https://twitter.com/Kaybarax',
       },
       {
-        site: 'MobX State Router',
-        link: 'https://nareshbhatia.github.io/mobx-state-router/docs/guides-getting-started',
+        site: 'Linked In',
+        link: 'https://linkedin.com/in/kaybrax',
       },
     ],
   },

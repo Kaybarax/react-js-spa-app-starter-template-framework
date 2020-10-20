@@ -7,8 +7,8 @@
  * LinkedIn @_ https://linkedin.com/in/kaybarax
  */
 
-export const MobX_StoreKey_Identifier = '_MobX_storeKey_';
-export const MobX_StoreSnapshot_Identifier = '_MobX_storeSnapshot_';
+export const _StoreKey_ = '_StoreKey_';
+export const _StoreSnapshot_ = '_StoreSnapshot_';
 
 export const LOGIN_PAGE_ACTIONS_ENUM = {
   LOGIN: 'LOGIN',

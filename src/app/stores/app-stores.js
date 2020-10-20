@@ -13,7 +13,7 @@ import {
   persistStoreUpdatesToLocalStorageOnPossibleUpdateOfEvents,
 } from './store-utils';
 import StoreProviders from './stores-providers';
-import {MobX_StoreKey_Identifier} from './actions-and-stores-data';
+import {_StoreKey_} from './actions-and-stores-data';
 import {isEmptyArray, isNullUndefined} from "../util/util";
 
 /**
@@ -41,7 +41,7 @@ export default class AppStores {
 
   //to assist with differentiation during storage to persistence media,
   // if application uses several stores classes
-  static namespace = 'AppStores_' + MobX_StoreKey_Identifier;
+  static namespace = 'AppStores_' + _StoreKey_;
 
   loadAppStores = async () => {
 

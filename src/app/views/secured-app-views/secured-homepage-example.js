@@ -12,7 +12,7 @@ import SafeComponentWrapper from "../../safe-component-wrapper";
 import {Helmet} from "react-helmet";
 import {TITLE} from "../../app-config";
 import WithStoresHoc from "../../stores/with-stores-hoc";
-import SecuredAppNavigationHeaderMenu from "../../routing-and-navigation/secured-app-navigation-header-menu";
+import SecuredAppHeaderMenuNavigation from "../../routing-and-navigation/secured-app-header-menu-navigation";
 import appNavigation from "../../routing-and-navigation/app-navigation";
 import {persistStoreToLocalStorage} from "../../stores/store-utils";
 
@@ -39,7 +39,7 @@ export function SecuredHomepageExample(props) {
           <title>{TITLE + ' | Secured App Home'}</title>
         </Helmet>
 
-        <SecuredAppNavigationHeaderMenu
+        <SecuredAppHeaderMenuNavigation
             appStore={appStore}
         />
 

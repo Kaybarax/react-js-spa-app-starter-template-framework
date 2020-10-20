@@ -16,7 +16,7 @@ import {textValueChanged} from "../../util/web-forms-data-collection-utils";
 
 export default function ResetPasswordForm(props) {
 
-  let {resetPasswordModel, toastNotificationAlert} = props;
+  let {resetPasswordModel, notificationAlert} = props;
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -55,7 +55,7 @@ export default function ResetPasswordForm(props) {
               color="primary" type={'submit'}
               onClick={e => {
                 e.preventDefault();
-                handleResetPassword(toastNotificationAlert);
+                handleResetPassword(notificationAlert);
               }}
           >
             Reset Password

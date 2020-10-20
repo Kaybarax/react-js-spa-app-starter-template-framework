@@ -18,7 +18,7 @@ import appAuth from "../../stores/app-auth";
 
 export default function LoginForm(props) {
 
-  let {loginModel, toastNotificationAlert, appStore,} = props;
+  let {loginModel, notificationAlert, appStore,} = props;
 
   let [submit_pressed, set_press_submit] = React.useState(false);
 
@@ -86,7 +86,7 @@ export default function LoginForm(props) {
                 if (!isValidFormData()) {
                   return;
                 }
-                handleLogin(loginModel, toastNotificationAlert, appStore, appAuth);
+                handleLogin(loginModel, notificationAlert, appStore, appAuth);
               }}
           >
             Login

@@ -1,6 +1,11 @@
 //key
 //sd - self described
-//@authored by Kaybarax -- Twitter @_ https://twitter.com/Kaybarax, Github @_ https://github.com/Kaybarax, LinkedIn @_ https://linkedin.com/in/kaybarax
+/**
+ * @authored by Kaybarax
+ * Twitter @_ https://twitter.com/Kaybarax
+ * Github @_ https://github.com/Kaybarax
+ * LinkedIn @_ https://linkedin.com/in/kaybarax
+ */
 
 import React from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -20,9 +25,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AppNotificationToastAlert(props) {
+export default function AppNotificationAlert(props) {
+    console.log('AppNotificationAlert props', props);
 
-  // console.log('props of snack bar', toJS(props));
   const {alert, message, type, duration, position} = props;
   const classes = useStyles();
   const [open, setOpen] = React.useState(alert || false);

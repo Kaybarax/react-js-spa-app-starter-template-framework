@@ -18,7 +18,7 @@ import {
   storeObjectToLocalStorage,
   stringifyObject,
 } from '../util/util';
-import {MobX_StoreKey_Identifier, MobX_StoreSnapshot_Identifier} from './actions-and-stores-data';
+import {_StoreKey_, _StoreSnapshot_} from './actions-and-stores-data';
 import {toJS} from "mobx";
 import StoreProviders from "./stores-providers";
 
@@ -112,7 +112,7 @@ export async function persistedStoreFromLocalStorage(storeKey, storeProvider, st
     storeItemToLocalStorage(storeKey, savedStore);
 
     //update snapshot
-    storeItemToLocalStorage(MobX_StoreSnapshot_Identifier + storeFromSchema.storeName, storeFromSchema);
+    storeItemToLocalStorage(_StoreSnapshot_ + storeFromSchema.storeName, storeFromSchema);
 
   }
 
@@ -141,12 +141,12 @@ export async function persistStoreToLocalStorage(store) {
     await storeObjectToLocalStorage(storeKey, newStoreData);
     //store the current store model snapshot, if not there already,
     //for store object's internal structural changes, monitoring and update
-    let storeModelSnapshot = await getItemFromLocalStorage(MobX_StoreSnapshot_Identifier + store.storeName);
+    let storeModelSnapshot = await getItemFromLocalStorage(_StoreSnapshot_ + store.storeName);
     console.log('persistStoreToLocalStorage storeModelSnapshot', storeModelSnapshot);
     if (isNullUndefined(storeModelSnapshot)) {
       let storeProvider = StoreProviders[store.storeName];
       console.log('persistStoreToLocalStorage storeProvider', storeProvider);
-      await storeObjectToLocalStorage(MobX_StoreSnapshot_Identifier + store.storeName, storeProvider.storeProvidedBy(store.namespace));
+      await storeObjectToLocalStorage(_StoreSnapshot_ + store.storeName, storeProvider.storeProvidedBy(store.namespace));
       console.log('persistStoreToLocalStorage storeModelSnapshot added');
     }
     console.log('persistStoreToLocalStorage SUCCESS');
@@ -205,8 +205,8 @@ export function clearAllPersistedStoresToLocalStorage() {
     let keys = Object.keys(localStorage);
     for (let key of keys) {
       let storeKey = '' + key;
-      if (storeKey.includes(MobX_StoreKey_Identifier) ||
-          storeKey.includes(MobX_StoreSnapshot_Identifier)) {
+      if (storeKey.includes(_StoreKey_) ||
+          storeKey.includes(_StoreSnapshot_)) {
         clearPersistedStoreFromLocalStorage(storeKey);
       }
     }
@@ -263,7 +263,7 @@ export function unregisterPersistenceEventListeners() {
  */
 export function createStoreModelSnapshot(storeName, storeSchemaInstance) {
   console.log('createStoreModelSnapshot');
-  return getObjectFromLocalStorage(MobX_StoreSnapshot_Identifier + storeName)
+  return getObjectFromLocalStorage(_StoreSnapshot_ + storeName)
       .then(item => item || storeSchemaInstance)
       .catch(error => {
         console.log('createStoreModelSnapshot error', error);

@@ -9,7 +9,7 @@
 
 import React from "react";
 import SafeComponentWrapper from "../safe-component-wrapper";
-import NavigationHeaderMenu from "../routing-and-navigation/navigation-header-menu";
+import HeaderMenuNavigation from "../routing-and-navigation/header-menu-navigation";
 import {Helmet} from "react-helmet";
 import {TITLE} from "../app-config";
 import {PAGE4EXAMPLE_VIEW_ROUTE} from "../routing-and-navigation/views-routes-declarations";
@@ -37,7 +37,7 @@ export function Page3Example(props) {
         <Helmet>
           <title>{TITLE + ' | Page 3'}</title>
         </Helmet>
-        <NavigationHeaderMenu
+        <HeaderMenuNavigation
             appStore={appStore}
         />
 

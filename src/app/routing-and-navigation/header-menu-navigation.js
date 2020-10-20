@@ -21,8 +21,8 @@ import {
 } from "./views-routes-declarations";
 import appNavigation from "./app-navigation";
 
-export default function NavigationHeaderMenu(props) {
-  console.log('NavigationHeaderMenu props', props);
+export default function HeaderMenuNavigation(props) {
+  console.log('HeaderMenuNavigation props', props);
 
   let slug = '' + window.location.href;
   slug = slug.split('/');

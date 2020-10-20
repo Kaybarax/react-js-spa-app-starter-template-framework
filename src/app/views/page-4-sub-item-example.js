@@ -9,7 +9,7 @@
 
 import React from "react";
 import SafeComponentWrapper from "../safe-component-wrapper";
-import NavigationHeaderMenu from "../routing-and-navigation/navigation-header-menu";
+import HeaderMenuNavigation from "../routing-and-navigation/header-menu-navigation";
 import {Helmet} from "react-helmet";
 import {TITLE} from "../app-config";
 import {isNullUndefined} from "../util/util";
@@ -65,7 +65,7 @@ export function Page4SubItemExample(props) {
         <Helmet>
           <title>{TITLE + ' | Page 4 Sub-item Example '}</title>
         </Helmet>
-        <NavigationHeaderMenu
+        <HeaderMenuNavigation
             appStore={appStore}
         />
 

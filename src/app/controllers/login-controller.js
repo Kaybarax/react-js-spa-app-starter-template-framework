@@ -7,7 +7,7 @@
  * LinkedIn @_ https://linkedin.com/in/kaybarax
  */
 
-import {toastNotificationCallback} from "../shared-components-and-modules/notification-center/notifications-controller";
+import {notificationCallback} from "../shared-components-and-modules/notification-center/notifications-controller";
 import {deepCloneObject, isNullUndefined} from "../util/util";
 import {toJS} from "mobx";
 import {APP_INDEXED_DB_DATASTORES} from "../app-management/data-manager/indexeddb-manager";
@@ -15,9 +15,9 @@ import {APP_INDEXED_DB_DATASTORES} from "../app-management/data-manager/indexedd
 /**
  * sd _ Kaybarax
  * @param signUpModel
- * @param toastNotificationAlert
+ * @param notificationAlert
  */
-export function handleSignUp(signUpModel, toastNotificationAlert) {
+export function handleSignUp(signUpModel, notificationAlert) {
 
   //save to indexedDb if you fancy
   let db = window.db;//get db;
@@ -33,11 +33,11 @@ export function handleSignUp(signUpModel, toastNotificationAlert) {
   store.add(user, userId);
   // Wait for the database transaction to complete
   tx.oncomplete = function () {
-    toastNotificationCallback('succ', 'Sign up success', toastNotificationAlert)
+    notificationCallback('succ', 'Sign up success', notificationAlert)
   }
   tx.onerror = function (event) {
     console.log('error storing note ' + event.target.errorCode);
-    toastNotificationCallback('err', 'Sign up failed!', toastNotificationAlert);
+    notificationCallback('err', 'Sign up failed!', notificationAlert);
   }
 
 }
@@ -45,11 +45,11 @@ export function handleSignUp(signUpModel, toastNotificationAlert) {
 /**
  * sd _ Kaybarax
  * @param loginForm
- * @param toastNotificationAlert
+ * @param notificationAlert
  * @param appStore
  * @param appAuth
  */
-export function handleLogin(loginForm, toastNotificationAlert, appStore, appAuth) {
+export function handleLogin(loginForm, notificationAlert, appStore, appAuth) {
 
   let db = window.db;//get db;
   // Set up an object store and transaction
@@ -62,7 +62,7 @@ export function handleLogin(loginForm, toastNotificationAlert, appStore, appAuth
   // If we get an error
   req.onerror = function (event) {
     console.log('error getting users ', event.target.errorCode);
-    toastNotificationCallback('err', 'Cannot query users', toastNotificationAlert);
+    notificationCallback('err', 'Cannot query users', notificationAlert);
   }
 
   let users = [];
@@ -74,11 +74,11 @@ export function handleLogin(loginForm, toastNotificationAlert, appStore, appAuth
     let user = users.find(item => item.usernameOrEmail === loginForm.usernameOrEmail &&
         item.password === loginForm.password);
     if (isNullUndefined(user)) {
-      toastNotificationCallback('err', 'User not found', toastNotificationAlert);
+      notificationCallback('err', 'User not found', notificationAlert);
       return;
     }
     appStore.user = deepCloneObject(user);
-    toastNotificationCallback('succ', 'Login success', toastNotificationAlert);
+    notificationCallback('succ', 'Login success', notificationAlert);
     //to allow notification display
     setTimeout(_ => appAuth.handleLogin(), 2000);
   }
@@ -87,10 +87,10 @@ export function handleLogin(loginForm, toastNotificationAlert, appStore, appAuth
 
 /**
  * sd _ Kaybarax
- * @param toastNotificationAlert
+ * @param notificationAlert
  */
-export function handleResetPassword(toastNotificationAlert) {
+export function handleResetPassword(notificationAlert) {
   //todo: ... your logic ... you get the drill by now
-  toastNotificationCallback('info', 'You can play around with this, mate. Cheers!)',
-      toastNotificationAlert);
+  notificationCallback('info', 'You can play around with this, mate. Cheers!)',
+      notificationAlert);
 }

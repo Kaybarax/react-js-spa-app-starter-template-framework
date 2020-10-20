@@ -1,7 +1,11 @@
-/* eslint-disable eqeqeq */
 //key
 //sd - self described
-//@authored by Kaybarax -- Twitter @_ https://twitter.com/Kaybarax, Github @_ https://github.com/Kaybarax, LinkedIn @_ https://linkedin.com/in/kaybarax
+/**
+ * @authored by Kaybarax
+ * Twitter @_ https://twitter.com/Kaybarax
+ * Github @_ https://github.com/Kaybarax
+ * LinkedIn @_ https://linkedin.com/in/kaybarax
+ */
 
 import React from "react";
 import {isBoolean, isEmptyArray, isEmptyString, isNullUndefined, objectKeyExists,} from './util';

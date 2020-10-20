@@ -1,27 +1,32 @@
 //key
 //sd - self described
-//@authored by Kaybarax -- Twitter @_ https://twitter.com/Kaybarax, Github @_ https://github.com/Kaybarax, LinkedIn @_ https://linkedin.com/in/kaybarax
+/**
+ * @authored by Kaybarax
+ * Twitter @_ https://twitter.com/Kaybarax
+ * Github @_ https://github.com/Kaybarax
+ * LinkedIn @_ https://linkedin.com/in/kaybarax
+ */
 
 import {isNullUndefined} from "../../util/util";
 
 /**
  * sd _ Kaybarax
- * Utility function to handle the custom display of messages.
+ * Handle the custom display of notifications.
  * @param notificationType
  * @param message
- * @param toastNotificationAlert
+ * @param notificationAlert
  * @param position
  * @param duration
  */
-export function toastNotificationCallback(
+export function notificationCallback(
     notificationType,
     message,
-    toastNotificationAlert,
+    notificationAlert,
     position = 'top',
     duration = 3500,
 ) {
 
-  if (isNullUndefined(toastNotificationAlert)) {
+  if (isNullUndefined(notificationAlert)) {
     alert('Toast Notification not Specified');
     return;
   }
@@ -45,15 +50,15 @@ export function toastNotificationCallback(
     typeOfNotification = 'info';
   }
 
-  toastNotificationAlert.alert = true;
-  toastNotificationAlert.position = position;
-  toastNotificationAlert.duration = duration;
-  toastNotificationAlert.message = message || typeOfNotificationMessage;
-  toastNotificationAlert.type = typeOfNotification;
+  notificationAlert.alert = true;
+  notificationAlert.position = position;
+  notificationAlert.duration = duration;
+  notificationAlert.message = message || typeOfNotificationMessage;
+  notificationAlert.type = typeOfNotification;
   setTimeout(() => {
-    toastNotificationAlert.alert = false;
-    toastNotificationAlert.message = null;
-  }, toastNotificationAlert.duration);
+    notificationAlert.alert = false;
+    notificationAlert.message = null;
+  }, notificationAlert.duration);
 
 }
 
@@ -61,7 +66,7 @@ export function toastNotificationCallback(
  * sd _ Kaybarax
  * @type {{duration: number, activity: null, alert: boolean, position: string, message: null, type: null}}
  */
-export const toastNotificationAlertProps = {
+export const notificationAlertProps = {
   alert: false,
   message: null,
   type: null,

@@ -8,7 +8,7 @@
  */
 
 import {isEmptyString, objectInstanceProvider} from "../util/util";
-import {toastNotificationAlertProps} from "../shared-components-and-modules/notification-center/notifications-controller";
+import {notificationAlertProps} from "../shared-components-and-modules/notification-center/notifications-controller";
 
 export const StoreNames = {
   appStore: 'appStore',
@@ -82,7 +82,7 @@ export function LoginActivitySchema(namespace, name) {
     confirmPassword: null,
   };
   schema.pageAction = null;
-  schema.toastNotificationAlert = objectInstanceProvider(toastNotificationAlertProps);
+  schema.notificationAlert = objectInstanceProvider(notificationAlertProps);
   // console.log('LoginActivitySchema::', this.storeSchema)
   return this.storeSchema;
 }
@@ -98,7 +98,7 @@ export function Page1ExampleActivitySchema(namespace, name) {
   ActivityStoreSchema.call(this, namespace, name);
   let schema = this.storeSchema;
   schema.todo = [];
-  schema.toastNotificationAlert = objectInstanceProvider(toastNotificationAlertProps);
+  schema.notificationAlert = objectInstanceProvider(notificationAlertProps);
   // console.log('Page1ExampleActivitySchema::', this.storeSchema)
   return this.storeSchema;
 }
@@ -114,7 +114,7 @@ export function Page2ExampleActivitySchema(namespace, name) {
   ActivityStoreSchema.call(this, namespace, name);
   let schema = this.storeSchema;
   schema.todo = [];
-  schema.toastNotificationAlert = objectInstanceProvider(toastNotificationAlertProps);
+  schema.notificationAlert = objectInstanceProvider(notificationAlertProps);
   // console.log('Page2ExampleActivitySchema::', this.storeSchema)
   return this.storeSchema;
 }
@@ -130,7 +130,7 @@ export function Page3ExampleActivitySchema(namespace, name) {
   ActivityStoreSchema.call(this, namespace, name);
   let schema = this.storeSchema;
   schema.todo = [];
-  schema.toastNotificationAlert = objectInstanceProvider(toastNotificationAlertProps);
+  schema.notificationAlert = objectInstanceProvider(notificationAlertProps);
   // console.log('Page3ExampleActivitySchema::', this.storeSchema)
   return this.storeSchema
 }
@@ -146,7 +146,7 @@ export function Page4ExampleActivitySchema(namespace, name) {
   ActivityStoreSchema.call(this, namespace, name);
   let schema = this.storeSchema;
   schema.todo = [];
-  schema.toastNotificationAlert = objectInstanceProvider(toastNotificationAlertProps);
+  schema.notificationAlert = objectInstanceProvider(notificationAlertProps);
   // console.log("Page4ExampleActivitySchema::", this.storeSchema)
   return this.storeSchema;
 }
@@ -162,7 +162,7 @@ export function SecuredAppActivitySchema(namespace, name) {
   ActivityStoreSchema.call(this, namespace, name);
   let schema = this.storeSchema;
   schema.todo = [];
-  schema.toastNotificationAlert = objectInstanceProvider(toastNotificationAlertProps);
+  schema.notificationAlert = objectInstanceProvider(notificationAlertProps);
   // console.log("Page4ExampleActivitySchema::", this.storeSchema)
   return this.storeSchema;
 }

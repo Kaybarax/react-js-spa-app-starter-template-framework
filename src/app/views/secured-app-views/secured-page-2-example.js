@@ -12,7 +12,7 @@ import SafeComponentWrapper from "../../safe-component-wrapper";
 import {Helmet} from "react-helmet";
 import {TITLE} from "../../app-config";
 import WithStoresHoc from "../../stores/with-stores-hoc";
-import SecuredAppNavigationHeaderMenu from "../../routing-and-navigation/secured-app-navigation-header-menu";
+import SecuredAppHeaderMenuNavigation from "../../routing-and-navigation/secured-app-header-menu-navigation";
 import appNavigation from "../../routing-and-navigation/app-navigation";
 
 export function SecuredPage2Example(props) {
@@ -34,7 +34,7 @@ export function SecuredPage2Example(props) {
           <title>{TITLE + ' | Secured Page 2'}</title>
         </Helmet>
 
-        <SecuredAppNavigationHeaderMenu
+        <SecuredAppHeaderMenuNavigation
             appStore={appStore}
         />
 
