@@ -21,13 +21,12 @@ export function Page1Example(props) {
 
   const {
     appStore,
-    // appAuth,
-    history
   } = props;
 
-  // because from this page, navigations will
-  // be performed, init navigator
-  appNavigation.initNavigator(history);
+    // because from this page, navigations will
+    // be performed, init navigator with {history, location, match}
+    // from props
+    appNavigation.initNavigator(props);
 
   const _continueToPage2 = (e) => {
     e.preventDefault();

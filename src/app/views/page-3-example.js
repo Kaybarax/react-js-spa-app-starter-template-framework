@@ -20,12 +20,13 @@ export function Page3Example(props) {
   console.log('Page3Example props', props);
 
   const {
-    appStore, history
+    appStore
   } = props;
 
   // because from this page, navigations will
-  // be performed, init navigator
-  appNavigation.initNavigator(history);
+  // be performed, init navigator with {history, location, match}
+  // from props
+  appNavigation.initNavigator(props);
 
   const _continueToPage4 = (e) => {
     e.preventDefault();

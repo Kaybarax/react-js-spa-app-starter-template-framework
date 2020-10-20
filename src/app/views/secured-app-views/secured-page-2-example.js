@@ -14,18 +14,23 @@ import {TITLE} from "../../app-config";
 import WithStoresHoc from "../../stores/with-stores-hoc";
 import SecuredAppHeaderMenuNavigation from "../../routing-and-navigation/secured-app-header-menu-navigation";
 import appNavigation from "../../routing-and-navigation/app-navigation";
+import {persistStoreToLocalStorage} from "../../stores/store-utils";
 
 export function SecuredPage2Example(props) {
   console.log('SecuredPage2Example props', props);
 
   const {
     appStore,
-    history,
   } = props;
 
-  // because from this page, navigations will
-  // be performed, init navigator
-  appNavigation.initNavigator(history);
+    // because from this page, navigations will
+    // be performed, init navigator with {history, location, match}
+    // from props
+    appNavigation.initNavigator(props);
+
+    React.useEffect( () => {
+        persistStoreToLocalStorage(appStore).then(null);
+    });
 
   return (
       <SafeComponentWrapper>

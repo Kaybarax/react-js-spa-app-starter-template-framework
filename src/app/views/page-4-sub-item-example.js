@@ -11,26 +11,23 @@ import React from "react";
 import SafeComponentWrapper from "../safe-component-wrapper";
 import HeaderMenuNavigation from "../routing-and-navigation/header-menu-navigation";
 import {Helmet} from "react-helmet";
+import {useParams} from "react-router-dom";
 import {TITLE} from "../app-config";
 import {isNullUndefined} from "../util/util";
 import {SOs_and_Credits_List} from "../app-management/data-manager/list-manager";
 import {faCoffee} from "@fortawesome/free-solid-svg-icons/faCoffee";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import appNavigation from "../routing-and-navigation/app-navigation";
 import WithStoresHoc from "../stores/with-stores-hoc";
 
 export function Page4SubItemExample(props) {
   console.log('Page4SubItemExample props', props);
 
   const {
-    appStore, history, location
+    appStore
   } = props;
 
-  // because from this page, navigations will
-  // be performed, init navigator
-  appNavigation.initNavigator(history);
+  let {item} = useParams();
 
-  let {item} = location.state;
   let person = SOs_and_Credits_List.find(it => it.person === item);
 
   if (isNullUndefined(person)) {

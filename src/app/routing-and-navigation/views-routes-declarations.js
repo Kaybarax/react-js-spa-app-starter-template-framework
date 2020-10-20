@@ -10,6 +10,7 @@
 import React from 'react';
 import NotFound from "../views/not-found";
 import AppDevScratchPad from "../../app-dev-scratch-pad/app-dev-scratch-pad";
+import Page4SubItemExample from "../views/page-4-sub-item-example";
 
 ////declare the application views for routing
 //the component with path of '/', i.e the default component
@@ -40,9 +41,8 @@ export const PAGE4EXAMPLE_VIEW_ROUTE = {
 };
 
 export const PAGE4_SUB_ITEM_EXAMPLE_VIEW_ROUTE = {
-  component: React.lazy(() =>
-      /* webpackChunkName: "PAGE4_SUB_ITEM_EXAMPLE_VIEW_ROUTE" */ import("../views/page-4-sub-item-example")),
-  path: '/page-4-item',
+  component: <Page4SubItemExample/>,
+  path: PAGE4EXAMPLE_VIEW_ROUTE.path + '/:item',
 };
 
 export const LOGIN_AND_REGISTRATION_VIEW_ROUTE = {

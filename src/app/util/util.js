@@ -262,10 +262,7 @@ export async function getObjectFromLocalStorage(key) {
  */
 export function isEmptyObject(obj) {
   try {
-    for (let key in obj) {
-      if (obj.hasOwnProperty(key))
-        return false;
-    }
+    return isEmptyArray(Object.keys(obj));
   } catch (e) {
     return true;
   }

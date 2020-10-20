@@ -21,12 +21,12 @@ export function SecuredHomepageExample(props) {
 
   const {
     appStore,
-    history,
   } = props;
 
-  // because from this page, navigations will
-  // be performed, init navigator
-  appNavigation.initNavigator(history);
+    // because from this page, navigations will
+    // be performed, init navigator with {history, location, match}
+    // from props
+    appNavigation.initNavigator(props);
 
   React.useEffect( () => {
     persistStoreToLocalStorage(appStore).then(null);
