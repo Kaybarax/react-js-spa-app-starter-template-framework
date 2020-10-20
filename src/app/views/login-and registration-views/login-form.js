@@ -12,7 +12,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {handleLogin} from "../../controllers/login-controller";
-import {textValueChanged} from "../../util/web-forms-data-collection-utils";
+import {textValueChanged} from "../../util/react-web-forms-data-collection-utils";
 import {isEmptyString} from "../../util/util";
 import appAuth from "../../stores/app-auth";
 

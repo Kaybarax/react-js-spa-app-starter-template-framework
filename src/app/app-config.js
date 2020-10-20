@@ -24,3 +24,4 @@ export const AWS_S3_SECURED_FILES_ACCESS_APIS_PREFIX = "https://xxxxxxxxxx.execu
 export const AWS_S3_UNSECURED_FILES_ACCESS_APIS_PREFIX = "https://xxxxxxxxxx.execute-api.eu-west-1.amazonaws.com/latest";
 export const AWS_COGNITO_ACCESS_APIS_PREFIX = "https://xxxxxxxxxx.execute-api.eu-west-1.amazonaws.com/latest";
 export const AWS_EMAIL_WITH_MANDRILL_EMAIL_ACCESS_APIS_PREFIX = "https://xxxxxxxxxx.execute-api.eu-west-1.amazonaws.com/latest";
+export const TIME_OUT = 5000;
