@@ -109,10 +109,10 @@ export async function persistedStoreFromLocalStorage(storeKey, storeProvider, st
     savedStore = deepCloneObject(savedStore);
 
     //update persisted store
-    storeItemToLocalStorage(storeKey, savedStore);
+    storeObjectToLocalStorage(storeKey, savedStore);
 
     //update snapshot
-    storeItemToLocalStorage(_StoreSnapshot_ + storeFromSchema.storeName, storeFromSchema);
+    storeObjectToLocalStorage(_StoreSnapshot_ + storeFromSchema.storeName, storeFromSchema);
 
   }
 
