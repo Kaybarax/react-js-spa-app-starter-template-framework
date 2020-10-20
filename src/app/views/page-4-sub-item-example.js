@@ -8,7 +8,6 @@
  */
 
 import React from "react";
-import SafeComponentWrapper from "../safe-component-wrapper";
 import HeaderMenuNavigation from "../routing-and-navigation/header-menu-navigation";
 import {Helmet} from "react-helmet";
 import {useParams} from "react-router-dom";
@@ -32,7 +31,7 @@ export function Page4SubItemExample(props) {
 
   if (isNullUndefined(person)) {
     return (
-        <SafeComponentWrapper>
+        <React.Fragment>
           <Helmet>
             <title>{TITLE + ' | Page 4 Sub-item Example '}</title>
           </Helmet>
@@ -53,12 +52,12 @@ export function Page4SubItemExample(props) {
             </div>
             <br/>
           </div>
-        </SafeComponentWrapper>
+        </React.Fragment>
     )
   }
 
   return (
-      <SafeComponentWrapper>
+      <React.Fragment>
         <Helmet>
           <title>{TITLE + ' | Page 4 Sub-item Example '}</title>
         </Helmet>
@@ -131,7 +130,7 @@ export function Page4SubItemExample(props) {
 
         </div>
 
-      </SafeComponentWrapper>
+      </React.Fragment>
   );
 
 }

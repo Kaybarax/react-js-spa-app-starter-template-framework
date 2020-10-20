@@ -8,7 +8,6 @@
  */
 
 import React from 'react';
-import SafeComponentWrapper from "../safe-component-wrapper";
 import HeaderMenuNavigation from "../routing-and-navigation/header-menu-navigation";
 import {Helmet} from "react-helmet";
 import {TITLE} from "../app-config";
@@ -34,7 +33,7 @@ export function Page1Example(props) {
   };
 
   return (
-      <SafeComponentWrapper>
+      <React.Fragment>
         <Helmet>
           <title>{TITLE + ' | Page 1'}</title>
         </Helmet>
@@ -68,7 +67,7 @@ export function Page1Example(props) {
           </div>
         </div>
 
-      </SafeComponentWrapper>
+      </React.Fragment>
   );
 
 }

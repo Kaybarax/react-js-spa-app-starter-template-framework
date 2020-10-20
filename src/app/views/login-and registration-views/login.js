@@ -8,10 +8,8 @@
  */
 
 import React from 'react';
-import SafeComponentWrapper from "../../safe-component-wrapper";
 import {isNullUndefined, isTrue} from "../../util/util";
-import AppNotificationAlert
-  from "../../shared-components-and-modules/notification-center/app-notification-alert";
+import AppNotificationAlert from "../../shared-components-and-modules/notification-center/app-notification-alert";
 import {Helmet} from "react-helmet";
 import {TITLE} from "../../app-config";
 import LoginForm from "./login-form";
@@ -66,10 +64,12 @@ export function Login(props) {
       expectationOfX => expectationOfX === LOGIN_PAGE_ACTIONS_ENUM.RESET_PASSWORD);
 
   return (
-      <SafeComponentWrapper>
+      <React.Fragment>
+
         <Helmet>
           <title>{TITLE + ' | Login'}</title>
         </Helmet>
+
         <div>
           <div className={'flex-row-container'}>
             <div className={'flex-container-child-item center-align-content'}>
@@ -153,7 +153,7 @@ export function Login(props) {
           </div>
         }
 
-      </SafeComponentWrapper>
+      </React.Fragment>
   );
 
 }

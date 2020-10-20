@@ -8,7 +8,6 @@
  */
 
 import React from 'react';
-import SafeComponentWrapper from "../../safe-component-wrapper";
 import {Helmet} from "react-helmet";
 import {TITLE} from "../../app-config";
 import WithStoresHoc from "../../stores/with-stores-hoc";
@@ -33,7 +32,7 @@ export function SecuredHomepageExample(props) {
   });
 
   return (
-      <SafeComponentWrapper>
+      <React.Fragment>
 
         <Helmet>
           <title>{TITLE + ' | Secured App Home'}</title>
@@ -57,7 +56,7 @@ export function SecuredHomepageExample(props) {
           </div>
         </div>
 
-      </SafeComponentWrapper>
+      </React.Fragment>
   );
 
 }
