@@ -13,22 +13,28 @@ import {TITLE} from "../../app-config";
 import WithStoresHoc from "../../stores/with-stores-hoc";
 import SecuredAppHeaderMenuNavigation from "../../routing-and-navigation/secured-app-header-menu-navigation";
 import appNavigation from "../../routing-and-navigation/app-navigation";
-import {persistStoreToLocalStorage} from "../../stores/store-utils";
+import {persistStoresToLocalStorage} from "../../stores/store-utils";
+import {toJS} from "mobx";
 
 export function SecuredHomepageExample(props) {
   console.log('SecuredHomepageExample props', props);
 
   const {
-    appStore,
+    appStore, securedAppStore
   } = props;
+  console.log('appStore -> ', toJS(appStore));
+  console.log('securedAppStore -> ', toJS(securedAppStore));
 
-    // because from this page, navigations will
-    // be performed, init navigator with {history, location, match}
-    // from props
-    appNavigation.initNavigator(props);
+  // let {} = securedHomepageStore;
 
-  React.useEffect( () => {
-    persistStoreToLocalStorage(appStore).then(null);
+
+  // because from this page, navigations will
+  // be performed, init navigator with {history, location, match}
+  // from props
+  appNavigation.initNavigator(props);
+
+  React.useEffect(() => {
+    persistStoresToLocalStorage([appStore, securedAppStore]).then(null);
   });
 
   return (
@@ -52,6 +58,16 @@ export function SecuredHomepageExample(props) {
           <div className={'flex-container-child-item center-align-content'}>
             <p style={{textAlign: 'left'}}>
               You have accessed a page such as this, only because you have logged in!
+            </p>
+            <p>
+              <h3>Try counting clicks</h3>
+              <button
+                  onClick={_ => {
+                    securedAppStore.clicksCount += 1;
+                  }}
+              >Click me
+              </button>
+              <h5>You have clicked {securedAppStore?.clicksCount}</h5>
             </p>
           </div>
         </div>

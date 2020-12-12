@@ -162,6 +162,7 @@ export function SecuredAppActivitySchema(namespace, name) {
   ActivityStoreSchema.call(this, namespace, name);
   let schema = this.storeSchema;
   schema.todo = [];
+  schema.clicksCount = 0;
   schema.notificationAlert = objectInstanceProvider(notificationAlertProps);
   // console.log("Page4ExampleActivitySchema::", this.storeSchema)
   return this.storeSchema;
