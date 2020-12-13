@@ -18,9 +18,7 @@ export default function loginReducer(state = appStores.store.loginStore, action)
 
     for (let key in LOGIN_ACTIONS) {
         let actionCase = LOGIN_ACTIONS[key].name;
-        console.log('LOGIN_ACTIONS actionCase', actionCase);
         let actionCall = LOGIN_ACTIONS[key].action;
-        console.log('LOGIN_ACTIONS actionCall', actionCall);
         if (actionCase === action.type) {
             return actionCall.call(null, state, action.payload);
         }

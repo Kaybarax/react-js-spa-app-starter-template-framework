@@ -2,22 +2,14 @@
 
 # dependencies
 /node_modules
-node_modules/
-/.idea
-.idea/
-.pnp
+/.pnp
 .pnp.js
 
 # testing
-coverage
+/coverage
 
 # production
-build
-build/
 /build
-dist
-dist/
-/dist
 
 # misc
 .DS_Store
@@ -25,7 +17,6 @@ dist/
 .env.development.local
 .env.test.local
 .env.production.local
-.idea
 
 npm-debug.log*
 yarn-debug.log*

@@ -17,9 +17,7 @@ export default function page1ExampleReducer(state = appStores.store.page1Example
 
     for (let key in STORE_ACTIONS) {
         let actionCase = STORE_ACTIONS[key].name;
-        console.log('STORE_ACTIONS actionCase', actionCase);
         let actionCall = STORE_ACTIONS[key].action;
-        console.log('STORE_ACTIONS actionCall', actionCall);
         if (actionCase === action.type) {
             return actionCall.call(null, state);
         }

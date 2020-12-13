@@ -18,9 +18,7 @@ export default function appReducer(state = appStores.store.appStore, action) {
 
     for (let key in APP_ACTIONS) {
         let actionCase = APP_ACTIONS[key].name;
-        console.log('APP_ACTIONS actionCase', actionCase);
         let actionCall = APP_ACTIONS[key].action;
-        console.log('APP_ACTIONS actionCall', actionCall);
         if (actionCase === action.type) {
             return actionCall.call(null, state, action.payload);
         }

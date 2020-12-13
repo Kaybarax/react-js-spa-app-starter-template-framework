@@ -20,16 +20,6 @@ import {User} from "../app-management/data-manager/models-manager";
  */
 const LOGIN_ACTIONS = {
 
-    handleLogin: {
-        name: 'handleLogin',
-        action: (store, payload) => {
-            console.log('handleLogin store, payload', store, payload);
-            let {loginModel, notificationAlert, appStore, appAuth} = payload;
-            handleLogin(loginModel, notificationAlert, appStore, appAuth);
-            return {...store};
-        }
-    },
-
     showLoginForm: {
         name: 'showLoginForm',
         action: (store, payload) => {
@@ -54,6 +44,36 @@ const LOGIN_ACTIONS = {
         action: (store, payload) => {
             console.log('showResetPasswordForm state, payload', store, payload);
             store.pageAction = LOGIN_PAGE_ACTIONS_ENUM.RESET_PASSWORD;
+            return {...store};
+        }
+    },
+
+    handleLogin: {
+        name: 'handleLogin',
+        action: (store, payload) => {
+            console.log('handleLogin store, payload', store, payload);
+            let {loginModel, notificationAlert, appStore, appAuth} = payload;
+            handleLogin(loginModel, notificationAlert, appStore, appAuth);
+            return {...store};
+        }
+    },
+
+    handleSignUp: {
+        name: 'handleSignUp',
+        action: (store, payload) => {
+            console.log('handleLogin store, payload', store, payload);
+            let {signUpModel, notificationAlert} = payload;
+            handleSignUp(signUpModel, notificationAlert);
+            return {...store};
+        }
+    },
+
+    handleResetPassword: {
+        name: 'handleResetPassword',
+        action: (store, payload) => {
+            console.log('handleLogin store, payload', store, payload);
+            let {notificationAlert} = payload;
+            handleResetPassword(notificationAlert);
             return {...store};
         }
     },
