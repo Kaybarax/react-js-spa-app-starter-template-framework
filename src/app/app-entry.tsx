@@ -8,13 +8,14 @@
  */
 
 import React from 'react';
+// @ts-ignore
 import {BrowserRouter as Router} from "react-router-dom";
 import {AppBaseRoutingComposition} from "./routing-and-navigation/routing-composition";
 import LoadingRouteFallback from "./loading-route-fallback";
 import SafeComponentWrapper from "./safe-component-wrapper";
 
 
-export default function AppEntry(props) {
+export default function AppEntry(props: any) {
     console.log('AppEntry props', props);
 
     return (

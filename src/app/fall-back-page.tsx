@@ -10,7 +10,7 @@
 import React from 'react';
 
 export default class FallBackPage extends React.Component {
-  render() {
-    return <h3>Something went wrong.</h3>;
-  }
+    render() {
+        return <h3>Something went wrong.</h3>;
+    }
 }
