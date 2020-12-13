@@ -50,8 +50,7 @@ export class AppAuth {
         appNavigation.navigateToSecuredAppHomepageExample();
     };
 
-
-    handleLogout = action((appStore) => {
+    handleLogout = action(() => {
         try {
             // TODO: your logout logic, e.g:
             //  -> AWS sign out if you are using AWS: await Auth.signOut();
@@ -59,7 +58,7 @@ export class AppAuth {
 
             // START my example sign out logic for this framework template share.
             // Of course, remove it and use your own when using this template
-            appStore.user = null;
+            appStores.stores.appStore.user = null;
             this.stopStoresPersistenceToLocalStorageAndClearOnLogout();
             appNavigation.navigateToLoginAndRegistration();
             // END my logic

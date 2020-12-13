@@ -11,13 +11,13 @@ import {isEmptyString, objectInstanceProvider} from "../util/util";
 import {notificationAlertProps} from "../shared-components-and-modules/notification-center/notifications-controller";
 
 export const StoreNames = {
-    appStore: 'appStore',
-    loginStore: 'loginStore',
-    page1ExampleStore: 'page1ExampleStore',
-    page2ExampleStore: 'page2ExampleStore',
-    page3ExampleStore: 'page3ExampleStore',
-    page4ExampleStore: 'page4ExampleStore',
-    securedAppStore: 'securedAppStore',
+  appStore: 'appStore',
+  loginStore: 'loginStore',
+  page1ExampleStore: 'page1ExampleStore',
+  page2ExampleStore: 'page2ExampleStore',
+  page3ExampleStore: 'page3ExampleStore',
+  page4ExampleStore: 'page4ExampleStore',
+  securedAppStore: 'securedAppStore',
 };
 
 /**
@@ -27,14 +27,14 @@ export const StoreNames = {
  * @constructor
  */
 export function ActivityStoreSchema(namespace, name) {
-    this.storeSchema = {
-        storeName: name,
-        namespace: namespace,
-        storeKey: !isEmptyString(namespace) ? namespace + name : 'StoreKey___' + name,
-        loading: false,
-        updated: false,
-        loadingMessage: 'Loading...',
-    };
+  this.storeSchema = {
+    storeName: name,
+    namespace: namespace,
+    storeKey: !isEmptyString(namespace) ? namespace + name : 'StoreKey___' + name,
+    loading: false,
+    updated: false,
+    loadingMessage: 'Loading...',
+  };
 }
 
 /**
@@ -44,19 +44,18 @@ export function ActivityStoreSchema(namespace, name) {
  * @returns {{loadingMessage: string, storeKey: *, name: *, loading: boolean, updated: boolean}}
  * @constructor
  */
-export function AppActivityStoreSchema(namespace, name) {
-    ActivityStoreSchema.call(this, namespace, name);
-    let schema = this.storeSchema;
-    schema.user = null;
-    schema.clicksCount = 0;
-    schema.navStore = {
-        navigationTrail: [],
-        currentNavigationTrailIndex: 0,
-        navigatedTo: null,
-        navigatedFrom: null,
-    };
-    // console.log('AppActivityStoreSchema::', this.storeSchema)
-    return this.storeSchema;
+export function AppActivitySchema(namespace, name) {
+  ActivityStoreSchema.call(this, namespace, name);
+  let schema = this.storeSchema;
+  schema.user = null;
+  schema.navStore = {
+    navigationTrail: [],
+    currentNavigationTrailIndex: 0,
+    navigatedTo: null,
+    navigatedFrom: null,
+  };
+  // console.log('AppActivitySchema::', this.storeSchema)
+  return this.storeSchema;
 }
 
 /**
@@ -66,26 +65,26 @@ export function AppActivityStoreSchema(namespace, name) {
  * @returns {{loadingMessage: string, storeKey: *, name: *, loading: boolean, updated: boolean}}
  * @constructor
  */
-export function LoginActivityStoreSchema(namespace, name) {
-    ActivityStoreSchema.call(this, namespace, name);
-    let schema = this.storeSchema;
-    schema.loginForm = {
-        usernameOrEmail: null,
-        password: null,
-    };
-    schema.signUpForm = {
-        user: null,
-        confirmPassword: null,
-    };
-    schema.resetPasswordForm = {
-        usernameOrEmail: null,
-        password: null,
-        confirmPassword: null,
-    };
-    schema.pageAction = null;
-    schema.notificationAlert = objectInstanceProvider(notificationAlertProps);
-    // console.log('LoginActivityStoreSchema::', this.storeSchema)
-    return this.storeSchema;
+export function LoginActivitySchema(namespace, name) {
+  ActivityStoreSchema.call(this, namespace, name);
+  let schema = this.storeSchema;
+  schema.loginForm = {
+    usernameOrEmail: null,
+    password: null,
+  };
+  schema.signUpForm = {
+    user: null,
+    confirmPassword: null,
+  };
+  schema.resetPasswordForm = {
+    usernameOrEmail: null,
+    password: null,
+    confirmPassword: null,
+  };
+  schema.pageAction = null;
+  schema.notificationAlert = objectInstanceProvider(notificationAlertProps);
+  // console.log('LoginActivitySchema::', this.storeSchema)
+  return this.storeSchema;
 }
 
 /**
@@ -95,13 +94,13 @@ export function LoginActivityStoreSchema(namespace, name) {
  * @returns {{loadingMessage: string, storeKey: *, name: *, loading: boolean, updated: boolean}}
  * @constructor
  */
-export function Page1ExampleActivityStoreSchema(namespace, name) {
-    ActivityStoreSchema.call(this, namespace, name);
-    let schema = this.storeSchema;
-    schema.todo = [];
-    schema.notificationAlert = objectInstanceProvider(notificationAlertProps);
-    // console.log('Page1ExampleActivityStoreSchema::', this.storeSchema)
-    return this.storeSchema;
+export function Page1ExampleActivitySchema(namespace, name) {
+  ActivityStoreSchema.call(this, namespace, name);
+  let schema = this.storeSchema;
+  schema.todo = [];
+  schema.notificationAlert = objectInstanceProvider(notificationAlertProps);
+  // console.log('Page1ExampleActivitySchema::', this.storeSchema)
+  return this.storeSchema;
 }
 
 /**
@@ -111,13 +110,13 @@ export function Page1ExampleActivityStoreSchema(namespace, name) {
  * @returns {{loadingMessage: string, storeKey: *, name: *, loading: boolean, updated: boolean}}
  * @constructor
  */
-export function Page2ExampleActivityStoreSchema(namespace, name) {
-    ActivityStoreSchema.call(this, namespace, name);
-    let schema = this.storeSchema;
-    schema.todo = [];
-    schema.notificationAlert = objectInstanceProvider(notificationAlertProps);
-    // console.log('Page2ExampleActivityStoreSchema::', this.storeSchema)
-    return this.storeSchema;
+export function Page2ExampleActivitySchema(namespace, name) {
+  ActivityStoreSchema.call(this, namespace, name);
+  let schema = this.storeSchema;
+  schema.todo = [];
+  schema.notificationAlert = objectInstanceProvider(notificationAlertProps);
+  // console.log('Page2ExampleActivitySchema::', this.storeSchema)
+  return this.storeSchema;
 }
 
 /**
@@ -127,13 +126,13 @@ export function Page2ExampleActivityStoreSchema(namespace, name) {
  * @returns {{loadingMessage: string, storeKey: *, name: *, loading: boolean, updated: boolean}}
  * @constructor
  */
-export function Page3ExampleActivityStoreSchema(namespace, name) {
-    ActivityStoreSchema.call(this, namespace, name);
-    let schema = this.storeSchema;
-    schema.todo = [];
-    schema.notificationAlert = objectInstanceProvider(notificationAlertProps);
-    // console.log('Page3ExampleActivityStoreSchema::', this.storeSchema)
-    return this.storeSchema
+export function Page3ExampleActivitySchema(namespace, name) {
+  ActivityStoreSchema.call(this, namespace, name);
+  let schema = this.storeSchema;
+  schema.todo = [];
+  schema.notificationAlert = objectInstanceProvider(notificationAlertProps);
+  // console.log('Page3ExampleActivitySchema::', this.storeSchema)
+  return this.storeSchema
 }
 
 /**
@@ -143,13 +142,13 @@ export function Page3ExampleActivityStoreSchema(namespace, name) {
  * @returns {{loadingMessage: string, storeKey: *, name: *, loading: boolean, updated: boolean}}
  * @constructor
  */
-export function Page4ExampleActivityStoreSchema(namespace, name) {
-    ActivityStoreSchema.call(this, namespace, name);
-    let schema = this.storeSchema;
-    schema.todo = [];
-    schema.notificationAlert = objectInstanceProvider(notificationAlertProps);
-    // console.log("Page4ExampleActivityStoreSchema::", this.storeSchema)
-    return this.storeSchema;
+export function Page4ExampleActivitySchema(namespace, name) {
+  ActivityStoreSchema.call(this, namespace, name);
+  let schema = this.storeSchema;
+  schema.todo = [];
+  schema.notificationAlert = objectInstanceProvider(notificationAlertProps);
+  // console.log("Page4ExampleActivitySchema::", this.storeSchema)
+  return this.storeSchema;
 }
 
 /**
@@ -159,11 +158,12 @@ export function Page4ExampleActivityStoreSchema(namespace, name) {
  * @returns {{loadingMessage: string, storeKey: *, name: *, loading: boolean, updated: boolean}}
  * @constructor
  */
-export function SecuredAppActivityStoreSchema(namespace, name) {
-    ActivityStoreSchema.call(this, namespace, name);
-    let schema = this.storeSchema;
-    schema.todo = [];
-    schema.notificationAlert = objectInstanceProvider(notificationAlertProps);
-    // console.log("SecuredAppActivityStoreSchema::", this.storeSchema)
-    return this.storeSchema;
+export function SecuredAppActivitySchema(namespace, name) {
+  ActivityStoreSchema.call(this, namespace, name);
+  let schema = this.storeSchema;
+  schema.todo = [];
+  schema.clicksCount = 0;
+  schema.notificationAlert = objectInstanceProvider(notificationAlertProps);
+  // console.log("Page4ExampleActivitySchema::", this.storeSchema)
+  return this.storeSchema;
 }

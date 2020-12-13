@@ -65,7 +65,7 @@ export default function SecuredAppHeaderMenuNavigation(props) {
                       href={DEFAULT_VIEW_ROUTE.path}
                       onClick={_ => {
                           _.preventDefault();
-                          appAuth.handleLogout(appStore);
+                          appAuth.handleLogout();
                       }}
                   >Log out</a>
               </li>

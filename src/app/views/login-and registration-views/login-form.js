@@ -1,4 +1,3 @@
-/* eslint-disable */
 //key
 //sd - self described
 /**
@@ -12,90 +11,87 @@ import React from "react";
 import {makeStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import LOGIN_ACTIONS, {handleLogin} from "../../controllers/login-controller";
+import {handleLogin} from "../../controllers/login-controller";
 import {textValueChanged} from "../../util/react-web-forms-data-collection-utils";
 import {isEmptyString} from "../../util/util";
 import appAuth from "../../stores/app-auth";
-import {storeUpdateDispatch} from "../../stores/stores-hocs";
 
 export default function LoginForm(props) {
 
-    let {loginModel, notificationAlert, appStore, dispatcher} = props;
+  let {loginModel, notificationAlert, appStore,} = props;
 
-    let [submit_pressed, set_press_submit] = React.useState(false);
+  let [submit_pressed, set_press_submit] = React.useState(false);
 
-    const useStyles = makeStyles((theme) => ({
-        root: {
-            '& > *': {
-                margin: theme.spacing(1),
-                width: '25ch',
-            },
-        },
-    }));
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      '& > *': {
+        margin: theme.spacing(1),
+        width: '25ch',
+      },
+    },
+  }));
 
-    const classes = useStyles();
+  const classes = useStyles();
 
-    let isValidFormData = () => {
+  let isValidFormData = () => {
 
-        let validForm = true;
-        set_press_submit(false);//assume not pressed
+    let validForm = true;
+    set_press_submit(false);//assume not pressed
 
-        if (isEmptyString(loginModel['usernameOrEmail'])) {
-            validForm = false;
-            set_press_submit(true);
-            return validForm;
-        }
-        if (isEmptyString(loginModel['password'])) {
-            validForm = false;
-            set_press_submit(true);
-            return validForm;
-        }
-
-        return validForm;
-
+    if (isEmptyString(loginModel['usernameOrEmail'])) {
+      validForm = false;
+      set_press_submit(true);
+      return validForm;
+    }
+    if (isEmptyString(loginModel['password'])) {
+      validForm = false;
+      set_press_submit(true);
+      return validForm;
     }
 
-    return (
-        <React.Fragment>
-            <form className={classes.root} noValidate autoComplete="off">
-                {
-                    submit_pressed && isEmptyString(loginModel.usernameOrEmail) &&
-                    <small style={{color: 'red'}}> * This field is required.</small>
+    return validForm;
+
+  }
+
+  return (
+      <React.Fragment>
+        <form className={classes.root} noValidate autoComplete="off">
+          {
+            submit_pressed && isEmptyString(loginModel.usernameOrEmail) &&
+            <small style={{color: 'red'}}> * This field is required.</small>
+          }
+          <br/>
+          <TextField
+              id="username-or-email"
+              label="Username/Email" type={'text'}
+              onChange={e => textValueChanged(loginModel, e.target.value, 'usernameOrEmail')}
+          />
+          <br/>
+          {
+            submit_pressed && isEmptyString(loginModel.password) &&
+            <small style={{color: 'red'}}> * This field is required.</small>
+          }
+          <br/>
+          <TextField
+              id="password"
+              label="Password" type={'password'}
+              onChange={e => textValueChanged(loginModel, e.target.value, 'password')}
+          />
+          <br/>
+          <Button
+              variant="contained"
+              color="primary" type={'submit'}
+              onClick={e => {
+                e.preventDefault();
+                if (!isValidFormData()) {
+                  return;
                 }
-                <br/>
-                <TextField
-                    id="username-or-email"
-                    label="Username/Email" type={'text'}
-                    onChange={e => textValueChanged(loginModel, e.target.value, 'usernameOrEmail')}
-                />
-                <br/>
-                {
-                    submit_pressed && isEmptyString(loginModel.password) &&
-                    <small style={{color: 'red'}}> * This field is required.</small>
-                }
-                <br/>
-                <TextField
-                    id="password"
-                    label="Password" type={'password'}
-                    onChange={e => textValueChanged(loginModel, e.target.value, 'password')}
-                />
-                <br/>
-                <Button
-                    variant="contained"
-                    color="primary" type={'submit'}
-                    onClick={e => {
-                        e.preventDefault();
-                        if (!isValidFormData()) {
-                            return;
-                        }
-                        storeUpdateDispatch(dispatcher, LOGIN_ACTIONS.handleLogin.name, {
-                            loginModel, notificationAlert, appStore, appAuth
-                        });
-                    }}
-                >
-                    Login
-                </Button>
-            </form>
-        </React.Fragment>
-    )
+                handleLogin(loginModel, notificationAlert, appStore, appAuth);
+              }}
+          >
+            Login
+          </Button>
+        </form>
+      </React.Fragment>
+  )
 }

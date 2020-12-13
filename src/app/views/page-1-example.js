@@ -13,20 +13,19 @@ import {Helmet} from "react-helmet";
 import {TITLE} from "../app-config";
 import appNavigation from "../routing-and-navigation/app-navigation";
 import {PAGE2EXAMPLE_VIEW_ROUTE} from "../routing-and-navigation/views-routes-declarations";
-import {useSelector} from "react-redux";
+import WithStoresHoc from "../stores/with-stores-hoc";
 
-export default function Page1Example(props) {
+export function Page1Example(props) {
   console.log('Page1Example props', props);
 
   const {
-    appStore, page1ExampleStore
-  } = useSelector(stores => stores);
-  console.log('Page1Example appStore', page1ExampleStore);
+    appStore,
+  } = props;
 
-  // because from this page, navigations will
-  // be performed, init navigator with {history, location, match}
-  // from props
-  appNavigation.initNavigator(props);
+    // because from this page, navigations will
+    // be performed, init navigator with {history, location, match}
+    // from props
+    appNavigation.initNavigator(props);
 
   const _continueToPage2 = (e) => {
     e.preventDefault();
@@ -72,3 +71,5 @@ export default function Page1Example(props) {
   );
 
 }
+
+export default WithStoresHoc(Page1Example, ['page1ExampleStore', 'appStore']);

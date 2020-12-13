@@ -107,7 +107,6 @@ export class AppNavigation {
     }
 
     navigateBack = (navParams = null) => {
-        //todo: FIX THIS LATER
         // console.log('this.navStore', toJS(this.navStore));
         if (isNullUndefined(this.navStore?.['navigatedFrom'])) {
             alert('Cannot determine where to return!');

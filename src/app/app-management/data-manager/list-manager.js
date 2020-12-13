@@ -32,7 +32,7 @@ export const SOs_and_Credits_List = [
       },
       {
         site: 'Linked In',
-        link: 'https://www.linkedin.com/in/kaybarax/',
+        link: 'https://linkedin.com/in/kaybrax',
       },
     ],
   },

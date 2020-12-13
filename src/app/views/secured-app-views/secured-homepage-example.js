@@ -10,53 +10,71 @@
 import React from 'react';
 import {Helmet} from "react-helmet";
 import {TITLE} from "../../app-config";
+import WithStoresHoc from "../../stores/with-stores-hoc";
 import SecuredAppHeaderMenuNavigation from "../../routing-and-navigation/secured-app-header-menu-navigation";
 import appNavigation from "../../routing-and-navigation/app-navigation";
 import {persistStoresToLocalStorage} from "../../stores/store-utils";
-import {useSelector} from "react-redux";
+import {toJS} from "mobx";
 
-export default function SecuredHomepageExample(props) {
-    console.log('SecuredHomepageExample props', props);
+export function SecuredHomepageExample(props) {
+  console.log('SecuredHomepageExample props', props);
 
-    const {
-        appStore, securedAppStore
-    } = useSelector(stores => stores);
+  const {
+    appStore, securedAppStore
+  } = props;
+  console.log('appStore -> ', toJS(appStore));
+  console.log('securedAppStore -> ', toJS(securedAppStore));
 
-    // because from this page, navigations will
-    // be performed, init navigator with {history, location, match}
-    // from props
-    appNavigation.initNavigator(props);
+  // let {} = securedHomepageStore;
 
-    React.useEffect(() => {
-        persistStoresToLocalStorage([appStore, securedAppStore]).then(null);
-    });
 
-    return (
-        <React.Fragment>
+  // because from this page, navigations will
+  // be performed, init navigator with {history, location, match}
+  // from props
+  appNavigation.initNavigator(props);
 
-            <Helmet>
-                <title>{TITLE + ' | Secured App Home'}</title>
-            </Helmet>
+  React.useEffect(() => {
+    persistStoresToLocalStorage([appStore, securedAppStore]).then(null);
+  });
 
-            <SecuredAppHeaderMenuNavigation
-                appStore={appStore}
-            />
+  return (
+      <React.Fragment>
 
-            <div className={'flex-row-container'}>
-                <div className={'flex-container-child-item center-align-content'}>
-                    <h5 className="title is-5">Secured Page Example</h5>
-                </div>
-            </div>
+        <Helmet>
+          <title>{TITLE + ' | Secured App Home'}</title>
+        </Helmet>
 
-            <div className={'flex-row-container'}>
-                <div className={'flex-container-child-item center-align-content'}>
-                    <p style={{textAlign: 'left'}}>
-                        You have accessed a page such as this, only because you have logged in!
-                    </p>
-                </div>
-            </div>
+        <SecuredAppHeaderMenuNavigation
+            appStore={appStore}
+        />
 
-        </React.Fragment>
-    );
+        <div className={'flex-row-container'}>
+          <div className={'flex-container-child-item center-align-content'}>
+            <h5 className="title is-5">Secured Page Example</h5>
+          </div>
+        </div>
+
+        <div className={'flex-row-container'}>
+          <div className={'flex-container-child-item center-align-content'}>
+            <p style={{textAlign: 'left'}}>
+              You have accessed a page such as this, only because you have logged in!
+            </p>
+            <p>
+              <h3>Try counting clicks</h3>
+              <button
+                  onClick={_ => {
+                    securedAppStore.clicksCount += 1;
+                  }}
+              >Click me
+              </button>
+              <h5>You have clicked {securedAppStore?.clicksCount}</h5>
+            </p>
+          </div>
+        </div>
+
+      </React.Fragment>
+  );
 
 }
+
+export default WithStoresHoc(SecuredHomepageExample, ['securedAppStore', 'appStore']);

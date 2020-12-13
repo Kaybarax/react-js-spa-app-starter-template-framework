@@ -16,15 +16,14 @@ import {isNullUndefined} from "../util/util";
 import {SOs_and_Credits_List} from "../app-management/data-manager/list-manager";
 import {faCoffee} from "@fortawesome/free-solid-svg-icons/faCoffee";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {useSelector} from "react-redux";
-import appNavigation from "../routing-and-navigation/app-navigation";
+import WithStoresHoc from "../stores/with-stores-hoc";
 
-export default function Page4SubItemExample(props) {
+export function Page4SubItemExample(props) {
   console.log('Page4SubItemExample props', props);
 
   const {
     appStore
-  } = useSelector(stores => stores);
+  } = props;
 
   let {item} = useParams();
 
@@ -48,7 +47,7 @@ export default function Page4SubItemExample(props) {
 
             <div>
               <a className="button is-info" onClick={_ => {
-                appNavigation.navigateBack();
+                // appNavigation.navigateToPage4Example(router);
               }}>Go back</a>
             </div>
             <br/>
@@ -135,3 +134,5 @@ export default function Page4SubItemExample(props) {
   );
 
 }
+
+export default WithStoresHoc(Page4SubItemExample, ['page4ExampleStore', 'appStore']);
