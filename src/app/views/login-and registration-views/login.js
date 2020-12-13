@@ -18,144 +18,147 @@ import {displayFieldExpectationSatisfied} from "../../controllers/app-controller
 import {LOGIN_PAGE_ACTIONS_ENUM} from "../../stores/actions-and-stores-data";
 import '../../theme/login-styles.scss';
 import ResetPasswordForm from "./reset-password-form";
-import {User} from "../../app-management/data-manager/models-manager";
-import WithStoresHoc from "../../stores/with-stores-hoc";
 import appNavigation from "../../routing-and-navigation/app-navigation";
+import {useDispatch, useSelector} from "react-redux";
+import {storeUpdateDispatch} from "../../stores/stores-hocs";
+import LOGIN_ACTIONS from "../../controllers/login-controller";
 
-export function Login(props) {
-  console.log('Login props', props);
+export default function Login(props) {
+    console.log('Login props', props);
 
-  const {
-    appStore,
-    loginStore,
-    loginStore: {notificationAlert},
-  } = props;
+    const store = useSelector(stores => stores);
+    const dispatcher = useDispatch();
+
+    console.log('Login store', store);
+    const {
+        appStore,
+        loginStore,
+    } = store;
+    let {notificationAlert} = loginStore;
 
     // because from this page, navigations will
     // be performed, init navigator with {history, location, match}
     // from props
     appNavigation.initNavigator(props);
 
-  const showLoginForm = () => {
-    loginStore.pageAction = LOGIN_PAGE_ACTIONS_ENUM.LOGIN;
-  };
+    const showLoginForm = () => {
+        storeUpdateDispatch(dispatcher, LOGIN_ACTIONS.showLoginForm.name, {loginStore});
+    };
 
-  const showSignUpForm = () => {
-    loginStore.signUpForm.user = new User();
-    loginStore.pageAction = LOGIN_PAGE_ACTIONS_ENUM.SIGN_UP;
-  };
+    const showSignUpForm = () => {
+        storeUpdateDispatch(dispatcher, LOGIN_ACTIONS.showSignUpForm.name, {loginStore});
+    };
 
-  const showResetPasswordForm = () => {
-    loginStore.pageAction = LOGIN_PAGE_ACTIONS_ENUM.RESET_PASSWORD;
-  };
+    const showResetPasswordForm = () => {
+        storeUpdateDispatch(dispatcher, LOGIN_ACTIONS.showResetPasswordForm.name, {loginStore});
+    };
 
-  let showLogin = (
-      displayFieldExpectationSatisfied('pageAction', loginStore,
-          expectationOfX => isNullUndefined(expectationOfX))
-      ||
-      displayFieldExpectationSatisfied('pageAction', loginStore,
-          expectationOfX => expectationOfX === LOGIN_PAGE_ACTIONS_ENUM.LOGIN)
-  );
+    let showLogin = (
+        displayFieldExpectationSatisfied('pageAction', loginStore,
+            expectationOfX => isNullUndefined(expectationOfX))
+        ||
+        displayFieldExpectationSatisfied('pageAction', loginStore,
+            expectationOfX => expectationOfX === LOGIN_PAGE_ACTIONS_ENUM.LOGIN)
+    );
 
-  let showSignUp = displayFieldExpectationSatisfied('pageAction', loginStore,
-      expectationOfX => expectationOfX === LOGIN_PAGE_ACTIONS_ENUM.SIGN_UP);
+    let showSignUp = displayFieldExpectationSatisfied('pageAction', loginStore,
+        expectationOfX => expectationOfX === LOGIN_PAGE_ACTIONS_ENUM.SIGN_UP);
 
-  let showResetPassword = displayFieldExpectationSatisfied('pageAction', loginStore,
-      expectationOfX => expectationOfX === LOGIN_PAGE_ACTIONS_ENUM.RESET_PASSWORD);
+    let showResetPassword = displayFieldExpectationSatisfied('pageAction', loginStore,
+        expectationOfX => expectationOfX === LOGIN_PAGE_ACTIONS_ENUM.RESET_PASSWORD);
 
-  return (
-      <React.Fragment>
+    return (
+        <React.Fragment>
 
-        <Helmet>
-          <title>{TITLE + ' | Login'}</title>
-        </Helmet>
+            <Helmet>
+                <title>{TITLE + ' | Login'}</title>
+            </Helmet>
 
-        <div>
-          <div className={'flex-row-container'}>
-            <div className={'flex-container-child-item center-align-content'}>
-              <h3 className={`login-action`}>
+            <div>
+                <div className={'flex-row-container'}>
+                    <div className={'flex-container-child-item center-align-content'}>
+                        <h3 className={`login-action`}>
                 <span
                     className={`${showLogin ? 'selected' : ''}`}
                     onClick={_ => {
-                      showLoginForm();
+                        showLoginForm();
                     }}
                 >Login</span> |&nbsp;
-                <span
-                    className={`${showSignUp ? 'selected' : ''}`}
-                    onClick={_ => {
-                      showSignUpForm();
-                    }}
-                >Sign Up</span> |&nbsp;
-                <span
-                    className={`${showResetPassword ? 'selected' : ''}`}
-                    onClick={_ => {
-                      showResetPasswordForm();
-                    }}
-                >Reset Password</span>
-              </h3>
-              <a href={'/'}>Exit</a>
+                            <span
+                                className={`${showSignUp ? 'selected' : ''}`}
+                                onClick={_ => {
+                                    showSignUpForm();
+                                }}
+                            >Sign Up</span> |&nbsp;
+                            <span
+                                className={`${showResetPassword ? 'selected' : ''}`}
+                                onClick={_ => {
+                                    showResetPasswordForm();
+                                }}
+                            >Reset Password</span>
+                        </h3>
+                        <a href={'/'}>Exit</a>
+                    </div>
+                </div>
+
+                {
+                    showLogin &&
+                    <div className={'flex-row-container'}>
+                        <div className={'flex-container-child-item center-align-content'}>
+                            <LoginForm
+                                loginModel={loginStore.loginForm}
+                                notificationAlert={notificationAlert}
+                                appStore={appStore}
+                                dispatcher={dispatcher}
+                            />
+                        </div>
+                    </div>
+                }
+
+                {
+                    showSignUp &&
+                    <div className={'flex-row-container'}>
+                        <div className={'flex-container-child-item center-align-content'}>
+                            <SignUpForm
+                                signUpModel={loginStore.signUpForm}
+                                notificationAlert={notificationAlert}
+                                showLoginForm={showLoginForm}
+                            />
+                        </div>
+                    </div>
+                }
+
+                {
+                    showResetPassword &&
+                    <div className={'flex-row-container'}>
+                        <div className={'flex-container-child-item center-align-content'}>
+                            <ResetPasswordForm
+                                resetPasswordModel={loginStore.resetPasswordForm}
+                                notificationAlert={notificationAlert}
+                            />
+                        </div>
+                    </div>
+                }
+
             </div>
-          </div>
 
-          {
-            showLogin &&
-            <div className={'flex-row-container'}>
-              <div className={'flex-container-child-item center-align-content'}>
-                <LoginForm
-                    loginModel={loginStore.loginForm}
-                    notificationAlert={notificationAlert}
-                    appStore={appStore}
-                />
-              </div>
-            </div>
-          }
+            {
+                (
+                    displayFieldExpectationSatisfied('alert', notificationAlert,
+                        expectationOfX => isTrue(expectationOfX))
+                ) &&
+                <div style={{position: 'fixed', top: 0}}>
+                    <AppNotificationAlert
+                        alert={notificationAlert.alert}
+                        message={notificationAlert.message}
+                        type={notificationAlert.type}
+                        duration={notificationAlert.duration}
+                        position={notificationAlert.position}
+                    />
+                </div>
+            }
 
-          {
-            showSignUp &&
-            <div className={'flex-row-container'}>
-              <div className={'flex-container-child-item center-align-content'}>
-                <SignUpForm
-                    signUpModel={loginStore.signUpForm}
-                    notificationAlert={notificationAlert}
-                    showLoginForm={showLoginForm}
-                />
-              </div>
-            </div>
-          }
-
-          {
-            showResetPassword &&
-            <div className={'flex-row-container'}>
-              <div className={'flex-container-child-item center-align-content'}>
-                <ResetPasswordForm
-                    resetPasswordModel={loginStore.resetPasswordForm}
-                    notificationAlert={notificationAlert}
-                />
-              </div>
-            </div>
-          }
-
-        </div>
-
-        {
-          (
-              displayFieldExpectationSatisfied('alert', notificationAlert,
-                  expectationOfX => isTrue(expectationOfX))
-          ) &&
-          <div style={{position: 'fixed', top: 0}}>
-            <AppNotificationAlert
-                alert={notificationAlert.alert}
-                message={notificationAlert.message}
-                type={notificationAlert.type}
-                duration={notificationAlert.duration}
-                position={notificationAlert.position}
-            />
-          </div>
-        }
-
-      </React.Fragment>
-  );
+        </React.Fragment>
+    );
 
 }
-
-export default WithStoresHoc(Login, ['loginStore', 'appStore']);

@@ -9,7 +9,6 @@
 
 import React from 'react';
 import NotFound from "../views/not-found";
-import AppDevScratchPad from "../../app-dev-scratch-pad/app-dev-scratch-pad";
 import Page4SubItemExample from "../views/page-4-sub-item-example";
 
 ////declare the application views for routing
@@ -83,5 +82,5 @@ export const APP_DEV_MOCKS_VIEW_ROUTE = {
   component: React.lazy(() =>
       /* webpackChunkName: "APP_DEV_MOCKS_VIEW_ROUTE" */
       import("../../app-dev-scratch-pad/app-dev-scratch-pad")),
-  path: AppDevScratchPad.path,
+  path: '/app-dev-scratch-pad',
 };

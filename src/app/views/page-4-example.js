@@ -14,14 +14,14 @@ import {TITLE} from "../app-config";
 import {isEmptyArray} from "../util/util";
 import {SOs_and_Credits_List} from "../app-management/data-manager/list-manager";
 import appNavigation from "../routing-and-navigation/app-navigation";
-import WithStoresHoc from "../stores/with-stores-hoc";
+import {useSelector} from "react-redux";
 
-export function Page4Example(props) {
+export default function Page4Example(props) {
   console.log('Page4Example props', props);
 
   const {
     appStore
-  } = props;
+  } = useSelector(stores => stores);
 
   // because from this page, navigations will
   // be performed, init navigator with {history, location, match}
@@ -139,5 +139,3 @@ export function Page4Example(props) {
   );
 
 }
-
-export default WithStoresHoc(Page4Example, ['page4ExampleStore', 'appStore']);
