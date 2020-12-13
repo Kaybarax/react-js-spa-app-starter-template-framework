@@ -56,7 +56,7 @@ Get up and running quickly, with building your React JS SPA web application.
 * `$ git clone <this repo>`
 * `$ yarn install | npm install`
 * `$ yarn start | npm run start`
-* A browser window should automatically open to the application at http://localhost:3010
+* A browser window should automatically open to the application at http://localhost:3000
 >
 
 And you are good to go!
