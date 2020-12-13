@@ -1,0 +1,14 @@
+{
+  "presets": [
+    "react-app",
+    "mobx"
+  ],
+  "plugins": [
+    [
+      "@babel/plugin-proposal-decorators",
+      {
+        "legacy": true
+      }
+    ]
+  ]
+}
