@@ -1,0 +1,1 @@
+## Your static images, small videos, gifs, sounds ... here in this directory.
