@@ -1,1 +1,0 @@
-## Your view components controller functions files, and other controllers functions files you fancy, here in this directory.
