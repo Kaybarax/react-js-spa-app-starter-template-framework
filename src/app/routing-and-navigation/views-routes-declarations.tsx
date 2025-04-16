@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import NotFound from '../views/not-found';
+import { NotFoundPath } from '../views/not-found';
 import { AppDevScratchPadPath } from '../../app-dev-scratch-pad/app-dev-scratch-pad';
 
 export const DEFAULT_VIEW_ROUTE = {
@@ -51,7 +51,7 @@ export const SECURED_PAGE2EXAMPLE_VIEW_ROUTE = {
 
 export const _404_VIEW = {
   component: React.lazy(() => import('../views/not-found')),
-  path: NotFound.path,
+  path: NotFoundPath,
 };
 
 export const APP_DEV_MOCKS_VIEW_ROUTE = {
