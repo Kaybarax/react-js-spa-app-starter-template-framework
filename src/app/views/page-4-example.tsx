@@ -12,6 +12,8 @@ import { TITLE } from '../app-config';
 import { isEmptyArray } from '../util/util';
 import { SOs_and_Credits_List } from '../app-management/data-manager/list-manager';
 import WithStoresHoc from '../stores/with-stores-hoc.tsx';
+import imagePlaceholder from '../media/images/image.png';
+import shortParagraphImage from '../media/images/short-paragraph.png';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function Page4Example(props: any) {
@@ -79,8 +81,9 @@ export function Page4Example(props: any) {
             <a href={'https://twitter.com/Kaybarax'} target={'_blank'}>
               Kaybarax
             </a>
-            <br />
-            <br />
+          </p>
+
+          <div style={{ textAlign: 'left' }}>
             <strong>Shout out's and credits:</strong>
             <br />
             <div className="flex-column-container">
@@ -93,7 +96,7 @@ export function Page4Example(props: any) {
                           <div className="">
                             <figure>
                               <img
-                                src={require('../media/images/image.png')}
+                                src={imagePlaceholder}
                                 alt={'alt'}
                                 style={{
                                   width: 96,
@@ -116,7 +119,7 @@ export function Page4Example(props: any) {
                           <div className="">
                             A little about {item.person}, click to view full details
                             <img
-                              src={require('../media/images/short-paragraph.png')}
+                              src={shortParagraphImage}
                               alt={'alt'}
                               style={{
                                 width: 520,
@@ -132,7 +135,7 @@ export function Page4Example(props: any) {
                   );
                 })}
             </div>
-          </p>
+          </div>
         </div>
       </div>
     </React.Fragment>

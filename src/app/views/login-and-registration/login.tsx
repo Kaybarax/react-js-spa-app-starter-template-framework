@@ -26,8 +26,10 @@ export function Login(props: any) {
   const {
     appStore,
     loginStore,
-    loginStore: { notificationAlert },
   } = props;
+
+  // Use optional chaining to safely access notificationAlert
+  const notificationAlert = loginStore?.notificationAlert;
 
   // because from this page, navigations will
   // be performed, init navigator with {history, location, match}
@@ -35,16 +37,22 @@ export function Login(props: any) {
   // appNavigation.initNavigator(props);
 
   const showLoginForm = () => {
-    loginStore.pageAction = LOGIN_PAGE_ACTIONS.LOGIN;
+    if (loginStore) {
+      loginStore.pageAction = LOGIN_PAGE_ACTIONS.LOGIN;
+    }
   };
 
   const showSignUpForm = () => {
-    loginStore.signUpForm.user = new User();
-    loginStore.pageAction = LOGIN_PAGE_ACTIONS.SIGN_UP;
+    if (loginStore) {
+      loginStore.signUpForm.user = new User();
+      loginStore.pageAction = LOGIN_PAGE_ACTIONS.SIGN_UP;
+    }
   };
 
   const showResetPasswordForm = () => {
-    loginStore.pageAction = LOGIN_PAGE_ACTIONS.RESET_PASSWORD;
+    if (loginStore) {
+      loginStore.pageAction = LOGIN_PAGE_ACTIONS.RESET_PASSWORD;
+    }
   };
 
   const showLogin =
@@ -111,7 +119,7 @@ export function Login(props: any) {
         {showLogin && (
           <div className={'flex-row-container'}>
             <div className={'flex-container-child-item center-align-content'}>
-              <LoginForm loginModel={loginStore.loginForm} notificationAlert={notificationAlert} appStore={appStore} />
+              {loginStore && <LoginForm loginModel={loginStore.loginForm} notificationAlert={notificationAlert || {}} appStore={appStore} />}
             </div>
           </div>
         )}
@@ -119,11 +127,11 @@ export function Login(props: any) {
         {showSignUp && (
           <div className={'flex-row-container'}>
             <div className={'flex-container-child-item center-align-content'}>
-              <SignUpForm
+              {loginStore && <SignUpForm
                 signUpModel={loginStore.signUpForm}
-                notificationAlert={notificationAlert}
+                notificationAlert={notificationAlert || {}}
                 showLoginForm={showLoginForm}
-              />
+              />}
             </div>
           </div>
         )}
@@ -131,16 +139,16 @@ export function Login(props: any) {
         {showResetPassword && (
           <div className={'flex-row-container'}>
             <div className={'flex-container-child-item center-align-content'}>
-              <ResetPasswordForm
+              {loginStore && <ResetPasswordForm
                 resetPasswordModel={loginStore.resetPasswordForm}
-                notificationAlert={notificationAlert}
-              />
+                notificationAlert={notificationAlert || {}}
+              />}
             </div>
           </div>
         )}
       </div>
 
-      {displayFieldExpectationSatisfied('alert', notificationAlert as Record<string, unknown>, expectationOfX =>
+      {notificationAlert && displayFieldExpectationSatisfied('alert', notificationAlert as Record<string, unknown>, expectationOfX =>
         isTrue(expectationOfX),
       ) && (
         <div style={{ position: 'fixed', top: 0 }}>
