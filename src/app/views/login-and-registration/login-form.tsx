@@ -12,7 +12,7 @@ import Button from '@material-ui/core/Button';
 import { handleLogin } from '../../controllers/login-controller';
 import { textValueChanged } from '../../util/react-web-forms-data-collection-utils';
 import { isEmptyString } from '../../util/util';
-import appAuth from '../../stores/app-auth';
+import authStore from '../../stores/auth-store';
 import { NotificationAlert } from '../../shared-components-and-modules/notification-center/notification-utils';
 
 interface LoginFormProps {
@@ -90,7 +90,7 @@ export default function LoginForm(props: LoginFormProps) {
             if (!isValidFormData()) {
               return;
             }
-            handleLogin(loginModel, notificationAlert, appStore, appAuth);
+            handleLogin(loginModel, notificationAlert, appStore, authStore);
           }}
         >
           Login
