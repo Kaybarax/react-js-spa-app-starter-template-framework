@@ -15,7 +15,7 @@ import {
   PAGE3EXAMPLE_VIEW_ROUTE,
   PAGE4EXAMPLE_VIEW_ROUTE,
 } from './views-routes-declarations';
-import { appNavigation } from './app-navigation';
+import { appNavigation, AppRoutes } from './app-navigation';
 import { FC } from 'react';
 
 export interface HeaderMenuNavigationProps {
@@ -25,15 +25,8 @@ export interface HeaderMenuNavigationProps {
 export const HeaderMenuNavigation: FC<HeaderMenuNavigationProps> = props => {
   console.log('HeaderMenuNavigation props', props);
 
-  const {
-    // navigateHome,
-    // navigateToPage2Example,
-    // navigateToPage3Example,
-    // navigateToPage4Example,
-    // navigateToAppDevScratchPad
-    navigateTo,
-  } = appNavigation;
-  console.log('navigateTo', navigateTo);
+  // Don't destructure navigateTo to ensure we always use the latest instance
+  console.log('appNavigation', appNavigation);
 
   const slug = '/' + window.location.pathname.split('/').pop();
 
@@ -45,7 +38,7 @@ export const HeaderMenuNavigation: FC<HeaderMenuNavigationProps> = props => {
             href={DEFAULT_VIEW_ROUTE.path}
             onClick={event => {
               event.preventDefault();
-              // navigateHome();
+              appNavigation.navigateTo(AppRoutes.DEFAULT);
             }}
           >
             Hi! <span>👋️</span> RJSSASTF
@@ -56,7 +49,7 @@ export const HeaderMenuNavigation: FC<HeaderMenuNavigationProps> = props => {
             href={DEFAULT_VIEW_ROUTE.path}
             onClick={event => {
               event.preventDefault();
-              // navigateHome();
+              appNavigation.navigateTo(AppRoutes.DEFAULT);
             }}
           >
             Page 1
@@ -70,7 +63,7 @@ export const HeaderMenuNavigation: FC<HeaderMenuNavigationProps> = props => {
             href={PAGE2EXAMPLE_VIEW_ROUTE.path}
             onClick={event => {
               event.preventDefault();
-              // navigateToPage2Example();
+              appNavigation.navigateTo(AppRoutes.PAGE2);
             }}
           >
             Page 2
@@ -84,7 +77,7 @@ export const HeaderMenuNavigation: FC<HeaderMenuNavigationProps> = props => {
             href={PAGE3EXAMPLE_VIEW_ROUTE.path}
             onClick={event => {
               event.preventDefault();
-              // navigateToPage3Example();
+              appNavigation.navigateTo(AppRoutes.PAGE3);
             }}
           >
             Page 3
@@ -98,7 +91,7 @@ export const HeaderMenuNavigation: FC<HeaderMenuNavigationProps> = props => {
             href={PAGE4EXAMPLE_VIEW_ROUTE.path}
             onClick={event => {
               event.preventDefault();
-              // navigateToPage4Example();
+              appNavigation.navigateTo(AppRoutes.PAGE4);
             }}
           >
             Page 4
@@ -109,7 +102,7 @@ export const HeaderMenuNavigation: FC<HeaderMenuNavigationProps> = props => {
             href={APP_DEV_MOCKS_VIEW_ROUTE.path}
             onClick={event => {
               event.preventDefault();
-              // navigateToAppDevScratchPad();
+              appNavigation.navigateTo(AppRoutes.DEV_MOCKS);
             }}
           >
             Mock some stuff{' '}

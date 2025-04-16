@@ -19,6 +19,7 @@ import {
   SECURED_HOMEPAGE_EXAMPLE_VIEW_ROUTE,
   SECURED_PAGE2EXAMPLE_VIEW_ROUTE,
 } from './views-routes-declarations';
+import { useAppNavigation } from './use-app-navigation';
 
 interface AppBaseRoutingCompositionProps {
   [key: string]: unknown;
@@ -26,6 +27,9 @@ interface AppBaseRoutingCompositionProps {
 
 export function AppBaseRoutingComposition(props: AppBaseRoutingCompositionProps): JSX.Element {
   console.log('AppBaseRoutingComposition props', props);
+
+  // Initialize appNavigation with router props
+  useAppNavigation();
 
   const routeMap = [
     <Route key="default" path={DEFAULT_VIEW_ROUTE.path} element={<DEFAULT_VIEW_ROUTE.component />} />,

@@ -43,8 +43,8 @@ export function Page3Example(props: any) {
 
       <div className={'flex-row-container'}>
         <div className={'flex-container-child-item center-align-content'}>
+          <h4>So, what's under the hood!!</h4>
           <p style={{ textAlign: 'left' }}>
-            <h4>So, what's under the hood!!</h4>
             <strong>State/Stores Manager:</strong>
             <br />
             The extremely powerful and intuitive Zustand.
