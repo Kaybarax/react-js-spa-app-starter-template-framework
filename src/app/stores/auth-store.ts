@@ -75,20 +75,62 @@ export const useAuthStore = create<AuthState>()(
   )
 );
 
-export class AppAuth {
+export class AuthStore {
+  private static instance: AuthStore | null = null;
+  static namespace = 'AuthStore_' + STORE_KEY_SUFFIX;
+
+  private constructor() {}
+
+  /**
+   * Get the singleton instance of AuthStore
+   */
+  public static getInstance(): AuthStore {
+    if (!AuthStore.instance) {
+      AuthStore.instance = new AuthStore();
+    }
+    return AuthStore.instance;
+  }
+
+  /**
+   * Check if the user is authenticated
+   */
   async isAuthenticated(): Promise<boolean> {
     return useAuthStore.getState().checkAuthentication();
   }
 
+  /**
+   * Handle user login
+   */
   handleLogin(): void {
     useAuthStore.getState().login();
   }
 
+  /**
+   * Handle user logout
+   */
   handleLogout(): void {
     useAuthStore.getState().logout();
   }
+
+  /**
+   * Persist auth store to local storage
+   * This is called automatically by zustand middleware on store changes
+   */
+  persistToLocalStorage(): void {
+    // No need to implement this method as zustand handles persistence automatically
+    console.log('Auth store persistence is handled by zustand middleware');
+  }
+
+  /**
+   * Load auth store from local storage
+   * This is called automatically by zustand middleware on initialization
+   */
+  loadFromLocalStorage(): void {
+    // No need to implement this method as zustand handles persistence automatically
+    console.log('Auth store loading is handled by zustand middleware');
+  }
 }
 
-// Singleton instance
-const appAuth = new AppAuth();
-export default appAuth;
+// Export the singleton instance
+const authStore = AuthStore.getInstance();
+export default authStore;

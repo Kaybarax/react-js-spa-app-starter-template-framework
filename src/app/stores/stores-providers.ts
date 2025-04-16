@@ -7,14 +7,17 @@
 import {
   StoreName,
   StoreNames,
+  SchemaFactory
 } from './store-schemas';
 import { getPersistedStoreKey } from './store-utils';
-import { 
-  useAppStore, 
-  useLoginStore, 
-  createPageExampleStore,
-  Store
-} from './zustand';
+
+// Define the store type
+export interface Store {
+  storeKey: string;
+  storeName: string;
+  namespace: string;
+  [key: string]: unknown;
+}
 
 // Define the store provider interface
 export interface StoreProvider {
@@ -31,27 +34,12 @@ interface StoreProvidersType {
 function createStoreProvider(storeName: StoreName): StoreProvider {
   // Function to get the appropriate store based on store name
   const getStore = (namespace: string): Store => {
-    switch (storeName) {
-      case StoreNames.appStore:
-        return useAppStore.getState().getStore();
-      case StoreNames.loginStore:
-        return useLoginStore.getState().getStore();
-      case StoreNames.page1ExampleStore:
-      case StoreNames.page2ExampleStore:
-      case StoreNames.page3ExampleStore:
-      case StoreNames.page4ExampleStore:
-        return createPageExampleStore(storeName).getState().getStore();
-      default:
-        // Create a default store with basic properties
-        return {
-          storeName,
-          namespace,
-          storeKey: getPersistedStoreKey(namespace, storeName),
-          loading: false,
-          updated: false,
-          loadingMessage: 'Loading...',
-        } as Store;
-    }
+    // Create a default store with basic properties using SchemaFactory
+    const schema = SchemaFactory.getSchema(storeName, namespace);
+    return {
+      ...schema,
+      storeKey: getPersistedStoreKey(namespace, storeName),
+    } as Store;
   };
 
   return {

@@ -8,23 +8,48 @@
 import { useAppStores } from './zustand';
 import { STORE_KEY_SUFFIX } from './actions-and-stores-data';
 import { StoreName } from './store-schemas';
-import { Store as StoreType } from './store-utils';
+import { Store as StoreType, clearAllPersistedStoresToLocalStorage } from './store-utils';
 
-export default class AppStores {
+export class AppStores {
   stores: Record<StoreName, StoreType> | null = null;
   appStoresLoaded = false;
   static namespace = 'AppStores_' + STORE_KEY_SUFFIX;
+  private static instance: AppStores | null = null;
 
-  constructor() {
+  private constructor() {
     this.stores = null;
     this.appStoresLoaded = false;
   }
 
+  /**
+   * Get the singleton instance of AppStores
+   */
+  public static getInstance(): AppStores {
+    if (!AppStores.instance) {
+      AppStores.instance = new AppStores();
+    }
+    return AppStores.instance;
+  }
+
+  /**
+   * Persist all stores to local storage
+   * This is called automatically by zustand middleware on store changes
+   */
   persistMyStoresToLocalStorageOnEventChanges(): void {
     // No need to implement this method as zustand handles persistence automatically
     console.log('Store persistence is handled by zustand middleware');
   }
 
+  /**
+   * Clear all persisted stores from local storage
+   */
+  clearPersistedStores(): void {
+    clearAllPersistedStoresToLocalStorage();
+  }
+
+  /**
+   * Load all stores from local storage
+   */
   loadAppStores = async (): Promise<void> => {
     try {
       // Use the loadAppStores function from the zustand store
@@ -43,3 +68,7 @@ export default class AppStores {
     }
   };
 }
+
+// Export the singleton instance
+const appStores = AppStores.getInstance();
+export default appStores;

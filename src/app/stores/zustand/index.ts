@@ -5,6 +5,7 @@ import {
   AppSchema, 
   LoginSchema, 
   PageExampleSchema, 
+  SchemaFactory,
   StoreName, 
   StoreNames 
 } from '../store-schemas';
@@ -40,36 +41,40 @@ export const useAppStores = create<AppStoresState>()(
         try {
           const stores: AllStores = {};
 
-          // Initialize each store
+          // Initialize each store directly using SchemaFactory
           for (const key in StoreNames) {
             const storeName = key as StoreName;
-            const storeKey = `${storeName}_${STORE_KEY_SUFFIX}`;
+            const namespace = 'AppStores';
+            const storeKey = `${namespace}_${storeName}_${STORE_KEY_SUFFIX}`;
 
-            // Create the store based on its type
+            // Get the appropriate store based on store name
             let store: Store;
 
-            switch (storeName) {
-              case 'appStore':
-                store = useAppStore.getState().getStore();
-                break;
-              case 'loginStore':
-                store = useLoginStore.getState().getStore();
-                break;
-              case 'page1ExampleStore':
-              case 'page2ExampleStore':
-              case 'page3ExampleStore':
-              case 'page4ExampleStore':
-                store = createPageExampleStore(storeName).getState().getStore();
-                break;
-              default:
-                store = {
-                  storeName,
-                  namespace: 'AppStores',
-                  storeKey,
-                  loading: false,
-                  updated: false,
-                  loadingMessage: 'Loading...',
-                } as Store;
+            // First try to get from existing zustand stores if they're already initialized
+            try {
+              switch (storeName) {
+                case 'appStore':
+                  store = useAppStore.getState().getStore();
+                  break;
+                case 'loginStore':
+                  store = useLoginStore.getState().getStore();
+                  break;
+                case 'page1ExampleStore':
+                case 'page2ExampleStore':
+                case 'page3ExampleStore':
+                case 'page4ExampleStore':
+                  store = createPageExampleStore(storeName).getState().getStore();
+                  break;
+                default:
+                  throw new Error('Store not initialized');
+              }
+            } catch {
+              // Fallback to creating a new store from schema if zustand store isn't initialized yet
+              const schema = SchemaFactory.getSchema(storeName, namespace);
+              store = {
+                ...schema,
+                storeKey,
+              } as unknown as Store;
             }
 
             stores[storeName] = store;
@@ -99,26 +104,20 @@ export interface AppStoreState extends AppSchema {
 
 export const useAppStore = create<AppStoreState>()(
   persist(
-    (set, get) => ({
-      storeName: StoreNames.appStore,
-      namespace: 'AppStores',
-      storeKey: `AppStores_${StoreNames.appStore}_${STORE_KEY_SUFFIX}`,
-      loading: false,
-      updated: false,
-      loadingMessage: 'Loading...',
-      user: null,
-      navStore: {
-        navigationTrail: [],
-        currentNavigationTrailIndex: 0,
-        navigatedTo: null,
-        navigatedFrom: null,
-      },
-      getStore: () => get() as unknown as Store,
-      setUser: (user) => set({ user }),
-      updateNavStore: (navStore) => set((state) => ({
-        navStore: { ...state.navStore, ...navStore }
-      })),
-    }),
+    (set, get) => {
+      // Get the schema from SchemaFactory
+      const schema = SchemaFactory.getSchema('appStore', 'AppStores') as AppSchema;
+
+      return {
+        ...schema,
+        storeKey: `AppStores_${StoreNames.appStore}_${STORE_KEY_SUFFIX}`,
+        getStore: () => get() as unknown as Store,
+        setUser: (user) => set({ user }),
+        updateNavStore: (navStore) => set((state) => ({
+          navStore: { ...state.navStore, ...navStore }
+        })),
+      };
+    },
     {
       name: `app-store-${StoreNames.appStore}`,
     }
@@ -137,45 +136,27 @@ export interface LoginStoreState extends LoginSchema {
 
 export const useLoginStore = create<LoginStoreState>()(
   persist(
-    (set, get) => ({
-      storeName: StoreNames.loginStore,
-      namespace: 'AppStores',
-      storeKey: `AppStores_${StoreNames.loginStore}_${STORE_KEY_SUFFIX}`,
-      loading: false,
-      updated: false,
-      loadingMessage: 'Loading...',
-      loginForm: {
-        usernameOrEmail: null,
-        password: null,
-      },
-      signUpForm: {
-        user: null,
-        confirmPassword: null,
-      },
-      resetPasswordForm: {
-        usernameOrEmail: null,
-        password: null,
-        confirmPassword: null,
-      },
-      pageAction: null,
-      notificationAlert: {
-        show: false,
-        message: '',
-        type: 'info',
-      },
-      getStore: () => get() as unknown as Store,
-      updateLoginForm: (loginForm) => set((state) => ({
-        loginForm: { ...state.loginForm, ...loginForm }
-      })),
-      updateSignUpForm: (signUpForm) => set((state) => ({
-        signUpForm: { ...state.signUpForm, ...signUpForm }
-      })),
-      updateResetPasswordForm: (resetPasswordForm) => set((state) => ({
-        resetPasswordForm: { ...state.resetPasswordForm, ...resetPasswordForm }
-      })),
-      setPageAction: (pageAction) => set({ pageAction }),
-      setNotificationAlert: (notificationAlert) => set({ notificationAlert }),
-    }),
+    (set, get) => {
+      // Get the schema from SchemaFactory
+      const schema = SchemaFactory.getSchema('loginStore', 'AppStores') as LoginSchema;
+
+      return {
+        ...schema,
+        storeKey: `AppStores_${StoreNames.loginStore}_${STORE_KEY_SUFFIX}`,
+        getStore: () => get() as unknown as Store,
+        updateLoginForm: (loginForm) => set((state) => ({
+          loginForm: { ...state.loginForm, ...loginForm }
+        })),
+        updateSignUpForm: (signUpForm) => set((state) => ({
+          signUpForm: { ...state.signUpForm, ...signUpForm }
+        })),
+        updateResetPasswordForm: (resetPasswordForm) => set((state) => ({
+          resetPasswordForm: { ...state.resetPasswordForm, ...resetPasswordForm }
+        })),
+        setPageAction: (pageAction) => set({ pageAction }),
+        setNotificationAlert: (notificationAlert) => set({ notificationAlert }),
+      };
+    },
     {
       name: `app-store-${StoreNames.loginStore}`,
     }
@@ -191,25 +172,20 @@ export interface PageExampleStoreState extends PageExampleSchema {
 
 export const createPageExampleStore = (storeName: StoreName) => create<PageExampleStoreState>()(
   persist(
-    (set, get) => ({
-      storeName,
-      namespace: 'AppStores',
-      storeKey: `AppStores_${storeName}_${STORE_KEY_SUFFIX}`,
-      loading: false,
-      updated: false,
-      loadingMessage: 'Loading...',
-      todo: [],
-      notificationAlert: {
-        show: false,
-        message: '',
-        type: 'info',
-      },
-      getStore: () => get() as unknown as Store,
-      addTodo: (todo) => set((state) => ({
-        todo: [...state.todo, todo]
-      })),
-      setNotificationAlert: (notificationAlert) => set({ notificationAlert }),
-    }),
+    (set, get) => {
+      // Get the schema from SchemaFactory
+      const schema = SchemaFactory.getSchema(storeName, 'AppStores') as PageExampleSchema;
+
+      return {
+        ...schema,
+        storeKey: `AppStores_${storeName}_${STORE_KEY_SUFFIX}`,
+        getStore: () => get() as unknown as Store,
+        addTodo: (todo) => set((state) => ({
+          todo: [...state.todo, todo]
+        })),
+        setNotificationAlert: (notificationAlert) => set({ notificationAlert }),
+      };
+    },
     {
       name: `app-store-${storeName}`,
     }
@@ -219,7 +195,19 @@ export const createPageExampleStore = (storeName: StoreName) => create<PageExamp
 // Create a hook to use stores in components
 export const useStore = (storeName: StoreName) => {
   const stores = useAppStores((state) => state.stores);
+  const namespace = 'AppStores';
 
+  // First try to get the store from StoreProviders
+  if (StoreProviders[storeName]) {
+    try {
+      return StoreProviders[storeName].storeProvidedBy(namespace);
+    } catch (error) {
+      console.error(`Error getting store ${storeName} from StoreProviders:`, error);
+      // Fall back to the stores from useAppStores
+    }
+  }
+
+  // Fall back to the original implementation
   if (isNullUndefined(stores) || isEmptyObject(stores)) {
     throw new Error('Stores not initialized');
   }
