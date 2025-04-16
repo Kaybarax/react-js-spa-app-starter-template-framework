@@ -5,8 +5,11 @@
  * LinkedIn @_ https://linkedin.com/in/kaybarax
  */
 
-import AppStores from './app-stores';
+import appStores from './app-stores';
 
-const appStores = new AppStores();
+// Call loadAppStores to initialize the stores
+appStores.loadAppStores().catch(err => {
+  console.error('Failed to load app stores:', err);
+});
 
 export default appStores;
