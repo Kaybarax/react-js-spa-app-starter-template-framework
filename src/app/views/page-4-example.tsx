@@ -11,7 +11,7 @@ import { Helmet } from 'react-helmet';
 import { TITLE } from '../app-config';
 import { isEmptyArray } from '../util/util';
 import { SOs_and_Credits_List } from '../app-management/data-manager/list-manager';
-import WithStoresHoc from '../stores/with-stores-hoc';
+import WithZustandStoresHoc from '../stores/with-zustand-stores-hoc';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function Page4Example(props: any) {
@@ -139,5 +139,5 @@ export function Page4Example(props: any) {
   );
 }
 
-const EnhancedPage4Example = WithStoresHoc(Page4Example, ['page4ExampleStore', 'appStore']);
+const EnhancedPage4Example = WithZustandStoresHoc(Page4Example, ['page4ExampleStore', 'appStore']);
 export default EnhancedPage4Example;

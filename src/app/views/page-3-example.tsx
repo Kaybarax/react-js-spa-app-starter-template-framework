@@ -10,7 +10,7 @@ import { HeaderMenuNavigation } from '../routing-and-navigation/header-menu-navi
 import { Helmet } from 'react-helmet';
 import { TITLE } from '../app-config';
 import { PAGE4EXAMPLE_VIEW_ROUTE } from '../routing-and-navigation/views-routes-declarations';
-import WithStoresHoc from '../stores/with-stores-hoc';
+import WithZustandStoresHoc from '../stores/with-zustand-stores-hoc';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function Page3Example(props: any) {
@@ -47,15 +47,11 @@ export function Page3Example(props: any) {
             <h4>So, what's under the hood!!</h4>
             <strong>State/Stores Manager:</strong>
             <br />
-            The extremely, philosophically, and amazingly powerful MobX.
+            The extremely powerful and intuitive Zustand.
             <br />
-            You can read more about{' '}
-            <a href={'https://twitter.com/mweststrate'} target={'_blank'}>
-              Michel Weststrate's
-            </a>{' '}
-            powerful MobX&nbsp; state manager creation, here,{' '}
-            <a href={'https://mobx-state-tree.js.org/intro/philosophy'} target={'_blank'}>
-              About MobX
+            You can read more about Zustand, the simple, fast and scalable state-management solution, here,{' '}
+            <a href={'https://github.com/pmndrs/zustand'} target={'_blank'}>
+              About Zustand
             </a>
             <br />
             As mentioned earlier, currently, the system design persists your running app's state/stores to,{' '}
@@ -66,14 +62,9 @@ export function Page3Example(props: any) {
             <br />
             <strong>Router for routing and navigation:</strong>
             <br />
-            Keeping with the beloved, extremely, philosophically, and amazingly powerful MobX, my routing and&nbsp;
-            navigation logic and design, is wrapped around <i>MobX State Router</i> created by&nbsp;
-            <a href={'https://twitter.com/NareshJBhatia'} target={'_blank'}>
-              Naresh Bhatia
-            </a>
-            . You can see&nbsp;more about it here,&nbsp;
-            <a href={'https://nareshbhatia.github.io/mobx-state-router/docs/guides-getting-started'} target={'_blank'}>
-              About MobX State Router
+            The routing and navigation logic is built on top of React Router, providing a clean and intuitive way to handle navigation in your application. You can learn more about React Router here,&nbsp;
+            <a href={'https://reactrouter.com/'} target={'_blank'}>
+              About React Router
             </a>
             <br />
             <br />
@@ -107,5 +98,5 @@ export function Page3Example(props: any) {
   );
 }
 
-const EnhancedPage3Example = WithStoresHoc(Page3Example, ['page3ExampleStore', 'appStore']);
+const EnhancedPage3Example = WithZustandStoresHoc(Page3Example, ['page3ExampleStore', 'appStore']);
 export default EnhancedPage3Example;
