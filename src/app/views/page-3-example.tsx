@@ -10,7 +10,7 @@ import { HeaderMenuNavigation } from '../routing-and-navigation/header-menu-navi
 import { Helmet } from 'react-helmet';
 import { TITLE } from '../app-config';
 import { PAGE4EXAMPLE_VIEW_ROUTE } from '../routing-and-navigation/views-routes-declarations';
-import WithZustandStoresHoc from '../stores/with-zustand-stores-hoc';
+import WithStoresHoc from '../stores/with-stores-hoc.tsx';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function Page3Example(props: any) {
@@ -62,7 +62,8 @@ export function Page3Example(props: any) {
             <br />
             <strong>Router for routing and navigation:</strong>
             <br />
-            The routing and navigation logic is built on top of React Router, providing a clean and intuitive way to handle navigation in your application. You can learn more about React Router here,&nbsp;
+            The routing and navigation logic is built on top of React Router, providing a clean and intuitive way to
+            handle navigation in your application. You can learn more about React Router here,&nbsp;
             <a href={'https://reactrouter.com/'} target={'_blank'}>
               About React Router
             </a>
@@ -98,5 +99,5 @@ export function Page3Example(props: any) {
   );
 }
 
-const EnhancedPage3Example = WithZustandStoresHoc(Page3Example, ['page3ExampleStore', 'appStore']);
+const EnhancedPage3Example = WithStoresHoc(Page3Example, ['page3ExampleStore', 'appStore']);
 export default EnhancedPage3Example;

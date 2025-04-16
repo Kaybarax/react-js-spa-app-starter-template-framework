@@ -17,7 +17,7 @@ import { LOGIN_PAGE_ACTIONS } from '../../stores/actions-and-stores-data';
 import '../../theme/login-styles.scss';
 import { ResetPasswordForm } from './reset-password-form';
 import { User } from '../../app-management/data-manager/models-manager';
-import WithZustandStoresHoc from '../../stores/with-zustand-stores-hoc';
+import WithStoresHoc from '../../stores/with-stores-hoc.tsx';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function Login(props: any) {
@@ -157,5 +157,5 @@ export function Login(props: any) {
   );
 }
 
-const EnhancedLogin = WithZustandStoresHoc(Login, ['loginStore', 'appStore']);
+const EnhancedLogin = WithStoresHoc(Login, ['loginStore', 'appStore']);
 export default EnhancedLogin;

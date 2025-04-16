@@ -10,7 +10,7 @@ import { HeaderMenuNavigation } from '../routing-and-navigation/header-menu-navi
 import { Helmet } from 'react-helmet';
 import { TITLE } from '../app-config';
 import { PAGE2EXAMPLE_VIEW_ROUTE } from '../routing-and-navigation/views-routes-declarations';
-import WithZustandStoresHoc from '../stores/with-zustand-stores-hoc';
+import WithStoresHoc from '../stores/with-stores-hoc.tsx';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function Page1Example(props: any) {
@@ -66,5 +66,5 @@ export function Page1Example(props: any) {
   );
 }
 
-const EnhancedPage1Example = WithZustandStoresHoc(Page1Example, ['page1ExampleStore', 'appStore']);
+const EnhancedPage1Example = WithStoresHoc(Page1Example, ['page1ExampleStore', 'appStore']);
 export default EnhancedPage1Example;
