@@ -1,15 +1,9 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { STORE_KEY_SUFFIX } from '../actions-and-stores-data';
-import { 
-  AppSchema, 
-  LoginSchema, 
-  PageExampleSchema, 
-  SchemaFactory,
-  StoreName, 
-  StoreNames 
-} from '../store-schemas';
+import { AppSchema, LoginSchema, PageExampleSchema, SchemaFactory, StoreName, StoreNames } from '../store-schemas';
 import { isEmptyObject, isNullUndefined } from '../../util/util';
+import StoreProviders from '../stores-providers.ts';
 
 // Define the store type
 export interface Store {
@@ -34,7 +28,7 @@ export interface AppStoresState {
 // Create the zustand store
 export const useAppStores = create<AppStoresState>()(
   persist(
-    (set) => ({
+    set => ({
       stores: {},
       appStoresLoaded: false,
       loadAppStores: async () => {
@@ -89,8 +83,8 @@ export const useAppStores = create<AppStoresState>()(
     }),
     {
       name: 'app-stores',
-    }
-  )
+    },
+  ),
 );
 
 // Create individual stores
@@ -112,16 +106,17 @@ export const useAppStore = create<AppStoreState>()(
         ...schema,
         storeKey: `AppStores_${StoreNames.appStore}_${STORE_KEY_SUFFIX}`,
         getStore: () => get() as unknown as Store,
-        setUser: (user) => set({ user }),
-        updateNavStore: (navStore) => set((state) => ({
-          navStore: { ...state.navStore, ...navStore }
-        })),
+        setUser: user => set({ user }),
+        updateNavStore: navStore =>
+          set(state => ({
+            navStore: { ...state.navStore, ...navStore },
+          })),
       };
     },
     {
       name: `app-store-${StoreNames.appStore}`,
-    }
-  )
+    },
+  ),
 );
 
 // Login Store
@@ -144,23 +139,26 @@ export const useLoginStore = create<LoginStoreState>()(
         ...schema,
         storeKey: `AppStores_${StoreNames.loginStore}_${STORE_KEY_SUFFIX}`,
         getStore: () => get() as unknown as Store,
-        updateLoginForm: (loginForm) => set((state) => ({
-          loginForm: { ...state.loginForm, ...loginForm }
-        })),
-        updateSignUpForm: (signUpForm) => set((state) => ({
-          signUpForm: { ...state.signUpForm, ...signUpForm }
-        })),
-        updateResetPasswordForm: (resetPasswordForm) => set((state) => ({
-          resetPasswordForm: { ...state.resetPasswordForm, ...resetPasswordForm }
-        })),
-        setPageAction: (pageAction) => set({ pageAction }),
-        setNotificationAlert: (notificationAlert) => set({ notificationAlert }),
+        updateLoginForm: loginForm =>
+          set(state => ({
+            loginForm: { ...state.loginForm, ...loginForm },
+          })),
+        updateSignUpForm: signUpForm =>
+          set(state => ({
+            signUpForm: { ...state.signUpForm, ...signUpForm },
+          })),
+        updateResetPasswordForm: resetPasswordForm =>
+          set(state => ({
+            resetPasswordForm: { ...state.resetPasswordForm, ...resetPasswordForm },
+          })),
+        setPageAction: pageAction => set({ pageAction }),
+        setNotificationAlert: notificationAlert => set({ notificationAlert }),
       };
     },
     {
       name: `app-store-${StoreNames.loginStore}`,
-    }
-  )
+    },
+  ),
 );
 
 // Page Example Store
@@ -170,31 +168,33 @@ export interface PageExampleStoreState extends PageExampleSchema {
   setNotificationAlert: (notificationAlert: PageExampleSchema['notificationAlert']) => void;
 }
 
-export const createPageExampleStore = (storeName: StoreName) => create<PageExampleStoreState>()(
-  persist(
-    (set, get) => {
-      // Get the schema from SchemaFactory
-      const schema = SchemaFactory.getSchema(storeName, 'AppStores') as PageExampleSchema;
+export const createPageExampleStore = (storeName: StoreName) =>
+  create<PageExampleStoreState>()(
+    persist(
+      (set, get) => {
+        // Get the schema from SchemaFactory
+        const schema = SchemaFactory.getSchema(storeName, 'AppStores') as PageExampleSchema;
 
-      return {
-        ...schema,
-        storeKey: `AppStores_${storeName}_${STORE_KEY_SUFFIX}`,
-        getStore: () => get() as unknown as Store,
-        addTodo: (todo) => set((state) => ({
-          todo: [...state.todo, todo]
-        })),
-        setNotificationAlert: (notificationAlert) => set({ notificationAlert }),
-      };
-    },
-    {
-      name: `app-store-${storeName}`,
-    }
-  )
-);
+        return {
+          ...schema,
+          storeKey: `AppStores_${storeName}_${STORE_KEY_SUFFIX}`,
+          getStore: () => get() as unknown as Store,
+          addTodo: todo =>
+            set(state => ({
+              todo: [...state.todo, todo],
+            })),
+          setNotificationAlert: notificationAlert => set({ notificationAlert }),
+        };
+      },
+      {
+        name: `app-store-${storeName}`,
+      },
+    ),
+  );
 
 // Create a hook to use stores in components
 export const useStore = (storeName: StoreName) => {
-  const stores = useAppStores((state) => state.stores);
+  const stores = useAppStores(state => state.stores);
   const namespace = 'AppStores';
 
   // First try to get the store from StoreProviders

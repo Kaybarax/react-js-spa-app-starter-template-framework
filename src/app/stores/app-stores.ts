@@ -32,15 +32,6 @@ export class AppStores {
   }
 
   /**
-   * Persist all stores to local storage
-   * This is called automatically by zustand middleware on store changes
-   */
-  persistMyStoresToLocalStorageOnEventChanges(): void {
-    // No need to implement this method as zustand handles persistence automatically
-    console.log('Store persistence is handled by zustand middleware');
-  }
-
-  /**
    * Clear all persisted stores from local storage
    */
   clearPersistedStores(): void {
