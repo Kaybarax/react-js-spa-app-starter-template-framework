@@ -5,22 +5,16 @@
  * LinkedIn @_ https://linkedin.com/in/kaybarax
  */
 import {
-  ActivitySchemaManager,
-  AppSchemaManager,
-  BaseStoreSchema,
-  LoginSchemaManager,
   StoreName,
   StoreNames,
 } from './store-schemas';
-import { createStoreModelSnapshot, getPersistedStoreKey } from './store-utils';
-
-// Define the store type
-export interface Store {
-  storeKey: string;
-  storeName: string;
-  namespace: string;
-  [key: string]: unknown;
-}
+import { getPersistedStoreKey } from './store-utils';
+import { 
+  useAppStore, 
+  useLoginStore, 
+  createPageExampleStore,
+  Store
+} from './zustand';
 
 // Define the store provider interface
 export interface StoreProvider {
@@ -34,37 +28,36 @@ interface StoreProvidersType {
   [key: string]: StoreProvider;
 }
 
-// Initialize schema managers
-const appSchemaManager = new AppSchemaManager();
-const loginSchemaManager = new LoginSchemaManager();
-const activitySchemaManager = new ActivitySchemaManager();
-
 function createStoreProvider(storeName: StoreName): StoreProvider {
-  let getSchema: (namespace: string | null, name: string) => BaseStoreSchema;
-
-  // Determine which schema manager to use based on store name
-  switch (storeName) {
-    case StoreNames.appStore:
-      getSchema = (namespace, name) => appSchemaManager.getInstance(namespace as string, name);
-      break;
-    case StoreNames.loginStore:
-      getSchema = (namespace, name) => loginSchemaManager.getInstance(namespace as string, name);
-      break;
-    case StoreNames.securedAppStore:
-    case StoreNames.page1ExampleStore:
-    case StoreNames.page2ExampleStore:
-    case StoreNames.page3ExampleStore:
-    case StoreNames.page4ExampleStore:
-      getSchema = (namespace, name) => activitySchemaManager.getInstance(namespace as string, name);
-      break;
-    default:
-      getSchema = (namespace, name) => activitySchemaManager.getInstance(namespace as string, name);
-  }
+  // Function to get the appropriate store based on store name
+  const getStore = (namespace: string): Store => {
+    switch (storeName) {
+      case StoreNames.appStore:
+        return useAppStore.getState().getStore();
+      case StoreNames.loginStore:
+        return useLoginStore.getState().getStore();
+      case StoreNames.page1ExampleStore:
+      case StoreNames.page2ExampleStore:
+      case StoreNames.page3ExampleStore:
+      case StoreNames.page4ExampleStore:
+        return createPageExampleStore(storeName).getState().getStore();
+      default:
+        // Create a default store with basic properties
+        return {
+          storeName,
+          namespace,
+          storeKey: getPersistedStoreKey(namespace, storeName),
+          loading: false,
+          updated: false,
+          loadingMessage: 'Loading...',
+        } as Store;
+    }
+  };
 
   return {
     storeKey: namespace => getPersistedStoreKey(namespace, storeName),
-    storeProvidedBy: namespace => getSchema(namespace, storeName) as unknown as Store,
-    storeModelSnapshot: createStoreModelSnapshot(storeName, getSchema(null, storeName) as unknown as Store),
+    storeProvidedBy: namespace => getStore(namespace),
+    storeModelSnapshot: Promise.resolve(getStore('AppStores')),
   };
 }
 

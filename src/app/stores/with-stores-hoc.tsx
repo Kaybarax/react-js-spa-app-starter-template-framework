@@ -5,15 +5,9 @@
  * LinkedIn @_ https://linkedin.com/in/kaybarax
  */
 
-import React, { ComponentType } from 'react';
-import { inject, observer } from 'mobx-react';
+import WithZustandStoresHoc from './with-zustand-stores-hoc';
 
-const WithStoresHoc = <P extends object>(Wrapped: ComponentType<P>, stores: string[]): React.FC<P> => {
-  const WithStores = inject(...stores)(observer(Wrapped));
-
-  return function (props: P) {
-    return <WithStores {...props} />;
-  };
-};
+// Re-export the zustand version of the HOC for backward compatibility
+const WithStoresHoc = WithZustandStoresHoc;
 
 export default WithStoresHoc;

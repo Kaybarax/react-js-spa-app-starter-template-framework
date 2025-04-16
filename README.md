@@ -58,7 +58,7 @@ export default tseslint.config({
 ## React SPA Web App Starter, Template Framework
 Get up and running quickly, with building your React JS SPA web application.
 
-#### All batteries included like Angular (global state manager [MobX] hooked to localStorage for seamless persistence of component data stores and offline facility, and sound routing and navigation logic built on top of [React Router])
+#### All batteries included like Angular (global state manager [Zustand] hooked to localStorage for seamless persistence of component data stores and offline facility, and sound routing and navigation logic built on top of [React Router])
 
 > Getting up and running:
 >
@@ -178,4 +178,3 @@ Thanks a lot dude for your tutorial I came across on [@Medium and Dev.to](https:
 
 
 #### !! Have fun bringing your web app to life! Cheers !!
-

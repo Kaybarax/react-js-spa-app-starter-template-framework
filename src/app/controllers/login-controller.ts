@@ -7,7 +7,6 @@
 
 import { notificationCallback } from '../shared-components-and-modules/notification-center/notifications-controller';
 import { deepCloneObject, isNullUndefined } from '../util/util';
-import { toJS } from 'mobx';
 import { APP_INDEXED_DB_DATA_STORES } from '../app-management/data-manager/indexeddb-manager';
 
 import { NotificationAlert } from '../shared-components-and-modules/notification-center/notification-utils.ts';
@@ -26,7 +25,7 @@ export function handleSignUp(signUpModel: Record<string, unknown>, notificationA
   const tx = db.transaction([APP_INDEXED_DB_DATA_STORES.USERS], 'readwrite');
   const store = tx.objectStore(APP_INDEXED_DB_DATA_STORES.USERS);
   // Put the sticky note into the object store
-  const user = toJS(signUpModel.user) as User;
+  const user = deepCloneObject(signUpModel.user) as User;
   const userId = user.id;
   //then strip id away
   delete (user as Partial<User>).id;

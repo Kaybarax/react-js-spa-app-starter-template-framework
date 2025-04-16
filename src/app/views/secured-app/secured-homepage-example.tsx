@@ -10,16 +10,14 @@ import { Helmet } from 'react-helmet';
 import { TITLE } from '../../app-config';
 import WithStoresHoc from '../../stores/with-stores-hoc';
 import SecuredAppHeaderMenuNavigation from '../../routing-and-navigation/secured-app-header-menu-navigation';
-import { persistStoresToLocalStorage } from '../../stores/store-utils';
-import { toJS } from 'mobx';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function SecuredHomepageExample(props: any) {
   console.log('SecuredHomepageExample props', props);
 
   const { appStore, securedAppStore } = props;
-  console.log('appStore -> ', toJS(appStore));
-  console.log('securedAppStore -> ', toJS(securedAppStore));
+  console.log('appStore -> ', appStore);
+  console.log('securedAppStore -> ', securedAppStore);
 
   // let {} = securedHomepageStore;
 
@@ -28,9 +26,10 @@ export function SecuredHomepageExample(props: any) {
   // from props
   // appNavigation.initNavigator(props);
 
+  // No need to manually persist stores as zustand handles this automatically
   React.useEffect(() => {
-    persistStoresToLocalStorage([appStore, securedAppStore]).then(null);
-  });
+    // This effect can be used for other initialization if needed
+  }, []);
 
   return (
     <React.Fragment>

@@ -5,12 +5,10 @@
  * LinkedIn @_ https://linkedin.com/in/kaybarax
  */
 
-import { observable, toJS } from 'mobx';
-import { persistedStoreFromLocalStorage, Store as StoreType } from './store-utils';
-import StoreProviders from './stores-providers';
+import { useAppStores } from './zustand';
 import { STORE_KEY_SUFFIX } from './actions-and-stores-data';
-import { isEmptyArray, isNullUndefined } from '../util/util';
 import { StoreName } from './store-schemas';
+import { Store as StoreType } from './store-utils';
 
 export default class AppStores {
   stores: Record<StoreName, StoreType> | null = null;
@@ -22,56 +20,26 @@ export default class AppStores {
     this.appStoresLoaded = false;
   }
 
-  persistMyStoresToLocalStorageOnEventChanges(myStores: Record<string, StoreType>): void {
-    const storesList: StoreType[] = [];
-    for (const key in myStores) {
-      storesList.push(myStores[key]);
-    }
-    if (isEmptyArray(storesList)) {
-      return;
-    }
-    // Storage persistence implementation commented out
+  persistMyStoresToLocalStorageOnEventChanges(): void {
+    // No need to implement this method as zustand handles persistence automatically
+    console.log('Store persistence is handled by zustand middleware');
   }
 
   loadAppStores = async (): Promise<void> => {
     try {
-      this.stores = {} as Record<StoreName, StoreType>;
-      this.appStoresLoaded = false;
+      // Use the loadAppStores function from the zustand store
+      await useAppStores.getState().loadAppStores();
 
-      for (const key in StoreProviders) {
-        const storeProvider = StoreProviders[key];
-        const storeKey = storeProvider.storeKey(AppStores.namespace);
+      // Get the stores from the zustand store
+      const zustandStores = useAppStores.getState().stores;
+      this.stores = zustandStores as Record<StoreName, StoreType>;
+      this.appStoresLoaded = useAppStores.getState().appStoresLoaded;
 
-        let store = await persistedStoreFromLocalStorage(storeKey, AppStores.namespace);
-        console.log('persistedStoreFromLocalStorage store -> ', store);
-
-        if (isNullUndefined(store)) {
-          store = storeProvider.storeProvidedBy(AppStores.namespace);
-          console.log('created store -> ', store);
-        } else {
-          this.stores[key as StoreName] = observable(store as StoreType);
-          console.log('INITIALIZED STORE -> ', key, ' -> ', toJS(this.stores[key as StoreName]));
-        }
-      }
-
-      this.appStoresLoaded = true;
+      console.log('Stores loaded from zustand:', this.stores);
     } catch (err) {
       console.log('loadAppStores err', err);
-
-      // Fall back to creating new stores when loading fails
-      this.stores = {} as Record<StoreName, StoreType>;
+      this.stores = null;
       this.appStoresLoaded = false;
-
-      console.log('StoreProviders -> ', ' -> ', StoreProviders);
-
-      for (const key in StoreProviders) {
-        const storeProvider = StoreProviders[key];
-        const store = storeProvider.storeProvidedBy(AppStores.namespace);
-        this.stores[key as StoreName] = observable(store);
-        console.log('CREATED STORE -> ', key, ' -> ', toJS(this.stores[key as StoreName]));
-      }
-
-      this.appStoresLoaded = true;
     }
   };
 }
