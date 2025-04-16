@@ -10,7 +10,7 @@ import { deepCloneObject, isNullUndefined } from '../util/util';
 import { APP_INDEXED_DB_DATA_STORES } from '../app-management/data-manager/indexeddb-manager';
 
 import { NotificationAlert } from '../shared-components-and-modules/notification-center/notification-utils.ts';
-import { AppAuth } from '../stores/app-auth.ts';
+import { AuthStore } from '../stores/auth-store.ts';
 import { User } from '../app-management/data-manager/models-manager.ts';
 
 export function handleSignUp(signUpModel: Record<string, unknown>, notificationAlert: NotificationAlert): void {
@@ -44,7 +44,7 @@ export function handleLogin(
   loginForm: Record<string, unknown>,
   notificationAlert: NotificationAlert,
   appStore: Record<string, unknown>,
-  appAuth: AppAuth,
+  appAuth: AuthStore,
 ): void {
   const db = window.db; //get db;
   if (!db) {
