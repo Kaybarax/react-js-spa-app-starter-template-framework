@@ -12,7 +12,7 @@ import {
   SECURED_PAGE2EXAMPLE_VIEW_ROUTE,
 } from './views-routes-declarations';
 import { appNavigation } from './app-navigation';
-import appAuth from '../stores/app-auth';
+import authStore from '../stores/auth-store';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function SecuredAppHeaderMenuNavigation(props: any) {
@@ -73,7 +73,7 @@ export default function SecuredAppHeaderMenuNavigation(props: any) {
             href={DEFAULT_VIEW_ROUTE.path}
             onClick={event => {
               event.preventDefault();
-              appAuth.handleLogout();
+              authStore.handleLogout();
             }}
           >
             Log out
