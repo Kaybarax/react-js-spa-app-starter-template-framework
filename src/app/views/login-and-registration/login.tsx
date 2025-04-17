@@ -19,7 +19,6 @@ import { ResetPasswordForm } from './reset-password-form';
 import { User } from '../../app-management/data-manager/models-manager';
 import WithStoresHoc from '../../stores/with-stores-hoc.tsx';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function Login(props: any) {
   console.log('Login props', props);
 
