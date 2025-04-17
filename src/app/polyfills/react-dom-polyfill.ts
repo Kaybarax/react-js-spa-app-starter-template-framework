@@ -31,6 +31,10 @@ function findDOMNodePolyfill(component: any) {
   return component;
 }
 
+// Add the findDOMNode function directly to the ReactDOM object
+// This is necessary for direct imports of ReactDOM to have findDOMNode
+(ReactDOM as any).findDOMNode = findDOMNodePolyfill;
+
 // Add the findDOMNode function to the window.ReactDOM object
 // This is a workaround for the immutability of imports
 if (typeof window !== 'undefined') {
