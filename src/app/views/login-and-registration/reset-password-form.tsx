@@ -7,10 +7,10 @@
 
 import { Helmet } from 'react-helmet';
 import { TITLE } from '../../app-config';
+import { handleResetPassword } from '../../controllers/login-controller';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function ResetPasswordForm(props: any) {
-  const { loginStore } = props;
+  const { resetPasswordModel, notificationAlert } = props;
   // const showLogin = () => {
   //   loginStore.pageAction = LOGIN_PAGE_ACTIONS_ENUM.LOGIN;
   // };
@@ -31,8 +31,12 @@ export function ResetPasswordForm(props: any) {
                   <input
                     type="email"
                     className="form-control"
-                    value={loginStore.resetPasswordForm.email}
-                    onChange={e => (loginStore.resetPasswordForm.email = e.target.value)}
+                    value={resetPasswordModel?.usernameOrEmail || ''}
+                    onChange={e => {
+                      if (resetPasswordModel) {
+                        resetPasswordModel.usernameOrEmail = e.target.value;
+                      }
+                    }}
                   />
                 </div>
                 <button
@@ -40,7 +44,8 @@ export function ResetPasswordForm(props: any) {
                   className="btn btn-primary"
                   onClick={e => {
                     e.preventDefault();
-                    loginStore.resetPassword();
+                    // Call the reset password handler from login-controller
+                    handleResetPassword(notificationAlert);
                   }}
                 >
                   Submit

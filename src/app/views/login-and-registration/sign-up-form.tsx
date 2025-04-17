@@ -8,12 +8,10 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 import { handleSignUp } from '../../controllers/login-controller';
 import { textValueChanged } from '../../util/react-web-forms-data-collection-utils';
 import { isEmptyString } from '../../util/util';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function SignUpForm(props: any) {
   const { signUpModel, notificationAlert, showLoginForm } = props;
 
@@ -114,8 +112,7 @@ export default function SignUpForm(props: any) {
           <small style={{ color: 'red' }}>Passwords do not match.</small>
         )}
         <br />
-        <Button
-          variant="contained"
+        <button
           color="primary"
           type={'submit'}
           onClick={e => {
@@ -124,13 +121,13 @@ export default function SignUpForm(props: any) {
               return;
             }
             handleSignUp(signUpModel, notificationAlert);
-            //ready for next user
+            //ready for the next user
             //some time to allow the alert to display
             setTimeout(() => showLoginForm(), 1500);
           }}
         >
           Sign Up
-        </Button>
+        </button>
         <br />
         <i>Your sign up data is stored locally in your browser's embedded IndexedDb</i>
       </form>

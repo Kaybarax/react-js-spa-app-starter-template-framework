@@ -7,25 +7,26 @@
 
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import { handleLogin } from '../../controllers/login-controller';
-import { textValueChanged } from '../../util/react-web-forms-data-collection-utils';
 import { isEmptyString } from '../../util/util';
-import authStore from '../../stores/auth-store';
 import { NotificationAlert } from '../../shared-components-and-modules/notification-center/notification-utils';
+import { AppState } from '../../stores';
+import TextField from '@material-ui/core/TextField';
+import { textValueChanged } from '../../util/react-web-forms-data-collection-utils.tsx';
+import { handleLogin } from '../../controllers/login-controller';
+import authStore from '../../stores/auth-store';
 
 interface LoginFormProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   loginModel: any;
   notificationAlert: NotificationAlert;
-  appStore: Record<string, unknown>;
+  appStore: AppState;
 }
 
 export default function LoginForm(props: LoginFormProps) {
   const { loginModel, notificationAlert, appStore } = props;
+  console.log('LoginForm loginModel', loginModel, 'notificationAlert', notificationAlert, 'appStore', appStore);
 
   const [submit_pressed, set_press_submit] = React.useState(false);
+  console.log('submit_pressed', submit_pressed, 'set_press_submit', set_press_submit);
 
   const useStyles = makeStyles(theme => ({
     root: {
@@ -81,8 +82,7 @@ export default function LoginForm(props: LoginFormProps) {
           onChange={e => textValueChanged(loginModel, e.target.value, 'password')}
         />
         <br />
-        <Button
-          variant="contained"
+        <button
           color="primary"
           type={'submit'}
           onClick={e => {
@@ -94,7 +94,7 @@ export default function LoginForm(props: LoginFormProps) {
           }}
         >
           Login
-        </Button>
+        </button>
       </form>
     </React.Fragment>
   );
