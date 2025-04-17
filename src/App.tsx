@@ -10,7 +10,7 @@ import './app/theme/app-styles.scss';
 import AppEntry from './app/app-entry';
 import { isEmptyObject, isNullUndefined } from './app/util/util';
 import { appIndexedDb } from './app/app-management/data-manager/indexeddb-manager';
-import { useAppStores, useAppStore } from './app/stores/zustand';
+import { useAppStores, useAppStore } from './app/stores';
 import { appNavigation, NavigationStore } from './app/routing-and-navigation/app-navigation';
 
 export default function App() {
