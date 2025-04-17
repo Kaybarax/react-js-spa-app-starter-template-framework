@@ -13,6 +13,6 @@ export const LOGIN_PAGE_ACTIONS = {
   LOGIN: 'LOGIN',
   SIGN_UP: 'SIGN_UP',
   RESET_PASSWORD: 'RESET_PASSWORD',
-} as const;
+};
 
 export type LoginPageAction = (typeof LOGIN_PAGE_ACTIONS)[keyof typeof LOGIN_PAGE_ACTIONS];

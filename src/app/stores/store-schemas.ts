@@ -7,6 +7,7 @@
 import { isEmptyString, objectInstanceProvider } from '../util/util';
 import { notificationAlertProps } from '../shared-components-and-modules/notification-center/notifications-controller';
 import { NotificationAlert } from '../shared-components-and-modules/notification-center/notification-utils.ts';
+import { LOGIN_PAGE_ACTIONS, LoginPageAction } from './actions-and-stores-data';
 
 export const StoreNames = {
   appStore: 'appStore',
@@ -61,7 +62,7 @@ export interface LoginSchema extends BaseStoreSchema {
   loginForm: LoginForm;
   signUpForm: SignUpForm;
   resetPasswordForm: ResetPasswordForm;
-  pageAction: unknown;
+  pageAction: LoginPageAction;
   notificationAlert: NotificationAlert;
 }
 
@@ -70,7 +71,7 @@ export interface PageExampleSchema extends BaseStoreSchema {
   notificationAlert: NotificationAlert;
 }
 
-// Generic schema manager that handles singleton pattern for all schema types
+// Generic schema manager that handles a singleton pattern for all schema types
 abstract class SchemaManager<T extends BaseStoreSchema> {
   private static instances = new Map<string, BaseStoreSchema>();
 
@@ -146,7 +147,7 @@ export class LoginSchemaManager extends SchemaManager<LoginSchema> {
         password: null,
         confirmPassword: null,
       },
-      pageAction: null,
+      pageAction: LOGIN_PAGE_ACTIONS.LOGIN,
       notificationAlert: objectInstanceProvider(notificationAlertProps),
     };
   }
