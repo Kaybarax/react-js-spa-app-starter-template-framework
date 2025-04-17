@@ -1,3 +1,5 @@
+// noinspection GrazieInspection
+
 /**
  * Polyfill for ReactDOM.findDOMNode which was removed in React 18+
  * This is needed for compatibility with Material-UI v4
