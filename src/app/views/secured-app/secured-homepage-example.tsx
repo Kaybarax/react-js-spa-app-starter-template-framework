@@ -8,7 +8,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { TITLE } from '../../app-config';
-import WithStoresHoc from '../../stores/with-stores-hoc';
 import SecuredAppHeaderMenuNavigation from '../../routing-and-navigation/secured-app-header-menu-navigation';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -65,4 +64,4 @@ export function SecuredHomepageExample(props: any) {
   );
 }
 
-export default WithStoresHoc(SecuredHomepageExample, ['securedAppStore', 'appStore']);
+export default (SecuredHomepageExample);

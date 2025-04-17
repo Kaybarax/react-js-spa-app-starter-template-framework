@@ -17,15 +17,14 @@ import { LOGIN_PAGE_ACTIONS } from '../../stores/actions-and-stores-data';
 import '../../theme/login-styles.scss';
 import { ResetPasswordForm } from './reset-password-form';
 import { User } from '../../app-management/data-manager/models-manager';
-import WithStoresHoc from '../../stores/with-stores-hoc.tsx';
+import { useAppStore, useLoginStore } from '../../stores';
 
-export function Login(props: any) {
-  console.log('Login props', props);
+export default function Login() {
+  // Get stores directly from hooks
+  const appStore = useAppStore();
+  const loginStore = useLoginStore();
 
-  const {
-    appStore,
-    loginStore,
-  } = props;
+  console.log('Login appStore', appStore, 'loginStore', loginStore);
 
   // Use optional chaining to safely access notificationAlert
   const notificationAlert = loginStore?.notificationAlert;
@@ -163,6 +162,3 @@ export function Login(props: any) {
     </React.Fragment>
   );
 }
-
-const EnhancedLogin = WithStoresHoc(Login, ['loginStore', 'appStore']);
-export default EnhancedLogin;

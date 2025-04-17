@@ -10,13 +10,12 @@ import { HeaderMenuNavigation } from '../routing-and-navigation/header-menu-navi
 import { Helmet } from 'react-helmet';
 import { TITLE } from '../app-config';
 import { PAGE4EXAMPLE_VIEW_ROUTE } from '../routing-and-navigation/views-routes-declarations';
-import WithStoresHoc from '../stores/with-stores-hoc.tsx';
+import { useAppStore } from '../stores';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function Page3Example(props: any) {
-  console.log('Page3Example props', props);
-
-  const { appStore } = props;
+export default function Page3Example() {
+  // Get stores directly from hooks
+  const appStore = useAppStore();
+  console.log('Page3Example appStore', appStore);
 
   // because from this page, navigations will
   // be performed, init navigator with {history, location, match}
@@ -98,6 +97,3 @@ export function Page3Example(props: any) {
     </React.Fragment>
   );
 }
-
-const EnhancedPage3Example = WithStoresHoc(Page3Example, ['page3ExampleStore', 'appStore']);
-export default EnhancedPage3Example;

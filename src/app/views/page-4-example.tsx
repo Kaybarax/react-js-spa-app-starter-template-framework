@@ -11,15 +11,15 @@ import { Helmet } from 'react-helmet';
 import { TITLE } from '../app-config';
 import { isEmptyArray } from '../util/util';
 import { SOs_and_Credits_List } from '../app-management/data-manager/list-manager';
-import WithStoresHoc from '../stores/with-stores-hoc.tsx';
+import { useAppStore } from '../stores';
 import imagePlaceholder from '../media/images/image.png';
 import shortParagraphImage from '../media/images/short-paragraph.png';
+import { appNavigation, AppRoutes } from '../routing-and-navigation/app-navigation';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function Page4Example(props: any) {
-  console.log('Page4Example props', props);
-
-  const { appStore } = props;
+export default function Page4Example() {
+  // Get stores directly from hooks
+  const appStore = useAppStore();
+  console.log('Page4Example appStore', appStore);
 
   // because from this page, navigations will
   // be performed, init navigator with {history, location, match}
@@ -33,7 +33,10 @@ export function Page4Example(props: any) {
     console.log('person', person);
     e.preventDefault();
 
-    // appNavigation.navigateToPage4SubItemExample({ item: person });
+    // Navigate to the Page4SubItemExample route with the person parameter
+    // The route is defined as `${PAGE4EXAMPLE_VIEW_ROUTE.path}/:item`
+    const path = `${AppRoutes.PAGE4}/${person}`;
+    appNavigation.navigateTo(path);
   };
 
   return (
@@ -54,10 +57,10 @@ export function Page4Example(props: any) {
           <p style={{ textAlign: 'left' }}>
             <strong>About me:</strong>
             <br />
-            Hi. I'm Kevin Barasa. A full stack software engineer currently based in my hometown and&nbsp; country,
-            Nairobi, Kenya. At this time of this build and writing (May, 2020), I have 3 and&nbsp;a half years of
-            professional (hired) software engineering experience, and 5 to 6 yrs of&nbsp; total software engineering
-            experience, both professionally and personally.
+            Hi. I'm Kevin. A full stack software engineer currently based in my hometown and&nbsp; country, Nairobi,
+            Kenya. At this time of this build and writing (May, 2020), I have 3 and&nbsp;a half years of professional
+            (hired) software engineering experience, and 5 to 6 yrs of&nbsp; total software engineering experience, both
+            professionally and personally.
             <br />
             I'm especially, particularly well versed with <i>Java</i>, <i>SQL (MySQL/OracleSQL)</i>,&nbsp;
             <i>Javascript and web technologies</i>, <i>Mobile app development with React Native and Android</i>,&nbsp;
@@ -141,6 +144,3 @@ export function Page4Example(props: any) {
     </React.Fragment>
   );
 }
-
-const EnhancedPage4Example = WithStoresHoc(Page4Example, ['page4ExampleStore', 'appStore']);
-export default EnhancedPage4Example;

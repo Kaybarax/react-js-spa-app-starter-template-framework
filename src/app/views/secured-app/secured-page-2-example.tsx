@@ -8,9 +8,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { TITLE } from '../../app-config';
-import WithStoresHoc from '../../stores/with-stores-hoc';
 import SecuredAppHeaderMenuNavigation from '../../routing-and-navigation/secured-app-header-menu-navigation';
-import { persistStoreToLocalStorage } from '../../stores/store-utils';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function SecuredPage2Example(props: any) {
@@ -23,9 +21,6 @@ export function SecuredPage2Example(props: any) {
   // from props
   // appNavigation.initNavigator(props);
 
-  React.useEffect(() => {
-    persistStoreToLocalStorage(appStore).then(null);
-  });
 
   return (
     <React.Fragment>
@@ -50,5 +45,4 @@ export function SecuredPage2Example(props: any) {
   );
 }
 
-const EnhancedSecuredPage2Example = WithStoresHoc(SecuredPage2Example, ['securedAppStore', 'appStore']);
-export default EnhancedSecuredPage2Example;
+export default SecuredPage2Example;

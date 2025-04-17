@@ -13,17 +13,18 @@ import { isNullUndefined } from '../util/util';
 import { SOs_and_Credits_List } from '../app-management/data-manager/list-manager';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons/faCoffee';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import WithStoresHoc from '../stores/with-stores-hoc';
-import { HeaderMenuNavigation as BaseHeaderMenuNavigation } from '../routing-and-navigation/header-menu-navigation';
-
-// Create a wrapped version with store injection
-const HeaderMenuNavigation = WithStoresHoc(BaseHeaderMenuNavigation, ['appStore']);
+import { HeaderMenuNavigation } from '../routing-and-navigation/header-menu-navigation';
+import { useAppStore, usePage4ExampleStore } from '../stores';
+import { appNavigation, AppRoutes } from '../routing-and-navigation/app-navigation';
+import imagePlaceholder from '../media/images/image.png';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function Page4SubItemExample(props: any) {
-  console.log('Page4SubItemExample props', props);
-
-  const { appStore } = props;
+export default function Page4SubItemExample() {
+  // Get stores directly from hooks
+  const appStore = useAppStore();
+  const page4ExampleStore = usePage4ExampleStore();
+  console.log('Page4SubItemExample appStore', appStore);
+  console.log('Page4SubItemExample page4ExampleStore', page4ExampleStore);
 
   const { item } = useParams();
 
@@ -45,8 +46,9 @@ export function Page4SubItemExample(props: any) {
           <div>
             <a
               className="button is-info"
-              onClick={() => {
-                // appNavigation.navigateToPage4Example(router);
+              onClick={(e) => {
+                e.preventDefault();
+                appNavigation.navigateTo(AppRoutes.PAGE4);
               }}
             >
               Go back
@@ -78,7 +80,7 @@ export function Page4SubItemExample(props: any) {
               <div className="card-image">
                 <figure className="image is-4by3">
                   <img
-                    src={import.meta.url.replace(/\/[^/]*$/, '/media/images/image.png')}
+                    src={imagePlaceholder}
                     alt="Placeholder image"
                   />{' '}
                 </figure>
@@ -87,7 +89,7 @@ export function Page4SubItemExample(props: any) {
                 <div className="media">
                   <div className="media-left">
                     <figure className="image is-48x48">
-                      <img src={require('../media/images/image.png')} alt="Placeholder image" />
+                      <img src={imagePlaceholder} alt="Placeholder image" />
                     </figure>
                   </div>
                   <div className="media-content">
@@ -127,8 +129,9 @@ export function Page4SubItemExample(props: any) {
         <div>
           <a
             className="button is-info"
-            onClick={_ => {
-              // appNavigation.navigateToPage4Example(router);
+            onClick={(e) => {
+              e.preventDefault();
+              appNavigation.navigateTo(AppRoutes.PAGE4);
             }}
           >
             Go back
@@ -139,6 +142,3 @@ export function Page4SubItemExample(props: any) {
     </React.Fragment>
   );
 }
-
-const EnhancedPage4SubItemExample = WithStoresHoc(Page4SubItemExample, ['page4ExampleStore', 'appStore']);
-export default EnhancedPage4SubItemExample;
