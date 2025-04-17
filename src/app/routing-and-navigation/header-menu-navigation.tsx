@@ -17,9 +17,10 @@ import {
 } from './views-routes-declarations';
 import { appNavigation, AppRoutes } from './app-navigation';
 import { FC } from 'react';
+import { AppState } from '../stores';
 
 export interface HeaderMenuNavigationProps {
-  appStore: Record<string, unknown>;
+  appStore: AppState;
 }
 
 export const HeaderMenuNavigation: FC<HeaderMenuNavigationProps> = props => {
