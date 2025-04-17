@@ -9,10 +9,10 @@ import { isNullUndefined, objectKeyExists } from '../util/util';
 
 export function displayFieldExpectationSatisfied(
   key: string,
-  model: Record<string, unknown>,
+  model: unknown,
   expectationFunction: (value: unknown) => boolean,
 ): boolean {
   if (isNullUndefined(model)) return false;
-  if (!objectKeyExists(model, key)) return false;
-  return expectationFunction(model[key]);
+  if (!objectKeyExists(model as Record<string, unknown>, key)) return false;
+  return expectationFunction((model as Record<string, unknown>)[key]);
 }

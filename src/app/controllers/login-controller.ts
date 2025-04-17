@@ -9,9 +9,10 @@ import { notificationCallback } from '../shared-components-and-modules/notificat
 import { deepCloneObject, isNullUndefined } from '../util/util';
 import { APP_INDEXED_DB_DATA_STORES } from '../app-management/data-manager/indexeddb-manager';
 
-import { NotificationAlert } from '../shared-components-and-modules/notification-center/notification-utils.ts';
-import { AuthStore } from '../stores/auth-store.ts';
-import { User } from '../app-management/data-manager/models-manager.ts';
+import { NotificationAlert } from '../shared-components-and-modules/notification-center/notification-utils';
+import { AuthStore } from '../stores/auth-store';
+import { User } from '../app-management/data-manager/models-manager';
+import { AppState } from '../stores';
 
 export function handleSignUp(signUpModel: Record<string, unknown>, notificationAlert: NotificationAlert): void {
   //save to indexedDb if you fancy
@@ -43,7 +44,7 @@ export function handleSignUp(signUpModel: Record<string, unknown>, notificationA
 export function handleLogin(
   loginForm: Record<string, unknown>,
   notificationAlert: NotificationAlert,
-  appStore: Record<string, unknown>,
+  appStore: AppState,
   appAuth: AuthStore,
 ): void {
   const db = window.db; //get db;
