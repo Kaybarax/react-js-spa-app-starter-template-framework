@@ -108,7 +108,7 @@ export function radioButtonValueChanged(
   model: Record<string, unknown>,
   activity: React.Component,
 ): unknown {
-  let feedback = null;
+  let feedback: unknown;
   if (isNullUndefined(model)) {
     console.log('No model');
     return feedback;
