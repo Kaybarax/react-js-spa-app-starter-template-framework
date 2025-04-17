@@ -6,8 +6,7 @@
  */
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { clearAllPersistedStoresToLocalStorage, unregisterPersistenceEventListeners } from './store-utils';
-import { useAppStore } from './zustand';
+import { useAppStore, clearAllPersistedStores } from './stores';
 import { STORE_KEY_SUFFIX } from './actions-and-stores-data';
 
 export interface AuthenticationResult {
@@ -52,11 +51,10 @@ export const useAuthStore = create<AuthState>()(
       logout: () => {
         try {
           // Clear user data
-          useAppStore.getState().setUser(null);
+          useAppStore.setState({ user: null });
 
-          // Clean up storage and listeners
-          unregisterPersistenceEventListeners();
-          clearAllPersistedStoresToLocalStorage();
+          // Clean up storage
+          clearAllPersistedStores();
 
           set({ isAuthenticated: false });
 
